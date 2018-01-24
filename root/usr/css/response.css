@@ -1,0 +1,40 @@
+@media screen and (max-width: 768px){
+    .big{display: none}
+    .small{display: inline-block}
+h2{font-size:150%}
+h3{font-size:125%}
+p{font-size:120%}
+/* Header*/
+#mkey1{display:inline-block}
+#header-inner:hover a{color: #484329}
+nav ul, nav:active ul{display:none;z-index:1000;position:absolute;background:#c4bc96;right:20px;top:40px;border:1px solid #FFF;width:50%}
+nav:hover ul{display:block}
+#header-inner:hover nav ul li a:hover, .current{color:#fff;background-color: transparent}
+nav li{width:100%;padding:10px 0}
+
+.one-fourth{float:left;width:100%}
+.one-fourth i{font-size:350%;padding:4% 0 1% 0}
+article,aside,.one-third {width: 100%}
+.hand-mobile{display:none}
+.social i{font-size:180%;padding:2%}
+
+span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
+}
+@media screen and (max-width: 880px) 
+{
+    span.attribute{width: 24.3%;margin-bottom: 2em}
+    span.footGroup{width: 28%}
+}
+@media screen and (max-width: 640px) 
+{
+    span.attribute{width: 48.6%}
+}
+@media screen and (max-width: 515px) 
+{
+    span.attribute{height: auto;display: block;width: 100%;margin-bottom: 2em;background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#fff), to(#efeddf));background-image: -moz-linear-gradient(top, #fff, #efeddf);background-image: -ms-linear-gradient(top, #fff, #efeddf); background-image: -o-linear-gradient(top, #fff, #efeddf)}
+    span.attribute h3{display: block;font-size: 13pt;cursor: pointer}
+    span.attribute h3:hover{color: #484329}
+    div.sub-attribute{display: none}
+    div.sexion{background-image: none}
+    #row-01 select{width: 50%}
+}

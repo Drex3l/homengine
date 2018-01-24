@@ -1,0 +1,21 @@
+div.feature {background-color: #fff;box-shadow: 0 0 14px 0 #adac98;margin: 0 auto;max-width: 856px;min-height: 266px;padding: 10px;width: 90%}
+#top-edge{position:relative;background-color: transparent;display: none}
+#row-01{background-color: transparent;margin-bottom: 3px}
+#row-01:after{content: "";display: table; clear:both}/**Clearfix*/
+#row-01 select{width: auto}
+#searchengine select {border: none;height: 100%;display: inline;margin: 0;}
+#searchstring{width: 75%;height: 100%;display: inline;border: none;border-bottom: 1px solid #aaa;color: #484329;margin: 0;float: right;-webkit-transition: border-color .5s ease, box-show .5s ease;-moz-transition: border-color .5s ease, box-show .5s ease;}
+
+#btnSearch {width: 15%;margin-right: 5%;display: inline;float: right;clear: right}
+div.sexion{min-height: 100px;background-image: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#fff), to(#efeddf));background-image: -moz-linear-gradient(top, #fff, #efeddf);background-image: -ms-linear-gradient(top, #fff, #efeddf); background-image: -o-linear-gradient(top, #fff, #efeddf)}
+span.attribute{background-color: transparent;display: inline-block;width: 24.5%;vertical-align: top;position: relative}
+span.attribute h3{display: inline-block;font-size: 75%;color: #777;text-align: right}
+div.sub-attribute{position: relative}
+#searchengine hr{border: 0;border-bottom: 1px solid #484329;height: 0;box-sizing: content-box;padding: 0;opacity: .4}
+#searchengine h2{color: #484329;margin: 1em 0 0 0;padding: 0}
+label.radio-align, label.check-align {display: block;color: #484329;}
+input.chk, input.rbn {color: #484329;}
+span.attribute .spacer{padding: 2px}
+input.txt{border: none;background-color: transparent;width: 100%;color: #484329;border-bottom: 1px solid #888;transition: 1s;-webkit-transition: border-color .5s ease, box-show .5s ease; -moz-transition: border-color .5s ease, box-show .5s ease;}
+input.txt:focus{border-bottom-color: #008c8c;outline: 0 }
+div.subset{display: none}
