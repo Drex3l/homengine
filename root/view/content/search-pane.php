@@ -56,8 +56,8 @@
             <span id="pricing" class="attribute">
                 <h3 onclick="toggleFeature(subPrice)">PRICE RANGE</h3>
                 <div class="sub-attribute" id="subPrice" ><hr/>
-                    <input type="number" name="maxP" min="0" placeholder="Maximum" class="txt" onchange="getValue(this)"/>
-                    <input type="number" name="minP" min="0" placeholder="Minimum" class="txt" onchange="getValue(this)"/>
+                    <input type="number" name="maxP" min="0" placeholder="Maximum" class="txt" step="100" onchange="getValue(this)"/>
+                    <input type="number" name="minP" min="0" placeholder="Minimum" class="txt" step="100" onchange="getValue(this)"/>
                     <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="room-setting">
