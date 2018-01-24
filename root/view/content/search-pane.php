@@ -11,26 +11,25 @@
         <input type="hidden" id="build"/>   //----------------------------------PROPERTY TYPE radio button
         <input type="hidden" id="minP"/>    //----------------------------------MINIMUM PRICE RANGE text box
         <input type="hidden" id="maxP"/>    //----------------------------------MAXIMUM PRICE RANGE text box
-        <input type="hidden" id="bedsR"/>   //----------------------------------BED ROOMS quantity text box
-        <input type="hidden" id="bathR"/>   //----------------------------------BATH ROOMS quantity text box
-        <input type="hidden" id="roomT"/>   //----------------------------------SHARING BEDROOM type radio button
-        <input type="hidden" id="featS"/>   //----------------------------------Selected Features string
+        <input type="hidden" id="bed"/>   //------------------------------------BED ROOMS quantity text box
+        <input type="hidden" id="bath"/>   //-----------------------------------BATH ROOMS quantity text box
+        <input type="hidden" id="bedroom" value="Any"/>   //--------------------SHARING BEDROOM type radio button
+        <input type="hidden" id="feat"/>   //----------------------------------Selected Features string
     </span>
     <div id="searchengine" class="feature">
         <div id="row-01"><select name="suburb" id="cmbSuburb">
-                            <?php 
-                            foreach ($suburbs as $row) {?>
-                                    <option value="<?= $row['SUBURB_ID']; ?>"><?= $row['SUBURB_NAME']; ?></option>
-                            <?php }?>    
-                        </select>
-            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(cmbSuburb,accom)"/></div>
+                <?php foreach ($suburbs as $row) { ?>
+                    <option value="<?= $row['SUBURB_ID']; ?>"><?= $row['SUBURB_NAME']; ?></option>
+                <?php } ?>    
+            </select>
+            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(cmbSuburb, accom, rooms, build, maxP, minP,bed,bath,bedroom,feat)"/></div>
         <div class="sexion">
             <span id="accommodation" class="attribute">
                 <h3 onclick="toggleFeature(subAccom)">ACCOMMODATION</h3>
                 <div class="sub-attribute" id="subAccom"><hr/>
                     <span class="spacer">
                         <?php foreach ($accom as $value) { ?>
-                            <label class="radio-align"><input type="radio" name="accom" value="<?= $value; ?>" required class="rbn"/><?= $value; ?></label>
+                            <label class="radio-align"><input type="radio" name="accom" value="<?= $value; ?>" required class="rbn" onchange="getValue(this)"/><?= $value; ?></label>
                         <?php } ?>
                     </span>
                 </div>
@@ -39,7 +38,7 @@
                 <h3 onclick="toggleFeature(subRoom)">ROOMS</h3>
                 <div class="sub-attribute" id="subRoom"><hr/>
                     <span class="spacer">
-                        <?php foreach ($rooms as $value) { ?><label class="check-align"><input type="checkbox" name="room[]" value="<?= $value['ROOM_ID']; ?>" class="chk"/> <?= $value['ROOM_TYPE']; ?></label><?php } ?>
+                        <?php foreach ($rooms as $value) { ?><label class="check-align"><input type="checkbox" name="rooms[]" value="<?= $value['ROOM_ID']; ?>" class="chk" onchange="getValues(this.name)"/> <?= $value['ROOM_TYPE']; ?></label><?php } ?>
                     </span>
                 </div>
             </span>
@@ -48,25 +47,25 @@
                 <div class="sub-attribute" id="subBuild" ><hr/>
                     <span class="spacer">
                         <?php foreach ($Btypes as $value) { ?>
-                        <label class="radio-align"><input type="radio" name="building" value="<?= $value['TYPE_DESC']; ?>" required class="rbn" onchange="building(this)"/><?= $value['TYPE_DESC']; ?></label>
+                            <label class="radio-align"><input type="radio" name="build" value="<?= $value['TYPE_DESC']; ?>" required class="rbn" onchange="building(this)"/><?= $value['TYPE_DESC']; ?></label>
                         <?php } ?>
-                            <label class="radio-align"><input type="radio" required name="building" value="Any" class="rbn" onchange="building(this)"/>Any</label>
+                        <label class="radio-align"><input type="radio" required name="build" value="Any" class="rbn" onchange="building(this)"/>Any</label>
                     </span>
                 </div>
             </span>
             <span id="pricing" class="attribute">
                 <h3 onclick="toggleFeature(subPrice)">PRICE RANGE</h3>
                 <div class="sub-attribute" id="subPrice" ><hr/>
-                        <input type="number" name="minprice" min="0" placeholder="Minimum" class="txt"/>
-                        <input type="number" name="maxprice" min="0" placeholder="Maximum" class="txt"/>
-                        <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="beds" min="0" max="5" placeholder="quantity" class="txt"/></div>
-                        <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="baths" min="0" max="5" placeholder="quantity" class="txt"/></div>
-                        <div class="subset" id="room-setting">
-                            <h3>BED ROOM</h3>
-                            <label class="radio-align"><input type="radio" name="bedroom" value="Single" class="rbn"/>Single</label>
-                            <label class="radio-align"><input type="radio" name="bedroom" value="Sharing" class="rbn"/>Sharing</label>
-                            <label class="radio-align"><input type="radio" name="bedroom" value="Any" class="rbn" checked="true"/>Any</label>
-                        </div>
+                    <input type="number" name="maxP" min="0" placeholder="Maximum" class="txt" onchange="getValue(this)"/>
+                    <input type="number" name="minP" min="0" placeholder="Minimum" class="txt" onchange="getValue(this)"/>
+                    <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
+                    <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
+                    <div class="subset" id="room-setting">
+                        <h3>BED ROOM</h3>
+                        <label class="radio-align"><input type="radio" name="bedroom" value="Single" class="rbn" onchange="getValue(this)"/>Single</label>
+                        <label class="radio-align"><input type="radio" name="bedroom" value="Sharing" class="rbn" onchange="getValue(this)"/>Sharing</label>
+                        <label class="radio-align"><input type="radio" name="bedroom" value="Any" class="rbn" checked="true" onchange="getValue(this)"/>Any</label>
+                    </div>
                 </div>
             </span>
         </div>
@@ -77,7 +76,7 @@
                     <div class="sub-attribute" id="subAccess"><hr>
                             <span class="spacer">
                                 <?php foreach ($accessories as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="accessory[]" value="<?= $value['ITEM_CODE']; ?>" class="chk"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -86,7 +85,7 @@
                     <div class="sub-attribute" id="subFurn"><hr>
                             <span class="spacer">
                                 <?php foreach ($furniture as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="furnirure[]" value="<?= $value['ITEM_CODE']; ?>" class="chk"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -94,8 +93,8 @@
                 <span id="convenience" class="attribute"><h3 onclick="toggleFeature(subModern)">CONVENIENCE</h3>
                     <div class="sub-attribute" id="subModern"><hr>
                             <span class="spacer">
-                                  <?php foreach ($conveniences as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="convenience[]" value="<?= $value['ITEM_CODE']; ?>" class="chk"/><?= $value['NAME']; ?></label>
+                                <?php foreach ($conveniences as $value) { ?>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -104,13 +103,15 @@
                     <div class="sub-attribute" id="subSundry"><hr>
                             <span class="spacer">
                                 <?php foreach ($sundry as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="sundy[]" value="<?= $value['ITEM_CODE']; ?>" class="chk"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
                 </span>
             </div>
         </div>
-        <span class="error-msg-inline" <?php if(empty($error_message)){ echo 'style="display:none"';} ?>><?= $error_message; ?></span>
+        <span class="error-msg-inline" <?php if (empty($error_message)) {
+                                    echo 'style="display:none"';
+                                } ?>><?= $error_message; ?></span>
     </div>
 </section>

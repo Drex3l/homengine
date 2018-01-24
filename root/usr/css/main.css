@@ -20,7 +20,8 @@ p{color:#c4bc96;font-size:100%;line-height:150%;padding:3%;text-indent:2%;text-a
 
 
 /* Header*/
-header{box-shadow: 0 10px 10px 5px #dedcce;background-color: #fff;border-bottom: 3px solid #cecece}
+header{box-shadow: 0 10px 10px 5px #dedcce;background-color: #fff;border-bottom: 3px solid #cecece;transition: 1s}
+header:hover{border-bottom: 0 solid #5a523a}
 #home-key{float:left;width:55px;height:55px;}
 #header-inner{height: 55px;transition: 1s}
 #header-inner:hover{background-color: #484329}
