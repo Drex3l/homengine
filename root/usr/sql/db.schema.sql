@@ -1906,7 +1906,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`com01`@`%` PROCEDURE `uspFind`(IN keyword TEXT,IN accomType TEXT,IN propertyType  TEXT,IN SUBURBAN BIGINT unsigned,IN items TEXT)
+CREATE DEFINER=`com01`@`%` PROCEDURE `uspFind`(IN accomType TEXT,IN propertyType  TEXT,IN SUBURBAN BIGINT unsigned,IN items TEXT)
 BEGIN
 
 	DECLARE CONTINUE HANDLER FOR 1146
@@ -1915,9 +1915,9 @@ BEGIN
 	SET @itemList = items; 
 	CALL sp_getFeatureProperties(',', @itemList);
 	IF SUBURBAN = 0 THEN
-		SELECT * FROM shortlist  WHERE DESCRIPTION  LIKE 	CONCAT('%',keyword,'%')  AND `ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
+		SELECT * FROM shortlist  WHERE `ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
 	ELSE
-		SELECT PL.* FROM shortlist PL,  Property WHERE PL.DESCRIPTION  LIKE 	CONCAT('%',keyword,'%')  AND PL.`ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
+		SELECT PL.* FROM shortlist PL,  Property WHERE PL.`ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
 	end if;
 	
 	DROP TABLE IF EXISTS shortlist;
@@ -2016,4 +2016,4 @@ USE `homengine`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-24 17:25:52
+-- Dump completed on 2018-01-24 22:34:09

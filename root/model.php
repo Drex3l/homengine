@@ -18,8 +18,8 @@ abstract class SearchDB{
         return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM Facility WHERE CATEGORY = :feat ORDER BY NAME', array(':feat'=>$feature));
     }
 
-    public static function searchEngine($keywords, $accom, $type, $suburb,$featureList) {
-        $params = array(':keywords'=>"$keywords",':accom'=>"$accom",':type'=>"$type",':suburb'=>"$suburb",':items'=>"$featureList");
-        return dbHandler::DQL("call uspFind(:keywords,:acomm,:type,:suburb,:items)", $params);
+    public static function Engine($accom, $type, $suburb,$featureList) {
+        $params = array(':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':items'=>$featureList);
+        return dbHandler::DQL("call  uspFind(:accom,:type,:suburb,:items)",$params);
     }
 }
