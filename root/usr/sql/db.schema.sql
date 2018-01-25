@@ -210,7 +210,7 @@ CREATE TABLE `PROPERTY_ROOM` (
   KEY `PROPERTY_ID` (`PROPERTY_ID`),
   CONSTRAINT `PROPERTY_ROOM_ibfk_2` FOREIGN KEY (`ROOM_ID`) REFERENCES `Room` (`ROOM_ID`),
   CONSTRAINT `PROPERTY_ROOM_ibfk_3` FOREIGN KEY (`PROPERTY_ID`) REFERENCES `Property` (`PROPERTY_ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1515,8 +1515,10 @@ BEGIN
 			ELSE SET @selectedItems = CONCAT(@selectedItems, 'PF.FACILITY_ID = "', SPLIT_STR(@itemList,@delimiter,@count),'"');	END IF;
 		END WHILE;
 		SET @q = CONCAT(@q, @selectedItems,' ) GROUP BY ID HAVING FACILITITIES = ',@length);
-	ELSE SET @q = 'CREATE TEMPORARY TABLE IF NOT EXISTS shortlist SELECT * FROM property_list';	
+	ELSE SET @q = 'CREATE TEMPORARY TABLE IF NOT EXISTS shortlist SELECT *, 0 FACILITITIES FROM property_list';	
 	END IF;
+	DROP TABLE IF EXISTS `shortlist`;
+	
 	PREPARE stmt FROM @q; 
 	 EXECUTE stmt; 
 	DEALLOCATE PREPARE stmt; 
@@ -1608,6 +1610,46 @@ BEGIN
 	END;
 	
 	SELECT R.DEPOSIT,R.AMOUNT, R.MONTHS, R.LEASE, R.RENTAL_ID ID FROM Rental R, PROPERTY_RENTAL PR WHERE PR.RENTAL_ID = R.RENTAL_ID && PR.PROPERTY_ID = id ORDER BY MONTHS;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_getRoomProperties` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`com01`@`%` PROCEDURE `sp_getRoomProperties`(IN seperate CHAR(1),IN items TEXT)
+BEGIN  
+	SET @itemList = items; 
+	SET @delimiter = seperate;
+	
+	SET @q ='CREATE TEMPORARY TABLE IF NOT EXISTS shorterlist SELECT  PL.*, COUNT(*) ROOMS FROM PROPERTY_ROOM PR,  shortlist PL WHERE PL.ID = PR.PROPERTY_ID AND (';
+	SET @length = sf_arrayLength(@delimiter,@itemList);
+	IF @length > 0 THEN
+		SET @selectedItems = '';
+		SET @count = 0;
+	
+		WHILE(@count < @length)	DO
+			SET @count = @count + 1;
+			IF(@count < (@length))	THEN SET @selectedItems = CONCAT(@selectedItems, 'PR.ROOM_ID = "', SPLIT_STR(@itemList,@delimiter,@count),'"',' || ');
+			ELSE SET @selectedItems = CONCAT(@selectedItems, 'PR.ROOM_ID = "', SPLIT_STR(@itemList,@delimiter,@count),'"');	END IF;
+		END WHILE;
+		SET @q = CONCAT(@q, @selectedItems,' ) GROUP BY PL.ID,PL.SETTING,PL.`PROPERTY TYPE`,PL.ACCOMMODATION, PL.`ON MARKET`,PL.FLOOR,PL.BLOCK,PL.`ADDRESS LINE 1`,PL.`ADDRESS LINE 2`,PL.SUBURB,PL.DESCRIPTION,PL.STORIES,PL.FACILITITIES HAVING ROOMS = ',@length);
+	ELSE SET @q = 'CREATE TEMPORARY TABLE IF NOT EXISTS shorterlist SELECT *, 0 ROOMS FROM shortlist';	
+	END IF;
+	DROP TABLE IF EXISTS `shorterlist`;
+	
+	PREPARE stmt FROM @q; 
+	 EXECUTE stmt; 
+	DEALLOCATE PREPARE stmt; 
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1906,21 +1948,26 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`com01`@`%` PROCEDURE `uspFind`(IN accomType TEXT,IN propertyType  TEXT,IN SUBURBAN BIGINT unsigned,IN items TEXT)
+CREATE DEFINER=`com01`@`%` PROCEDURE `uspFind`(IN accomType TEXT,IN propertyType  TEXT,IN SUBURBAN BIGINT unsigned,IN rooms TEXT,IN items TEXT)
 BEGIN
 
 	DECLARE CONTINUE HANDLER FOR 1146
 	BEGIN END;
 	
-	SET @itemList = items; 
+	SET @itemList = items;
+	SET @roomList = rooms;
+	
 	CALL sp_getFeatureProperties(',', @itemList);
+	CALL sp_getRoomProperties(',', @roomList);
+	
 	IF SUBURBAN = 0 THEN
-		SELECT * FROM shortlist  WHERE `ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
+		SELECT * FROM shorterlist  WHERE `ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
 	ELSE
-		SELECT PL.* FROM shortlist PL,  Property WHERE PL.`ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
+		SELECT PL.* FROM shorterlist PL,  Property WHERE PL.`ACCOMMODATION`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
 	end if;
 	
-	DROP TABLE IF EXISTS shortlist;
+	DROP TABLE IF EXISTS `shortlist`;
+	DROP TABLE IF EXISTS `shorterlist`;
 	
 END ;;
 DELIMITER ;
@@ -2016,4 +2063,4 @@ USE `homengine`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-24 22:34:09
+-- Dump completed on 2018-01-25 15:53:54

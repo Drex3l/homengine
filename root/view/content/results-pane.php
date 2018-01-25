@@ -29,7 +29,7 @@
         }
 
         $records = 0;
-        $view = SearchDB::Engine($accom, $build, $suburb, $features);
+        $view = SearchDB::Engine($accom, $build, $suburb,$rooms, $features);
         ?>
             <input type="hidden" id="incomming" value="<?= $x;?>"/>
             <form action="." method="POST">
