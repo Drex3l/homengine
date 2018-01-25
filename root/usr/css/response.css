@@ -17,6 +17,7 @@ nav li{width:100%;padding:10px 0}
 article,aside,.one-third {width: 100%}
 .hand-mobile{display:none}
 .social i{font-size:180%;padding:2%}
+#results-pane div.side-lines, #tblSelection{display: none}
 
 span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
 }

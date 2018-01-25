@@ -18,6 +18,8 @@
     <div id="search-results" class="feature">
         
     </div>
+    <div class="side-lines" id="sl-L"></div>
+    <div class="side-lines" id="sl-R"></div>
 </section>
 <?php 
 // if user is not logged in, they cannot access this

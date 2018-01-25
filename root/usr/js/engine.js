@@ -30,8 +30,24 @@ function getValue(item){
 function getValues(name){
     var item = document.getElementsByName(name);
     var string = "";
-    for(k=0;k<item.length;k++) if(item[k].checked) string += item[k].value +", ";
+    for(k=0;k<item.length;k++) if(item[k].checked) string += item[k].value +",";
     
     var id = name.substr(0,name.length-2);
     document.getElementById(id).value = string;
+}
+function consolidate(){
+    var suburb = document.getElementById('cmbSuburb').value;
+    var accom = document.getElementById('accom').value;
+    var rooms = document.getElementById('rooms').value;
+    var build = document.getElementById('build').value;
+    var minp = document.getElementById('minP').value;
+    var maxp = document.getElementById('maxP').value;
+    var bed = document.getElementById('bed').value;
+    var bath = document.getElementById('bath').value;
+    var bedroom = document.getElementById('bedroom').value;
+    var feat = document.getElementById('feat').value;
+    
+    var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"build":build,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"bedroom":bedroom,"feat":feat};
+    var json = JSON.stringify(obj);
+    document.getElementById('search_values').value = json;
 }

@@ -1,4 +1,6 @@
-function search(suburb,accom,rooms,build,maxP,minP,bed,bath,bedroom,feat) {
+function search(search_values) {
+    consolidate();
+    var obj = JSON.parse(search_values.value);
     if (window.XMLHttpRequest)
     {
         xmlhttp = new XMLHttpRequest();
@@ -13,8 +15,8 @@ function search(suburb,accom,rooms,build,maxP,minP,bed,bath,bedroom,feat) {
             document.getElementById("search-results").innerHTML = this.responseText;  // override content
         }
     };
-    var queryString = "suburb="+suburb.value+"&accom="+accom.value+"&rooms="+rooms.value+"&build="+build.value+"&maxp="+maxP.value+"&minp="+minP.value;
-    queryString += "&beds="+bed.value+"&baths="+bath.value+"&bedroom="+bedroom.value+"&feat="+feat.value;
+    var queryString = "suburb="+obj.suburb+"&accom="+obj.accom+"&rooms="+obj.rooms+"&build="+obj.build+"&maxp="+obj.maxp+"&minp="+obj.minp;
+    queryString += "&beds="+obj.bed+"&baths="+obj.bath+"&bedroom="+obj.bedroom+"&feat="+obj.feat;
     xmlhttp.open("GET", "root/view/content/results-pane.php?" + queryString, true);
     xmlhttp.send();
     document.getElementById('results-pane').style.display = "block";

@@ -5,7 +5,7 @@
         <?php
         require_once dirname(__FILE__, 3) . '/epiqworx/db/handler.php';
         require_once dirname(__FILE__, 3) . ('/model.php');
-
+        
         $suburb = intval($_GET['suburb']);
         $accom = $_GET['accom'];
         $rooms = $_GET['rooms'];
@@ -17,8 +17,8 @@
         $bedroom = $_GET['bedroom'];
         $features = $_GET['feat'];
 
-        echo '<table id="tblSelection" cellspacing="0"><tr><th class="killborder-L">SUBURB</th><th>ACCOMMODATION</th><th>ROOMS</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th>BEDS</th><th>BATHS</th><th>BEDROOM</th><th class="killborder-R">FEATURES</th></tr>';
-        echo "<tr><td class='killborder-L'>$suburb</td><td>$accom</td><td>$rooms</td><td>$build</td><td>$maxprice</td><td>$minprice</td><td>$beds</td><td>$baths</td><td>$bedroom</td><td class='killborder-R'>$features</td></tr>";
+        echo '<table id="tblSelection" cellspacing="0"><tr><th class="killborder-L">SUBURB</th><th>ACCOMMODATION</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th>BEDS</th><th>BATHS</th><th class="killborder-R">BEDROOM</th></tr>';
+        echo "<tr><td class='killborder-L'>$suburb</td><td>$accom</td><td>$build</td><td>$maxprice</td><td>$minprice</td><td>$beds</td><td>$baths</td><td class='killborder-R'>$bedroom</td></tr>";
         echo '</table>';
         
         if ($accom === 'Any') {
@@ -31,6 +31,7 @@
         $records = 0;
         $view = SearchDB::Engine($accom, $build, $suburb, $features);
         ?>
+            <input type="hidden" id="incomming" value="<?= $x;?>"/>
             <form action="." method="POST">
                 <table>
                     <?php
@@ -52,7 +53,7 @@
 } ?>
                 </table>
             </form>
-            <span style="color: rgba(0,0,0,.3);margin-left: auto;background-color: #eee;display: block;text-align: right">&nbsp;&nbsp;::&nbsp;<?= $records; ?>&nbsp;&nbsp;</span>
+            <span style="color: rgba(0,0,0,.3);margin-left: auto;background-color: #eee;display: block;text-align: right"><?= $rooms;?>&nbsp;&nbsp;::&nbsp;&nbsp;<?= $features;?>&nbsp;&nbsp;::&nbsp;<?= $records; ?>&nbsp;&nbsp;</span>
         </div>
     </body>
 </html>

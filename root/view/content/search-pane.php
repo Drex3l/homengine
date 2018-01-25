@@ -6,6 +6,7 @@
     </p>
     <!-- The following container "engine-values" houses hidden elements storing values of the search engine pane selected by user, to be used by AJAX -->
     <span style="display: none" id="engine-values">
+        <input type="hidden" id="search_values"/>   //--------------------------JSON string that consolidates all values
         <input type="hidden" id="accom"/>   //----------------------------------ACCOMMODATION TYPE radion button
         <input type="hidden" id="rooms"/>   //----------------------------------ROOMS checkboxes
         <input type="hidden" id="build"/>   //----------------------------------PROPERTY TYPE radio button
@@ -14,15 +15,15 @@
         <input type="hidden" id="bed"/>   //------------------------------------BED ROOMS quantity text box
         <input type="hidden" id="bath"/>   //-----------------------------------BATH ROOMS quantity text box
         <input type="hidden" id="bedroom" value="Any"/>   //--------------------SHARING BEDROOM type radio button
-        <input type="hidden" id="feat"/>   //----------------------------------Selected Features string
+        <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
     <div id="searchengine" class="feature">
         <div id="row-01"><select name="suburb" id="cmbSuburb">
                 <?php foreach ($suburbs as $row) { ?>
-                    <option value="<?= $row['SUBURB_ID']; ?>"><?= $row['SUBURB_NAME']; ?></option>
+                    <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
             </select>
-            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(cmbSuburb, accom, rooms, build, maxP, minP,bed,bath,bedroom,feat)"/></div>
+            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values)"/></div>
         <div class="sexion">
             <span id="accommodation" class="attribute">
                 <h3 onclick="toggleFeature(subAccom)">ACCOMMODATION</h3>
@@ -56,8 +57,8 @@
             <span id="pricing" class="attribute">
                 <h3 onclick="toggleFeature(subPrice)">PRICE RANGE</h3>
                 <div class="sub-attribute" id="subPrice" ><hr/>
-                    <input type="number" name="maxP" min="0" placeholder="Maximum" class="txt" step="100" onchange="getValue(this)"/>
-                    <input type="number" name="minP" min="0" placeholder="Minimum" class="txt" step="100" onchange="getValue(this)"/>
+                    <input type="number" name="maxP" min="0" placeholder="Maximum" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
+                    <input type="number" name="minP" min="0" placeholder="Minimum" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
                     <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="room-setting">

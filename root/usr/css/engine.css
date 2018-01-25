@@ -22,3 +22,7 @@ div.subset{display: none}
 
 #search-results{line-height: 22px;}
 #search-results table {width: 100%;color: #484329;}
+
+#results-pane div.side-lines{position: absolute;top: 0;height: 100%;background-color: rgba(173,172,153,.6);width: 192px;}
+#sl-L{left: 0}
+#sl-R{right: 0}
