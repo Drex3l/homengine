@@ -13,12 +13,12 @@ function building(type){
      */
     switch(type.value)
     {
-        case 'Apartment':
-        case 'House':
+        case 'Building':
             document.getElementById('beds').style.display = "block";
             document.getElementById('baths').style.display = "block";
+            document.getElementById('HUnit').style.display = "block";
             break;
-        case 'Room':
+        case 'Bedroom':
             document.getElementById('room-setting').style.display = "block";
             break;
     }

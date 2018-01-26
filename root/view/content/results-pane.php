@@ -41,13 +41,13 @@
                             foreach ($view as $row) {
                                 ?>
                                 <tr>
-                                    <td><?= $row['ADDRESS LINE 1']; ?></td><td><?= $row['SUBURB']; ?></td><td><?= $row['ACCOMMODATION']; ?></td><td><?= $row['PROPERTY TYPE']; ?></td>
+                                    <td><?= $row['ADDRESS LINE 1']; ?></td><td><?= $row['SUBURB']; ?></td><td><?= $row['TARGET']; ?></td><td><?= $row['LISTING']; ?></td>
                                 </tr>
         <?php }
     } else {
         $records = 1; ?>
                             <tr>
-                                <td><?= $view['ADDRESS LINE 1']; ?></td><td><?= $view['SUBURB']; ?></td><td><?= $view['ACCOMMODATION']; ?></td><td><?= $view['PROPERTY TYPE']; ?></td>
+                                <td><?= $view['ADDRESS LINE 1']; ?></td><td><?= $view['SUBURB']; ?></td><td><?= $view['TARGET']; ?></td><td><?= $view['LISTING']; ?></td>
                             </tr>
     <?php }
 } ?>

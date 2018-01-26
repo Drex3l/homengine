@@ -16,8 +16,10 @@ switch ($action) {
         $title = "Welcome Home";
         $error_message = $searchString = null;
         $accom = SearchDB::getAccommodation();
-        $rooms = SearchDB::getRoomTypes('Bed Room', 'Bath Room');
-        $Btypes = SearchDB::getBuidingTypes();
+        $rooms = SearchDB::getRoomTypes();
+        $PropTypes = SearchDB::getPropertyTypes();
+        $BedRTypes = SearchDB::getBedroomTypes();
+        $BuildTypes = SearchDB::getBuildingTypes();
         $accessories = SearchDB::getFeatures('ACCESSORY');
         $furniture = SearchDB::getFeatures('FURNITURE');
         $conveniences = SearchDB::getFeatures('CONVENIENCE');
