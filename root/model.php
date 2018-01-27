@@ -14,7 +14,7 @@ abstract class SearchDB{
         return dbHandler::DQL('SELECT * FROM building_type');
     }
     public static function getRoomTypes() {
-        return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room WHERE ROOM_TYPE <> "Bath Room"');
+        return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room');
     }
     public static function getSuburb() {
         return dbHandler::DQL('SELECT SUBURB_NAME, SUBURB_ID FROM suburb ORDER BY SUBURB_NAME');
@@ -24,8 +24,8 @@ abstract class SearchDB{
         return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM feature WHERE CATEGORY = :feat ORDER BY NAME', array(':feat'=>$feature));
     }
 
-    public static function Engine($accom, $type, $suburb,$rooms,$featureList) {
-        $params = array(':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList);
-        return dbHandler::DQL("call  uspFind(:accom,:type,:suburb,:rooms,:items)",$params);
+    public static function Engine($del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp) {
+        $params = array(':del'=>$del,':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList,':minp'=>$minp,':maxp'=>$maxp);
+        return dbHandler::DQL("call  uspFind(:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp)",$params);
     }
 }

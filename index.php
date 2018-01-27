@@ -15,6 +15,7 @@ switch ($action) {
     case 'home':
         $title = "Welcome Home";
         $error_message = $searchString = null;
+        $del = ','; //----------------------------------------------------------Selected Feature/Room delimiter
         $accom = SearchDB::getAccommodation();
         $rooms = SearchDB::getRoomTypes();
         $PropTypes = SearchDB::getPropertyTypes();

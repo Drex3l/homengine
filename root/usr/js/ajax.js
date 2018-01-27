@@ -1,4 +1,4 @@
-function search(search_values) {
+function search(search_values,del) {
     consolidate();
     var obj = JSON.parse(search_values.value);
     if (window.XMLHttpRequest)
@@ -16,7 +16,7 @@ function search(search_values) {
         }
     };
     var queryString = "suburb="+obj.suburb+"&accom="+obj.accom+"&rooms="+obj.rooms+"&build="+obj.build+"&maxp="+obj.maxp+"&minp="+obj.minp;
-    queryString += "&beds="+obj.bed+"&baths="+obj.bath+"&bedroom="+obj.bedroom+"&feat="+obj.feat;
+    queryString += "&beds="+obj.bed+"&baths="+obj.bath+"&bedroom="+obj.bedroom+"&feat="+obj.feat+"&del="+del;
     xmlhttp.open("GET", "root/view/content/results-pane.php?" + queryString, true);
     xmlhttp.send();
     document.getElementById('results-pane').style.display = "block";

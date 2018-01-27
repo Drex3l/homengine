@@ -27,10 +27,10 @@ function building(type){
 function getValue(item){
     document.getElementById(item.name).value = item.value;  //------------------Take value from control and assign to its respective hidden field for AJAX
 }
-function getValues(name){
+function getValues(name,del){
     var item = document.getElementsByName(name);
     var string = "";
-    for(k=0;k<item.length;k++) if(item[k].checked) string += item[k].value +",";
+    for(k=0;k<item.length;k++) if(item[k].checked) string += item[k].value +del;
     
     var id = name.substr(0,name.length-2);
     document.getElementById(id).value = string;

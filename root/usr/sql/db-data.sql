@@ -51,7 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `building` WRITE;
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` VALUES (3,11,'Apartment','Building',1),(6,1,'Apartment','Building',0),(9,4,'Apartment','Building',1),(99,1,'House','Building',1),(103,2,'House','Building',1);
+INSERT INTO `building` VALUES (3,11,'Apartment','Building',1,1),(6,1,'Apartment','Building',0,1),(9,4,'Apartment','Building',1,1),(99,1,'House','Building',1,1),(103,2,'House','Building',1,1);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `feature` WRITE;
 /*!40000 ALTER TABLE `feature` DISABLE KEYS */;
-INSERT INTO `feature` VALUES ('IA00','Washing Machine',NULL,'ACCESSORY'),('IA01','Dishwasher',NULL,'ACCESSORY'),('IA02','Baking Oven',NULL,'ACCESSORY'),('IA03','Microwave Oven',NULL,'ACCESSORY'),('IA04','Television',NULL,'ACCESSORY'),('IA05','Satelite Dish','Allows for satelite TV subscription','ACCESSORY'),('IC00','Air Conditioner',NULL,'CONVENIENCE'),('IC01','Decks and Patios',NULL,'CONVENIENCE'),('IC02','Electric Gate','Controllable remotey from indoors','CONVENIENCE'),('IC03','Internet',NULL,'CONVENIENCE'),('IC04','Programmable Lights','Toggle on/off by clap, or adjust dim','CONVENIENCE'),('IC05','Swimming Pool',NULL,'CONVENIENCE'),('IF00','Book Shelf',NULL,'FURNITURE'),('IF01','Closet',NULL,'FURNITURE'),('IF02','Coffee Table',NULL,'FURNITURE'),('IF03','Couch and Sofa',NULL,'FURNITURE'),('IF04','Wall Unit',NULL,'FURNITURE'),('IF05','Wardrobe',NULL,'FURNITURE'),('IS00','Parking','Outdoor parking space','SUNDRY'),('IS01','Security',NULL,'SUNDRY'),('IS02','Gym','Indoor parking space','SUNDRY'),('IS03','Convenience Store','Mini-Market within property building','SUNDRY');
+INSERT INTO `feature` VALUES ('IA00','Washing Machine',NULL,'ACCESSORY'),('IA01','Dishwasher',NULL,'ACCESSORY'),('IA02','Baking Oven',NULL,'ACCESSORY'),('IA03','Microwave Oven',NULL,'ACCESSORY'),('IA04','Television',NULL,'ACCESSORY'),('IA05','Satelite Dish','Allows for satelite TV subscription','ACCESSORY'),('IC00','Air Conditioner',NULL,'CONVENIENCE'),('IC01','Decks and Patios',NULL,'CONVENIENCE'),('IC02','Electric Gate','Controllable remotey from indoors','CONVENIENCE'),('IC03','Internet',NULL,'CONVENIENCE'),('IC04','Programmable Lights','Toggle on/off by clap, or adjust dim','CONVENIENCE'),('IC05','Swimming Pool',NULL,'CONVENIENCE'),('IF00','Book Shelf',NULL,'FURNITURE'),('IF01','Closet',NULL,'FURNITURE'),('IF02','Coffee Table',NULL,'FURNITURE'),('IF03','Couch and Sofa',NULL,'FURNITURE'),('IF04','Wall Unit',NULL,'FURNITURE'),('IF05','Wardrobe',NULL,'FURNITURE'),('IS00','Parking','Outdoor parking space','SUNDRY'),('IS01','Security',NULL,'SUNDRY'),('IS02','Gym','Indoor parking space','SUNDRY'),('IS03','Convenience Store','Mini-Market within property building','SUNDRY'),('IS04','Bathtub','Might not necessarily be in the bathroom','SUNDRY'),('IS05','Shower','Might not necessarily be in the bathroom','SUNDRY');
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_room` WRITE;
 /*!40000 ALTER TABLE `property_room` DISABLE KEYS */;
-INSERT INTO `property_room` VALUES (2,'R05',1),(2,'R06',1),(3,'R03',1),(3,'R05',1),(3,'R06',1),(4,'R03',1),(4,'R05',1),(4,'R06',1),(5,'R06',1),(5,'R08',1),(6,'R05',1),(6,'R07',1),(7,'R05',1),(7,'R06',1),(9,'R04',1),(16,'R04',1),(16,'R07',1),(16,'R08',1),(96,'R05',1),(96,'R06',1),(97,'R05',1),(97,'R08',1),(99,'R05',1),(99,'R06',1),(100,'R07',1),(100,'R09',1),(103,'R05',1),(103,'R06',1);
+INSERT INTO `property_room` VALUES (2,'R05',1),(2,'R06',1),(3,'R05',1),(3,'R06',1),(4,'R05',1),(4,'R06',1),(5,'R06',1),(5,'R08',1),(6,'R05',1),(6,'R07',1),(7,'R05',1),(7,'R06',1),(16,'R07',1),(16,'R08',1),(96,'R05',1),(96,'R06',1),(97,'R05',1),(97,'R08',1),(99,'R05',1),(99,'R06',1),(100,'R07',1),(100,'R09',1),(103,'R05',1),(103,'R06',1);
 /*!40000 ALTER TABLE `property_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +159,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES ('R03','Bath Room','Shower'),('R04','Bath Room','Bathtub'),('R05','Kitchen',''),('R06','Lounge',''),('R07','Storage',''),('R08','Libary',''),('R09','Bar','');
+INSERT INTO `room` VALUES ('R05','Kitchen',''),('R06','Lounge',''),('R07','Storage',''),('R08','Libary',''),('R09','Bar','');
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-27  1:22:41
+-- Dump completed on 2018-01-27 12:07:13

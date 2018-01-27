@@ -23,7 +23,7 @@
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
             </select>
-            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values)"/></div>
+            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values,'<?=$del;?>')"/></div>
         <div class="sexion">
             <span id="accommodation" class="attribute">
                 <h3 onclick="toggleFeature(subAccom)">ACCOMMODATING</h3>
@@ -39,7 +39,7 @@
                 <h3 onclick="toggleFeature(subRoom)">ROOMS</h3>
                 <div class="sub-attribute" id="subRoom"><hr/>
                     <span class="spacer">
-                        <?php foreach ($rooms as $value) { ?><label class="check-align"><input type="checkbox" name="rooms[]" value="<?= $value['ROOM_ID']; ?>" class="chk" onchange="getValues(this.name)"/> <?= $value['ROOM_TYPE']; ?></label><?php } ?>
+                        <?php foreach ($rooms as $value) { ?><label class="check-align"><input type="checkbox" name="rooms[]" value="<?= $value['ROOM_ID']; ?>" class="chk" onchange="getValues(this.name,'<?=$del;?>')"/> <?= $value['ROOM_TYPE']; ?></label><?php } ?>
                     </span>
                 </div>
             </span>
@@ -57,8 +57,8 @@
             <span id="pricing" class="attribute">
                 <h3 onclick="toggleFeature(subPrice)">PRICE RANGE</h3>
                 <div class="sub-attribute" id="subPrice" ><hr/>
-                    <input type="number" name="maxP" min="100" placeholder="Maximum" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
-                    <input type="number" name="minP" min="100" placeholder="Minimum" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
+                    <input type="number" name="maxP" min="100" placeholder="Maximum (Rands)" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
+                    <input type="number" name="minP" min="100" placeholder="Minimum (Rands)" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
                     <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
                     <div class="subset" id="HUnit">
@@ -86,7 +86,7 @@
                     <div class="sub-attribute" id="subAccess"><hr>
                             <span class="spacer">
                                 <?php foreach ($accessories as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name,'<?=$del;?>')"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -95,7 +95,7 @@
                     <div class="sub-attribute" id="subFurn"><hr>
                             <span class="spacer">
                                 <?php foreach ($furniture as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name,'<?=$del;?>')"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -104,7 +104,7 @@
                     <div class="sub-attribute" id="subModern"><hr>
                             <span class="spacer">
                                 <?php foreach ($conveniences as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name,'<?=$del;?>')"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
@@ -113,7 +113,7 @@
                     <div class="sub-attribute" id="subSundry"><hr>
                             <span class="spacer">
                                 <?php foreach ($sundry as $value) { ?>
-                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name)"/><?= $value['NAME']; ?></label>
+                                    <label class="check-align"><input type="checkbox" name="feat[]" value="<?= $value['ITEM_CODE']; ?>" class="chk" onchange="getValues(this.name,'<?=$del;?>')"/><?= $value['NAME']; ?></label>
                                 <?php } ?>
                             </span>
                     </div>
