@@ -1,7 +1,6 @@
 div.feature {background-color: #fff;box-shadow: 0 0 14px 0 #adac98;margin: 0 auto;max-width: 856px;padding: 10px;width: 90%}
 #top-edge{position:relative;background-color: transparent;display: none}
 #row-01{background-color: transparent;margin-bottom: 3px}
-#row-01:after{content: "";display: table; clear:both}/**Clearfix*/
 #row-01 select{width: auto}
 #searchengine select {border: none;height: 100%;display: inline;margin: 0;background-color: transparent;color: #484329;}
 #searchstring{width: 75%;height: 100%;display: inline;border: none;border-bottom: 1px solid #aaa;color: #484329;margin: 0;float: right;-webkit-transition: border-color .5s ease, box-show .5s ease;-moz-transition: border-color .5s ease, box-show .5s ease;}
@@ -19,6 +18,7 @@ span.attribute .spacer{padding: 2px}
 input.txt{border: none;background-color: transparent;width: 100%;color: #484329;border-bottom: 1px solid #888;transition: 1s;-webkit-transition: border-color .5s ease, box-show .5s ease; -moz-transition: border-color .5s ease, box-show .5s ease;}
 input.txt:focus{border-bottom-color: #008c8c;outline: 0 }
 div.subset{display: none}
+.bedroom-spec{width: 48%}
 #HUnit select{width: 100%;margin-top: 5px}
 
 #search-results{line-height: 22px;}

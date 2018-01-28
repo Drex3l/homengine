@@ -24,8 +24,9 @@ abstract class SearchDB{
         return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM feature WHERE CATEGORY = :feat ORDER BY NAME', array(':feat'=>$feature));
     }
 
-    public static function Engine($del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp) {
-        $params = array(':del'=>$del,':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList,':minp'=>$minp,':maxp'=>$maxp);
-        return dbHandler::DQL("call  uspFind(:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp)",$params);
+    public static function Engine($del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp,$bedroom,$gend,$beds,$baths,$btypes) {
+        $params = array(':del'=>$del,':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList,':minp'=>$minp,
+            ':maxp'=>$maxp,':bedroom'=>$bedroom,':gend'=>$gend,':beds'=>$beds,':baths'=>$baths,':btypes'=>$btypes);
+        return dbHandler::DQL("call  uspFind(:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp,:bedroom,:gend,:beds,:baths,:btypes)",$params);
     }
 }

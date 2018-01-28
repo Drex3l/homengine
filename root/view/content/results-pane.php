@@ -10,27 +10,36 @@
         $suburb = intval($_GET['suburb']);
         $accom = $_GET['accom'];
         $rooms = $_GET['rooms'];
-        $build = $_GET['build'];
+        $ptype = $_GET['ptype'];
         $maxprice = floatval($_GET['maxp']);
         $minprice = floatval($_GET['minp']);
         $beds = intval($_GET['beds']);
         $baths = intval($_GET['baths']);
+        $btype = $_GET['btype'];
         $bedroom = $_GET['bedroom'];
+        $gender = $_GET['roomgender'];
         $features = $_GET['feat'];
 
-        echo '<table id="tblSelection" cellspacing="0"><tr><th class="killborder-L">SUBURB</th><th>ACCOMMODATING</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th>BEDS</th><th>BATHS</th><th class="killborder-R">BEDROOM</th></tr>';
-        echo "<tr><td class='killborder-L'>$suburb</td><td>$del</td><td>$build</td><td>R$maxprice</td><td>R$minprice</td><td>$beds</td><td>$baths</td><td class='killborder-R'>$bedroom</td></tr>";
+        echo '<table id="tblSelection" cellspacing="0"><tr><th class="killborder-L">SUBURB</th><th>MARKET</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th>BEDS</th><th>BATHS</th><th>BUILDING</th><th>BEDROOM</th><th class="killborder-R">GENDER</th></tr>';
+        echo "<tr><td class='killborder-L'>$suburb</td><td>$accom</td><td>$ptype</td><td>R$maxprice</td><td>R$minprice</td><td>$beds</td><td>$baths</td><td>$btype</td><td>$bedroom</td><td class='killborder-R'>$gender</td></tr>";
+        echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
         echo '</table>';
         
         if ($accom === 'Any') {
             $accom = '';
         }
-        if ($build === 'Any') {
-            $build = '';
+        if ($ptype === 'Any') {
+            $ptype = '';
+        }
+        if ($bedroom === 'Any') {
+            $bedroom = '';
+        }
+        if ($gender === 'Any') {
+            $gender = '';
         }
 
         $records = 0;
-        $view = SearchDB::Engine(',',$accom, $build, $suburb,$rooms, $features,$minprice,$maxprice);
+        $view = SearchDB::Engine(',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$btype);
         ?>
             <form action="." method="POST">
                 <table>

@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `bedroom` WRITE;
 /*!40000 ALTER TABLE `bedroom` DISABLE KEYS */;
-INSERT INTO `bedroom` VALUES (2,NULL,NULL,NULL,NULL,'Bedroom','Single'),(4,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(5,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(7,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(16,NULL,NULL,NULL,NULL,'Bedroom','Single'),(96,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(97,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(100,NULL,NULL,NULL,NULL,'Bedroom','Single'),(101,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(102,NULL,NULL,NULL,NULL,'Bedroom','Single');
+INSERT INTO `bedroom` VALUES (2,'M',NULL,NULL,NULL,'Bedroom','Single'),(4,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(5,'F',NULL,NULL,NULL,'Bedroom','Sharing'),(7,'M',NULL,NULL,NULL,'Bedroom','Sharing'),(16,NULL,NULL,NULL,NULL,'Bedroom','Single'),(96,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(97,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(100,NULL,NULL,NULL,NULL,'Bedroom','Single'),(101,NULL,NULL,NULL,NULL,'Bedroom','Sharing'),(102,NULL,NULL,NULL,NULL,'Bedroom','Single');
 /*!40000 ALTER TABLE `bedroom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +51,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `building` WRITE;
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` VALUES (3,11,'Apartment','Building',1,1),(6,1,'Apartment','Building',0,1),(9,4,'Apartment','Building',1,1),(99,1,'House','Building',1,1),(103,2,'House','Building',1,1);
+INSERT INTO `building` VALUES (3,1,'Apartment','Building',1,1),(6,1,'Apartment','Building',0,1),(9,1,'Apartment','Building',1,1),(99,1,'House','Building',5,2),(103,2,'House','Building',6,3);
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_type` WRITE;
 /*!40000 ALTER TABLE `property_type` DISABLE KEYS */;
-INSERT INTO `property_type` VALUES ('Bedroom','Bed Room'),('Building','Housing Unit'),('Yard','Whole Yard');
+INSERT INTO `property_type` VALUES ('Bedroom','Bedroom Unit'),('Building','Housing Unit'),('Yard','Whole Yard');
 /*!40000 ALTER TABLE `property_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-27 12:07:13
+-- Dump completed on 2018-01-28 14:52:31

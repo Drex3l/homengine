@@ -9,16 +9,17 @@
         <input type="hidden" id="search_values"/>   //--------------------------JSON string that consolidates all values
         <input type="hidden" id="accom"/>   //----------------------------------ACCOMMODATION TYPE radion button
         <input type="hidden" id="rooms"/>   //----------------------------------ROOMS checkboxes
-        <input type="hidden" id="build"/>   //----------------------------------PROPERTY TYPE radio button
+        <input type="hidden" id="ptype"/>   //----------------------------------PROPERTY TYPE radio button
         <input type="hidden" id="minP"/>    //----------------------------------MINIMUM PRICE RANGE text box
         <input type="hidden" id="maxP"/>    //----------------------------------MAXIMUM PRICE RANGE text box
-        <input type="hidden" id="bed"/>   //------------------------------------BED ROOMS quantity text box
-        <input type="hidden" id="bath"/>   //-----------------------------------BATH ROOMS quantity text box
-        <input type="hidden" id="bedroom" value="Any"/>   //--------------------SHARING BEDROOM type radio button
+        <input type="hidden" id="bed" value=-1 />   //--------------------------BED ROOMS quantity text box
+        <input type="hidden" id="bath" value=-1/>   //--------------------------BATH ROOMS quantity text box
+        <input type="hidden" id="bedroom" value="Any"/>   //--------------------BEDROOM type radio button
+        <input type="hidden" id="roomgender" value="Any"/> //------------------BEDROOM GENDER RISTRICTION radio button
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
     <div id="searchengine" class="feature">
-        <div id="row-01"><select name="suburb" id="cmbSuburb" title="Don't change for 'Any' Suburb">
+        <div id="row-01" class="clearfix"><select name="suburb" id="cmbSuburb" title="Don't change for 'Any' Suburb">
                 <?php foreach ($suburbs as $row) { ?>
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
@@ -43,14 +44,14 @@
                     </span>
                 </div>
             </span>
-            <span id="buildingType" class="attribute">
-                <h3 onclick="toggleFeature(subBuild)">PROPERTY TYPE</h3>
-                <div class="sub-attribute" id="subBuild" ><hr/>
+            <span id="propertyType" class="attribute">
+                <h3 onclick="toggleFeature(subPtype)">PROPERTY TYPE</h3>
+                <div class="sub-attribute" id="subPtype" ><hr/>
                     <span class="spacer">
                         <?php foreach ($PropTypes as $value) { ?>
-                            <label class="radio-align"><input type="radio" name="build" value="<?= $value['PROP_TYPE_ID']; ?>" required class="rbn" onchange="building(this)"/><?= $value['DESCRIPTION']; ?></label>
+                        <label class="radio-align"><input type="radio" name="ptype" value="<?= $value['PROP_TYPE_ID']; ?>" required class="rbn" onchange="property(this)"/><?= $value['DESCRIPTION']; ?></label>
                         <?php } ?>
-                        <label class="radio-align"><input type="radio" required name="build" value="Any" class="rbn" onchange="building(this)"/>Any</label>
+                        <label class="radio-align"><input type="radio" required name="ptype" value="Any" class="rbn" onchange="property(this)"/>Any</label>
                     </span>
                 </div>
             </span>
@@ -59,22 +60,28 @@
                 <div class="sub-attribute" id="subPrice" ><hr/>
                     <input type="number" name="maxP" min="100" placeholder="Maximum (Rands)" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
                     <input type="number" name="minP" min="100" placeholder="Minimum (Rands)" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
-                    <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
-                    <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="getValue(this)"/></div>
+                    <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)" title="Set to 0 for Bachelors"/></div>
+                    <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)"/></div>
                     <div class="subset" id="HUnit">
-                        <select name="HUnit" title="Don't change for 'Any' type">
+                        <select name="HUnit" title="Don't change for 'Any' type" id="btype">
                             <option value=''selected >-- Building Type --</option>
                         <?php foreach ($BuildTypes as $value) {?>
                         <option value=<?= $value['BUILDING_TYPE']; ?>><?= $value['BUILDING_TYPE']; ?></option>
                     <?php }?>
                     </select>
                     </div>
-                    <div class="subset" id="room-setting">
-                        <h3>BED ROOM</h3>
+                    <div class="subset bedroom-spec" id="room-setting">
+                        <h3>TYPE</h3>
                         <?php foreach ($BedRTypes as $value){?>
                         <label class="radio-align"><input type="radio" name="bedroom" value="<?= $value['BEDROOM_TYPE'];?>" class="rbn" onchange="getValue(this)"/><?= $value['BEDROOM_TYPE'];?></label>
                         <?php }?>
                         <label class="radio-align"><input type="radio" name="bedroom" value="Any" class="rbn" checked="true" onchange="getValue(this)"/>Any</label>
+                    </div>
+                    <div class="subset bedroom-spec" id="gend-restr">
+                        <h3>GENDER</h3>
+                        <label class="radio-align"><input type="radio" name="roomgender" value="F" class="rbn"  onchange="getValue(this)"/>Female</label>
+                        <label class="radio-align"><input type="radio" name="roomgender" value="M" class="rbn"  onchange="getValue(this)"/>Male</label>
+                        <label class="radio-align"><input type="radio" name="roomgender" value="Any" class="rbn" checked="true" onchange="getValue(this)"/>Any</label>
                     </div>
                 </div>
             </span>

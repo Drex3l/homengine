@@ -52,3 +52,5 @@ div.bar {width: 70px;height: 10px;background-color: #484329;margin: 6px 0;transi
 .mutate div.bar3{ -webkit-transform:rotate(25deg) translate(-16px, -16px);transform: rotate(25deg) translate(-16px, -16px)}
 /*</editor-fold>*/
 /*</editor-fold>*/
+
+.clearfix:after{content: "";display: table; clear:both}

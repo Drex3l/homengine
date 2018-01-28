@@ -15,8 +15,8 @@ function search(search_values,del) {
             document.getElementById("search-results").innerHTML = this.responseText;  // override content
         }
     };
-    var queryString = "suburb="+obj.suburb+"&accom="+obj.accom+"&rooms="+obj.rooms+"&build="+obj.build+"&maxp="+obj.maxp+"&minp="+obj.minp;
-    queryString += "&beds="+obj.bed+"&baths="+obj.bath+"&bedroom="+obj.bedroom+"&feat="+obj.feat+"&del="+del;
+    var queryString = "suburb="+obj.suburb+"&accom="+obj.accom+"&rooms="+obj.rooms+"&ptype="+obj.ptype+"&maxp="+obj.maxp+"&minp="+obj.minp;
+    queryString += "&beds="+obj.bed+"&baths="+obj.bath+"&btype="+obj.btype+"&bedroom="+obj.bedroom+"&roomgender="+obj.roomgender+"&feat="+obj.feat+"&del="+del;
     xmlhttp.open("GET", "root/view/content/results-pane.php?" + queryString, true);
     xmlhttp.send();
     document.getElementById('results-pane').style.display = "block";

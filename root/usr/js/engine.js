@@ -1,4 +1,4 @@
-function building(type){
+function property(type){
     /**
      * Users can interested in just rent Rooms, or the whole Property
      * If user selects the whole Property, controls to specify quantity of Bathrooms and Bedrooms become visible
@@ -19,7 +19,8 @@ function building(type){
             document.getElementById('HUnit').style.display = "block";
             break;
         case 'Bedroom':
-            document.getElementById('room-setting').style.display = "block";
+            document.getElementById('room-setting').style.display = "inline-block";
+            document.getElementById('gend-restr').style.display = "inline-block";
             break;
     }
     getValue(type);
@@ -35,19 +36,26 @@ function getValues(name,del){
     var id = name.substr(0,name.length-2);
     document.getElementById(id).value = string;
 }
-function consolidate(){
+function minZero(item) {
+    document.getElementById(item.name).value = -1;
+    if (item.value.length > 0) getValue(item);
+
+}
+function consolidate() {
     var suburb = document.getElementById('cmbSuburb').value;
     var accom = document.getElementById('accom').value;
     var rooms = document.getElementById('rooms').value;
-    var build = document.getElementById('build').value;
+    var ptype = document.getElementById('ptype').value;
     var minp = document.getElementById('minP').value;
     var maxp = document.getElementById('maxP').value;
     var bed = document.getElementById('bed').value;
     var bath = document.getElementById('bath').value;
+    var btype = document.getElementById('btype').value;
     var bedroom = document.getElementById('bedroom').value;
+    var roomgender = document.getElementById('roomgender').value;
     var feat = document.getElementById('feat').value;
     
-    var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"build":build,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"bedroom":bedroom,"feat":feat};
+    var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"ptype":ptype,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"btype":btype,"bedroom":bedroom,"roomgender":roomgender,"feat":feat};
     var json = JSON.stringify(obj);
     document.getElementById('search_values').value = json;
 }

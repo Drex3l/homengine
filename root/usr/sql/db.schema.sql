@@ -653,16 +653,46 @@ DELIMITER ;;
 CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `getPriceProperties`(IN minimum DOUBLE(16,2),IN maximum DOUBLE(16,2))
 BEGIN
 	IF minimum != 0 THEN
-		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.*,AMOUNT RENT from `shortlist` pl, rental WHERE PROPERTY_ID = ID && MONTHS = 1 AND AMOUNT >= minimum;
-		DROP TABLE IF EXISTS `shortlist`;
-		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT ID,SETTING,TARGET,`PROPERTY TYPE`,`ADDRESS LINE 1`,SUBURB,LISTING FROM `templist`;
+		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, rental WHERE PROPERTY_ID = ID && MONTHS = 1 AND AMOUNT >= minimum;
+		
+		DROP TABLE IF EXISTS `shortlist`;				
+		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
 		DROP TABLE IF EXISTS `templist`;
 	END IF;
 	
 	IF maximum != 0 THEN
-		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.*,AMOUNT RENT from `shortlist` pl, rental WHERE PROPERTY_ID = ID && MONTHS = 1 AND AMOUNT <= maximum;
-		DROP TABLE IF EXISTS `shortlist`;
-		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT ID,SETTING,TARGET,`PROPERTY TYPE`,`ADDRESS LINE 1`,SUBURB,LISTING FROM `templist`;
+		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, rental WHERE PROPERTY_ID = ID && MONTHS = 1 AND AMOUNT <= maximum;
+		
+		DROP TABLE IF EXISTS `shortlist`;				
+		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+		DROP TABLE IF EXISTS `templist`;
+	END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getRoomGendList` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `getRoomGendList`(
+IN pType  TEXT,
+IN gender VARCHAR(1)
+)
+BEGIN
+	IF pType = 'bedroom' && gender <> '' THEN
+		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT Pl.* from `shortlist` Pl,bedroom B WHERE ID = PROPERTY_ID AND B.GENDER_REQ = gender;
+		
+		DROP TABLE IF EXISTS `shortlist`;				
+		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
 		DROP TABLE IF EXISTS `templist`;
 	END IF;
 END ;;
@@ -783,6 +813,54 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_getRoomBuildings` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_getRoomBuildings`(IN pType  TEXT,IN beds TINYINT(3),IN baths TINYINT(3),IN type VARCHAR(10))
+BEGIN
+
+	IF pType = 'building' THEN
+
+		IF beds >= 0 THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND BEDROOMS = beds;							
+			
+			DROP TABLE IF EXISTS `shortlist`;
+			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+			DROP TABLE IF EXISTS `templist`;
+		END IF;
+		
+
+		IF baths > 0 THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND BATHROOMS = baths;						
+			
+			DROP TABLE IF EXISTS `shortlist`;
+			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+			DROP TABLE IF EXISTS `templist`;
+		END IF;
+		
+
+		IF type != '' THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT Pl.* FROM `shortlist` Pl, building B WHERE ID = PROPERTY_ID &&`PROPERTY TYPE` = 'building' AND BUILDING_TYPE = type;						
+			
+			DROP TABLE IF EXISTS `shortlist`;
+			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+			DROP TABLE IF EXISTS `templist`;
+		END IF;
+	END IF;
+	
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_getRoomProperties` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -825,6 +903,143 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_getRoomTypeList` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_getRoomTypeList`(
+IN pType  TEXT,
+IN bType VARCHAR(10)
+)
+BEGIN
+	IF pType = 'bedroom' && bType <> '' THEN
+		CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT Pl.* from `shortlist` Pl,bedroom B,bedroom_type Bt WHERE ID = PROPERTY_ID && Bt.BEDROOM_TYPE = B.BEDROOM_TYPE AND B.BEDROOM_TYPE = bType;
+		
+		DROP TABLE IF EXISTS `shortlist`;				
+		CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+		DROP TABLE IF EXISTS `templist`;
+	END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_updateBedroom` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_updateBedroom`(
+	IN gend enum('F','M'),
+	IN bType VARCHAR(10),
+	IN story SMALLINT(6) UNSIGNED,
+	IN x DOUBLE(16,2),
+	IN y DOUBLE(16,2),
+	IN id BIGINT(20) UNSIGNED
+)
+BEGIN
+	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION,1265
+	BEGIN 
+		GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+		ROLLBACK;
+        	SELECT CONCAT('C',LPAD(CHECKPOINT,2,'0'))  AS 'POINT',@p1 AS CODE, @p2 AS DESCRIPTION;
+	END;
+	START TRANSACTION;
+	
+
+	UPDATE bedroom SET GENDER_REQ = gend, FLOOR = story, BRENGTH = x, LENGTH = y, BEDROOM_TYPE = bType  WHERE  PROPERTY_ID = id;
+ 	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_updateBuilding` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_updateBuilding`(
+	IN floors SMALLINT(5) UNSIGNED,
+	IN bType VARCHAR(10),
+	IN beds TINYINT(3) UNSIGNED,
+	IN baths TINYINT(3) UNSIGNED,
+	IN id BIGINT(20) UNSIGNED
+)
+BEGIN
+	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION,1265
+	BEGIN 
+		GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+		ROLLBACK;
+        	SELECT CONCAT('C',LPAD(CHECKPOINT,2,'0'))  AS 'POINT',@p1 AS CODE, @p2 AS DESCRIPTION;
+	END;
+	START TRANSACTION;
+
+	UPDATE building SET STORIES = floors, BUILDING_TYPE = bType, BEDROOMS = beds, BATHROOMS = baths WHERE PROPERTY_ID = id;
+ 	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_updateProperty` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_updateProperty`(
+	IN addr1 VARCHAR(45), 
+	IN addr2 VARCHAR(45), 
+	IN suburban BIGINT UNSIGNED,
+	IN accom enum('Student','Worker','Nursing','Other','Any'),
+	IN img BIGINT(20) UNSIGNED,
+	IN propertyDesc TEXT,
+	IN id BIGINT(20) UNSIGNED
+)
+BEGIN
+	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION,1265
+	BEGIN 
+		GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+		ROLLBACK;
+        	SELECT CONCAT('C',LPAD(CHECKPOINT,2,'0'))  AS 'POINT',@p1 AS CODE, @p2 AS DESCRIPTION;
+	END;
+	START TRANSACTION;
+
+	UPDATE property SET ADDRESS_LINE1 = trim(addr1), ADDRESS_LINE2 = trim(addr2), SUBURB_ID = suburban, IMG_ID = img, TARGET = accom, DESCRIPTION = trim(propertyDesc) WHERE  PROPERTY_ID = id;
+ 	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `uspFind` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -835,7 +1050,21 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `uspFind`(IN del CHAR(1),IN accomType TEXT,IN propertyType  TEXT,IN SUBURBAN BIGINT unsigned,IN rooms TEXT,IN items TEXT,IN minp DOUBLE(16,2),IN maxp DOUBLE(16,2))
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `uspFind`(
+IN del CHAR(1),
+IN accomType TEXT,
+IN propertyType  TEXT,
+IN SUBURBAN BIGINT unsigned,
+IN rooms TEXT,
+IN items TEXT,
+IN minp DOUBLE(16,2),
+IN maxp DOUBLE(16,2),
+IN bedType TEXT,
+IN gender VARCHAR(1),
+IN beds TINYINT(3),
+IN baths TINYINT(3),
+IN buildType VARCHAR(10)
+)
 BEGIN
 
 	DECLARE CONTINUE HANDLER FOR 1146
@@ -843,21 +1072,23 @@ BEGIN
 	
 	SET @itemList = items;							
 	SET @roomList = rooms;							
-	SET @delimiter = del;
+	SET @delimiter = del;							
 	
+	DROP TABLE IF EXISTS `shortlist`;
 	CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM property_list;
 	
 	CALL sp_getFeatureProperties(@delimiter, @itemList);			
 	CALL sp_getRoomProperties(@delimiter, @roomList);			
 	CALL getPriceProperties(minp,maxp);					
+	CALL sp_getRoomTypeList(TRIM(propertyType),TRIM(bedType));		
+	CALL getRoomGendList(TRIM(propertyType),TRIM(gender));			
+	CALL sp_getRoomBuildings(TRIM(propertyType),beds,baths,TRIM(buildType));
 	
 	IF SUBURBAN = 0 THEN
 		SELECT * FROM shortlist  WHERE `TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
 	ELSE
 		SELECT PL.* FROM shortlist PL,  property WHERE PL.`TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE` LIKE CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
-	end if;
-	
-	DROP TABLE IF EXISTS `shortlist`;
+	END IF;
 	
 END ;;
 DELIMITER ;
@@ -899,4 +1130,4 @@ USE `HE`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-27 12:07:35
+-- Dump completed on 2018-01-28 14:52:18
