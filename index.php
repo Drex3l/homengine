@@ -14,7 +14,15 @@ if ($action == NULL) {
 switch ($action) {
     case 'home':
         $title = "Welcome Home";
-        $error_message = $searchString = null;
+        $error_message = null;
+        $records = 20;  //------------------------------------------------------Limit of records returned by search result list
+        $page = intval(filter_input(INPUT_POST, 'page', FILTER_SANITIZE_STRING));//Current page number in result list
+        if ($page == NULL) {
+            $page = intval(filter_input(INPUT_GET, 'pages'));
+            if ($page == NULL) {
+                $page = 1;
+            }
+        }
         $del = ','; //----------------------------------------------------------Selected Feature/Room delimiter
         $accom = SearchDB::getAccommodation();
         $rooms = SearchDB::getRoomTypes();
@@ -25,7 +33,7 @@ switch ($action) {
         $furniture = SearchDB::getFeatures('FURNITURE');
         $conveniences = SearchDB::getFeatures('CONVENIENCE');
         $sundry = SearchDB::getFeatures('SUNDRY');
-        $suburbs = SearchDB::getSuburb();
+        $suburbs = Suburb::getRecords();
         require_once dirname(__FILE__, 1) . ('/root/view/welcome/home.php');
         break;
     default :

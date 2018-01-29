@@ -27,3 +27,22 @@ function debugResult(text) {
         }, 3000);
     }
 }
+function toggleFeature(x)
+{
+//    f[k-1] *= -1;
+//    x.classList.toggle("view");
+//    x.style.display = "block";
+    
+    if(window.innerWidth <= 515)
+    {
+        if(x.style.display === "block")
+        {
+            x.style.display = "none"
+        }
+        else
+        {
+            x.style.display = "block"
+        }
+//        window.alert(x.id);
+    }
+}

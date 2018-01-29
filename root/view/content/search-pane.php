@@ -7,15 +7,15 @@
     <!-- The following container "engine-values" houses hidden elements storing values of the search engine pane selected by user, to be used by AJAX -->
     <span style="display: none" id="engine-values">
         <input type="hidden" id="search_values"/>   //--------------------------JSON string that consolidates all values
-        <input type="hidden" id="accom"/>   //----------------------------------ACCOMMODATION TYPE radion button
+        <input type="hidden" id="accom" value="Any"/>   //----------------------ACCOMMODATION TYPE radion button
         <input type="hidden" id="rooms"/>   //----------------------------------ROOMS checkboxes
-        <input type="hidden" id="ptype"/>   //----------------------------------PROPERTY TYPE radio button
+        <input type="hidden" id="ptype" value="Any"/>   //----------------------PROPERTY TYPE radio button
         <input type="hidden" id="minP"/>    //----------------------------------MINIMUM PRICE RANGE text box
         <input type="hidden" id="maxP"/>    //----------------------------------MAXIMUM PRICE RANGE text box
         <input type="hidden" id="bed" value=-1 />   //--------------------------BED ROOMS quantity text box
         <input type="hidden" id="bath" value=-1/>   //--------------------------BATH ROOMS quantity text box
         <input type="hidden" id="bedroom" value="Any"/>   //--------------------BEDROOM type radio button
-        <input type="hidden" id="roomgender" value="Any"/> //------------------BEDROOM GENDER RISTRICTION radio button
+        <input type="hidden" id="roomgender" value="Any"/> //-------------------BEDROOM GENDER RISTRICTION radio button
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
     <div id="searchengine" class="feature">
@@ -24,14 +24,14 @@
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
             </select>
-            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values,'<?=$del;?>')"/></div>
+            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values,'<?=$del;?>',<?= $page;?>,<?= $records;?>)"/></div>
         <div class="sexion">
             <span id="accommodation" class="attribute">
                 <h3 onclick="toggleFeature(subAccom)">ACCOMMODATING</h3>
                 <div class="sub-attribute" id="subAccom"><hr/>
                     <span class="spacer">
                         <?php foreach ($accom as $value) { ?>
-                            <label class="radio-align"><input type="radio" name="accom" value="<?= $value; ?>" required class="rbn" onchange="getValue(this)"/><?= $value; ?></label>
+                        <label class="radio-align"><input type="radio" name="accom" value="<?= $value; ?>" required class="rbn" onchange="getValue(this)" <?php if($value === "Any"){ echo 'checked';} ?>/><?= $value; ?></label>
                         <?php } ?>
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                         <?php foreach ($PropTypes as $value) { ?>
                         <label class="radio-align"><input type="radio" name="ptype" value="<?= $value['PROP_TYPE_ID']; ?>" required class="rbn" onchange="property(this)"/><?= $value['DESCRIPTION']; ?></label>
                         <?php } ?>
-                        <label class="radio-align"><input type="radio" required name="ptype" value="Any" class="rbn" onchange="property(this)"/>Any</label>
+                        <label class="radio-align"><input type="radio" required name="ptype" value="Any" class="rbn" checked onchange="property(this)"/>Any</label>
                     </span>
                 </div>
             </span>

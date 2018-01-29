@@ -59,3 +59,11 @@ function consolidate() {
     var json = JSON.stringify(obj);
     document.getElementById('search_values').value = json;
 }
+function resultTemplate(){
+    var HU = document.getElementsByClassName('HU');
+    var BU = document.getElementsByClassName('BU');
+    
+    for(k=0;k<HU.length;k++) HU[k].style.display = "none";
+    for(k=0;k<BU.length;k++) BU[k].style.display = "none";
+    window.alert(BU.length+" : "+HU.length);
+}
