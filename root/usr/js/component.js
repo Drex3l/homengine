@@ -46,3 +46,7 @@ function toggleFeature(x)
 //        window.alert(x.id);
     }
 }
+function popupTogle(control)
+{
+    control.classList.toggle('open');
+}
