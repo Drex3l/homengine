@@ -36,6 +36,10 @@ function getValues(name,del){
     var id = name.substr(0,name.length-2);
     document.getElementById(id).value = string;
 }
+function prepareStrings(del){
+    getValues("feat[]",del);
+    getValues("rooms[]",del);
+}
 function minZero(item) {
     document.getElementById(item.name).value = -1;
     if (item.value.length > 0) getValue(item);
@@ -58,8 +62,14 @@ function consolidate() {
     var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"ptype":ptype,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"btype":btype,"bedroom":bedroom,"roomgender":roomgender,"feat":feat};
     var json = JSON.stringify(obj);
     document.getElementById('search_values').value = json;
+    return json;
 }
 function pageNav(del,page,records){
-    var criteria = document.getElementById("search_values");
-   search(criteria,del,page,records);
+   search(del,page,records);
+}
+function rmFeature(feature,del,page,records){
+    var string = document.getElementById('feat').value;
+    var newstring = string.replace(feature+",","");
+    document.getElementById('feat').value = newstring;
+    search(del,page,records);
 }

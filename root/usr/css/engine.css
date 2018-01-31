@@ -20,10 +20,21 @@ input.txt:focus{border-bottom-color: #008c8c;outline: 0 }
 div.subset{display: none}
 .bedroom-spec{width: 48%}
 #HUnit select{width: 100%;margin-top: 5px}
-
+/*<editor-fold desc="Engine Results" defaultstate="collapsed" >*/
 #search-results{line-height: 22px;}
 #search-results table {width: 100%;color: #484329;}
 
-#results-pane div.side-lines{position: absolute;top: 0;height: 100%;background-color: rgba(173,172,153,.6);width: 192px;}
+#results-pane div.side-lines{position: absolute;top: 0;height: 100%;background-color: rgba(173,172,153,.6);width: 192px;transition: 2s;overflow-y: auto}
 #sl-L{left: 0}
 #sl-R{right: 0}
+#feature-select{background-color: rgba(255,255,255,.7);padding: 0}
+#feature-select div.h1{text-align: center;padding: 5px}
+#feature-select div.section{padding: 0 5px 10px 5px;border: 1px dotted #484329;margin-top: 5px}
+#feature-select h1{font-size: 16px;font-weight: 100;text-transform: uppercase}
+#feature-select h2{background-color: #fff;font-size: 14px;font-weight: 700}
+#feature-select table{border: 1px;width: 100%}
+#feature-select table td.rm{text-align: right;color: #f00;border-bottom: 0 solid transparent}
+#feature-select table td.rm button{background-color: transparent}
+#feature-select table td.rm button:hover{color: #cc7810}
+#feature-select table td{;border-bottom: 1px dotted #c4bc96}
+/*</editor-fold>*/

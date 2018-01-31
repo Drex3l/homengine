@@ -14,6 +14,8 @@ if ($action == NULL) {
 switch ($action) {
     case 'home':
         $title = "Welcome Home";
+        $find_home = "#search-pane";
+        $HE_AC = "#account-pane";
         $error_message = null;
         $records = 20;  //------------------------------------------------------Limit of records returned by search result list
         $page = intval(filter_input(INPUT_POST, 'page', FILTER_SANITIZE_STRING));//Current page number in result list
@@ -35,6 +37,13 @@ switch ($action) {
         $sundry = SearchDB::getFeatures('SUNDRY');
         $suburbs = Suburb::getRecords();
         require_once dirname(__FILE__, 1) . ('/root/view/welcome/home.php');
+        break;
+    case 'view':
+        $title = "Property Info";
+        $find_home = PATH."#search-pane";
+        $HE_AC = PATH."#account-pane";
+        
+        require_once dirname(__FILE__, 1) . ('/root/view/content/property_view.php');
         break;
     default :
         $title = "Error";

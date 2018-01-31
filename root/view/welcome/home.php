@@ -18,7 +18,10 @@
     <div id="search-results" class="feature">
         
     </div>
-    <div class="side-lines" id="sl-L"></div>
+    <div class="side-lines" id="sl-L">
+        <div id="feature-select">
+        </div>
+    </div>
     <div class="side-lines" id="sl-R"></div>
 </section>
 <?php 

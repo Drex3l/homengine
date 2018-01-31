@@ -39,3 +39,53 @@ abstract class Suburb{
         return dbHandler::DQL('SELECT SUBURB_NAME FROM suburb WHERE SUBURB_ID = :id', array(':id'=>$id))['SUBURB_NAME'];
     }
 }
+abstract class Feature{
+    public static function getSelection($string){
+        $string = substr($string,0,strlen($string)-1);
+        $accessory = self::getAcceSelect($string);
+        $furniture = self::getFurnSelect($string);
+        $convinience = self::getConSelect($string);
+        $sundry = self::getSunSelect($string);
+        return array('accessory'=>$accessory,'furniture'=>$furniture,'convinience'=>$convinience,'sundry'=>$sundry);
+    }
+    public static function getName($id){
+        return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM feature WHERE ITEM_CODE = :id', array(':id'=>$id));
+    }
+
+    private static function getAcceSelect($string)
+    {
+        $item = explode(',',$string);
+        $string = "";
+        foreach ($item as $value){
+            if($value[1] === "A"){  $string .= "$value,";   }
+        }
+        return substr($string,0,strlen($string)-1);
+    }
+    private static function getFurnSelect($string)
+    {
+        $item = explode(',',$string);
+        $string = "";
+        foreach ($item as $value){
+            if($value[1] === "F"){  $string .= "$value,";   }
+        }
+        return substr($string,0,strlen($string)-1);
+    }
+    private static function getConSelect($string)
+    {
+        $item = explode(',',$string);
+        $string = "";
+        foreach ($item as $value){
+            if($value[1] === "C"){  $string .= "$value,";   }
+        }
+        return substr($string,0,strlen($string)-1);
+    }
+    private static function getSunSelect($string)
+    {
+        $item = explode(',',$string);
+        $string = "";
+        foreach ($item as $value){
+            if($value[1] === "S"){  $string .= "$value,";   }
+        }
+        return substr($string,0,strlen($string)-1);
+    }
+}

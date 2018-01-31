@@ -29,10 +29,6 @@ function debugResult(text) {
 }
 function toggleFeature(x)
 {
-//    f[k-1] *= -1;
-//    x.classList.toggle("view");
-//    x.style.display = "block";
-    
     if(window.innerWidth <= 515)
     {
         if(x.style.display === "block")
@@ -43,7 +39,6 @@ function toggleFeature(x)
         {
             x.style.display = "block"
         }
-//        window.alert(x.id);
     }
 }
 function popupTogle(control)

@@ -24,7 +24,7 @@
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
             </select>
-            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search(search_values,'<?=$del;?>',<?= $page;?>,<?= $records;?>)"/></div>
+            <input id="btnSearch" value="Find" class="btnMing"type="submit" onclick="search('<?=$del;?>',<?= $page;?>,<?= $records;?>)" onmouseover="prepareStrings('<?=$del;?>')"/></div>
         <div class="sexion">
             <span id="accommodation" class="attribute">
                 <h3 onclick="toggleFeature(subAccom)">ACCOMMODATING</h3>
