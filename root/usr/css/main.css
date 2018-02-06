@@ -5,19 +5,12 @@ body{background:#fff;color:#484329;font-family:Arial,'Alegreya','sans-serif';mar
 .pull-right{float: right}
 .pull-left{float: left}
 .small,.no-display{display: none}
-.big{display: inline-block}
+.big{display:compact}
 section.page-wrap{border: 0 dotted #000;height: 100%;overflow-y: auto}
-img{max-width:100%;height:auto;width:auto}
+section.main img{max-width:100%;height:auto;width:auto}
 img.logo{opacity: 0.6;transition: 1s;}
 img.logo:hover{opacity:1.0}
 p.bounceUp, p.bounceUp svg{color: #484329}
-
-
-/*h2{color:#F5F5F5;font-size: 250%;text-align:center;padding-top:2%;font-weight:700}
-h3{color:#F5F5F5;font-size: 175%;line-height:155%;padding:5% 0;font-weight:400}
-p{color:#c4bc96;font-size:100%;line-height:150%;padding:3%;text-indent:2%;text-align:justify;font-family:'Alegreya','sans-serif'}*/
-
-
 
 /* Header*/
 header{box-shadow: 0 10px 10px 5px #dedcce;background-color: #fff;border-bottom: 3px solid #cecece;transition: 1s}
@@ -31,11 +24,9 @@ header:hover{border-bottom: 0 solid #5a523a}
 /*--- Start Navigation --*/
 nav{float:right;height: 100%}
 #mkey1{display:none;}
-ul{list-style-type:none/*;height: 100%*/}
-nav ul li{display:inline-block;float:left/*;height: 100%*/}
+ul{list-style-type:none}
+nav ul li{display:inline-block;float:left}
 header nav ul li a,header nav a,header a.pull-left{color:#484329;text-decoration:none;font-size:16px;padding: 18px 16px}
-/*#header-inner:hover nav ul li a:hover, .current{background-color: #5a523a}*/
-
 
 
 /*--- End Navigation --*/

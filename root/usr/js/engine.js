@@ -29,6 +29,9 @@ function getValue(item){
     document.getElementById(item.name).value = item.value;  //------------------Take value from control and assign to its respective hidden field for AJAX
 }
 function getValues(name,del){
+    /**
+     * This function performs an identical job to [getValue], it works with checkbox values, where the latter deals with radio buttons"
+     */
     var item = document.getElementsByName(name);
     var string = "";
     for(k=0;k<item.length;k++) if(item[k].checked) string += item[k].value +del;
@@ -37,13 +40,15 @@ function getValues(name,del){
     document.getElementById(id).value = string;
 }
 function prepareStrings(del){
+    /**
+     * Function synchronizes search vaules to actually selected checkboxes
+     */
     getValues("feat[]",del);
     getValues("rooms[]",del);
 }
 function minZero(item) {
     document.getElementById(item.name).value = -1;
     if (item.value.length > 0) getValue(item);
-
 }
 function consolidate() {
     var suburb = document.getElementById('cmbSuburb').value;
@@ -71,5 +76,11 @@ function rmFeature(feature,del,page,records){
     var string = document.getElementById('feat').value;
     var newstring = string.replace(feature+",","");
     document.getElementById('feat').value = newstring;
+    search(del,page,records);
+}
+function rmRoom(room,del,page,records){
+    var string = document.getElementById('rooms').value;
+    var newstring = string.replace(room+",","");
+    document.getElementById('rooms').value = newstring;
     search(del,page,records);
 }

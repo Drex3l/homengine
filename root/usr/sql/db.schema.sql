@@ -274,10 +274,12 @@ CREATE TABLE `property_img` (
   `DESCRIPTION` text,
   `PICTURE` char(17) NOT NULL,
   `TITLE` varchar(20) DEFAULT NULL,
+  `PREVIEW` enum('A','B','C') DEFAULT NULL,
   PRIMARY KEY (`PICTURE_ID`),
+  UNIQUE KEY `PROPERTY_ID_2` (`PROPERTY_ID`,`PREVIEW`),
   KEY `PROPERTY_ID` (`PROPERTY_ID`),
   CONSTRAINT `property_img_ibfk_1` FOREIGN KEY (`PROPERTY_ID`) REFERENCES `property` (`PROPERTY_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -620,6 +622,37 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `sf_engine_page_count` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` FUNCTION `sf_engine_page_count`(block TINYINT UNSIGNED) RETURNS smallint(5) unsigned
+BEGIN
+
+
+ 
+ DECLARE pages SMALLINT UNSIGNED;
+ DECLARE list BIGINT UNSIGNED;
+    SELECT COUNT(*) FROM RECORDS INTO list;
+    
+    SELECT (list / block) INTO pages;
+    
+    IF list = 0 THEN RETURN 0;	END IF;
+    IF pages = 0 THEN RETURN 1;	END IF;
+    IF list > block && list % block > 0 THEN	SET pages = pages + 1; END IF;
+    RETURN pages;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `SPLIT_STR` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -729,6 +762,47 @@ BEGIN
 	INSERT INTO feature(NAME,CATEGORY) VALUES(title,type);			SET CHECKPOINT = 1;
 	
 	IF featureDesc <> '' THEN	UPDATE feature SET DESCRIPTION = featureDesc	WHERE NAME = title;	END IF;
+	
+ 	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_addImage` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_addImage`(IN id BIGINT UNSIGNED, IN IMG CHAR(17),IN imgTitle VARCHAR(20),IN imgDesc TEXT)
+BEGIN
+	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
+	DECLARE dp BIGINT UNSIGNED;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION,1265
+	BEGIN 
+		GET DIAGNOSTICS CONDITION 1 @p1 = RETURNED_SQLSTATE, @p2 = MESSAGE_TEXT;
+		ROLLBACK;
+        	SELECT CONCAT('C',LPAD(CHECKPOINT,2,'0'))  AS 'POINT',@p1 AS CODE, @p2 AS DESCRIPTION;
+	END;
+	START TRANSACTION;
+	
+	SET IMG = REPLACE(IMG,' ','');
+	SET imgTitle = trim(imgTitle);
+	SET imgDesc = trim(imgDesc);
+	
+	IF IMG = '' THEN	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'image name not found';	END IF;										SET CHECKPOINT = 1;
+		INSERT INTO property_img(PROPERTY_ID,PICTURE,TITLE,DESCRIPTION) VALUES(id,IMG,imgTitle,imgDesc);
+		IF imgTitle = '' THEN	UPDATE property_img SET TITLE = \N  WHERE PICTURE_ID = LAST_INSERT_ID(); END IF; 	SET CHECKPOINT = 2;
+		IF imgDesc = '' THEN	UPDATE property_img SET DESCRIPTION = \N WHERE PICTURE_ID = LAST_INSERT_ID();	END IF; 	SET CHECKPOINT = 3;
+		
+		SELECT IMG_ID FROM property WHERE PROPERTY_ID = id INTO dp;	SET CHECKPOINT = 4;
+		IF dp IS \N THEN UPDATE property SET IMG_ID = LAST_INSERT_ID() WHERE PROPERTY_ID = id;	END IF;
 	
  	COMMIT;
 END ;;
@@ -1051,7 +1125,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `uspFind`(
-IN del CHAR(1),
+IN n MEDIUMINT UNSIGNED, IN block TINYINT UNSIGNED,IN del CHAR(1),
 IN accomType TEXT,
 IN propertyType  TEXT,
 IN SUBURBAN BIGINT unsigned,
@@ -1067,6 +1141,10 @@ IN buildType VARCHAR(10)
 )
 BEGIN
 
+
+
+
+	DECLARE k BIGINT UNSIGNED DEFAULT (n * block);
 	DECLARE CONTINUE HANDLER FOR 1146
 	BEGIN END;
 	
@@ -1085,9 +1163,11 @@ BEGIN
 	CALL sp_getRoomBuildings(TRIM(propertyType),beds,baths,TRIM(buildType));
 	
 	IF SUBURBAN = 0 THEN
-		SELECT * FROM shortlist  WHERE `TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
+		CREATE TABLE RECORDS SELECT * FROM shortlist  WHERE `TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
+		SELECT * FROM shortlist  WHERE `TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%')  LIMIT block OFFSET k;
 	ELSE
-		SELECT PL.* FROM shortlist PL,  property WHERE PL.`TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE` LIKE CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
+		CREATE TABLE RECORDS SELECT PL.* FROM shortlist PL,  property WHERE PL.`TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE` LIKE CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN;
+		SELECT PL.* FROM shortlist PL,  property WHERE PL.`TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE` LIKE CONCAT('%',propertyType,'%')  and PROPERTY_ID = ID and SUBURB_ID = SUBURBAN LIMIT block OFFSET k;
 	END IF;
 	
 END ;;
@@ -1130,4 +1210,4 @@ USE `HE`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-28 14:52:18
+-- Dump completed on 2018-02-06 19:33:41

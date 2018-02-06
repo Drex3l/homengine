@@ -26,15 +26,15 @@ switch ($action) {
             }
         }
         $del = ','; //----------------------------------------------------------Selected Feature/Room delimiter
-        $accom = SearchDB::getAccommodation();
-        $rooms = SearchDB::getRoomTypes();
-        $PropTypes = SearchDB::getPropertyTypes();
-        $BedRTypes = SearchDB::getBedroomTypes();
-        $BuildTypes = SearchDB::getBuildingTypes();
-        $accessories = SearchDB::getFeatures('ACCESSORY');
-        $furniture = SearchDB::getFeatures('FURNITURE');
-        $conveniences = SearchDB::getFeatures('CONVENIENCE');
-        $sundry = SearchDB::getFeatures('SUNDRY');
+        $accom = Engine::getAccommodation();
+        $rooms = Engine::getRoomTypes();
+        $PropTypes = Engine::getPropertyTypes();
+        $BedRTypes = Engine::getBedroomTypes();
+        $BuildTypes = Engine::getBuildingTypes();
+        $accessories = Engine::getFeatures('ACCESSORY');
+        $furniture = Engine::getFeatures('FURNITURE');
+        $conveniences = Engine::getFeatures('CONVENIENCE');
+        $sundry = Engine::getFeatures('SUNDRY');
         $suburbs = Suburb::getRecords();
         require_once dirname(__FILE__, 1) . ('/root/view/welcome/home.php');
         break;
@@ -42,7 +42,7 @@ switch ($action) {
         $title = "Property Info";
         $find_home = PATH."#search-pane";
         $HE_AC = PATH."#account-pane";
-        
+        $property_id = $_POST['smbBtn'];
         require_once dirname(__FILE__, 1) . ('/root/view/content/property_view.php');
         break;
     default :

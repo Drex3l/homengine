@@ -111,6 +111,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_img` WRITE;
 /*!40000 ALTER TABLE `property_img` DISABLE KEYS */;
+INSERT INTO `property_img` VALUES (1,2,'Open view','239338.jpg','Lounge','A'),(2,2,NULL,'904191.jpg','Outdoor','B'),(6,3,NULL,'728040.jpg','House View','A'),(7,3,NULL,'337083.jpg','Bedroom','B'),(8,4,NULL,'539297.jpg','Chillplace','A'),(9,99,NULL,'948824.jpg','Dinning Room','A'),(10,100,NULL,'640264.jpg','Lounge','A'),(11,101,NULL,'156108.jpg','Bedroom','A'),(12,103,NULL,'674254.jpg','Swimming Pool','A'),(13,102,'Open View','272285.jpg','Bedroom','A'),(14,5,'With garden','655311.jpg','Swimming Pool','A'),(15,6,'View to the lounge','60894.jpg','Kitchen','A'),(16,7,'On the Roof','211611.jpg','Lounge','A'),(17,9,'On the roof','844646.jpg','Bedroom','A'),(18,16,NULL,'58551.jpg','Laundry','A'),(19,96,NULL,'263318.jpg','Lounge','A'),(20,97,'Entrance/Exit','202300.jpg','Lounge','A'),(21,97,NULL,'276444.jpg','Kitchen','B'),(22,97,'With garden','703489.jpg','Chillplace','C'),(23,96,NULL,'392790.jpg','Outdoor','B'),(24,2,NULL,'784490.jpg','House View','C');
 /*!40000 ALTER TABLE `property_img` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-28 14:52:31
+-- Dump completed on 2018-02-06 19:33:26

@@ -45,3 +45,11 @@ function popupTogle(control)
 {
     control.classList.toggle('open');
 }
+function previewIMG(img,pane){
+var modal = document.getElementById('property-preview-modal');
+modal.style.display = "block";
+document.getElementById("modal-img-title").innerHTML = img.title;
+document.getElementById("modal-img-screen").src = img.src;
+document.getElementById("modal-img-desc").innerHTML = img.alt;
+//    window.alert(pane);
+}

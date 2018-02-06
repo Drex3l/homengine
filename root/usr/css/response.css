@@ -1,3 +1,4 @@
+/*WIDTH*/
 @media screen and (max-width: 768px){
     .big{display: none}
     .small{display: inline-block}
@@ -38,4 +39,8 @@ span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
     div.sub-attribute{display: none}
     div.sexion{background-image: none}
     #row-01 select{width: 50%}
+}
+/*HEIGHT*/
+@media screen and (max-height:680px){
+    div.modal-body {max-height:566px}
 }

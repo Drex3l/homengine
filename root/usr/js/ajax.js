@@ -23,11 +23,11 @@ function search(del,page,records) {
     xmlhttp.send();
     
     document.getElementById('results-pane').style.display = "block";
-    if(obj.feat.length>0) document.getElementById("sl-L").style.left = "0";
-    window.setTimeout(featureSelect(obj.feat,del,page,records), 3000);
+    if(obj.feat.length>0 || obj.rooms.length>0) document.getElementById("sl-L").style.left = "0";
+    window.setTimeout(featureSelect(obj.feat,obj.rooms,del,page,records), 3000);
     $('html, body').animate({scrollTop: $("#results-pane").offset().top}, 1250);
 }
-function featureSelect(selection,del,page,records){
+function featureSelect(features,rooms,del,page,records){
     if (window.XMLHttpRequest)
     {
         xmlhttp = new XMLHttpRequest();
@@ -42,7 +42,6 @@ function featureSelect(selection,del,page,records){
             document.getElementById("feature-select").innerHTML = this.responseText;  // override content
         }
     };
-    xmlhttp.open("GET", "root/view/content/feat_select.php?feat=" + selection+"&page="+page+"&records="+records+"&del="+del, true);
+    xmlhttp.open("GET", "root/view/content/feat_select.php?feat=" + features+"&rooms="+rooms+"&page="+page+"&records="+records+"&del="+del, true);
     xmlhttp.send();
-//    getValues("feat[]",del);
 }

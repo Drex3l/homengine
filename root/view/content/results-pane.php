@@ -65,30 +65,96 @@
         }
 
         $records = 0;
-        $view = SearchDB::Engine(($page-1),$block,',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$btype);
-        $pages = SearchDB::page_count($block);
+        $imgInfo[2] = $img[2] = array();
+        $view = Engine::Find(($page-1),$block,',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$btype);
+        $pages = Engine::page_count($block);
         ?>
             <form action="." method="POST">
+                <input type="hidden" name="action" value="view"/>
                 <table class="fancy">
                     <?php
                     if (!empty($view)) {
                         if (is_array($view[0])) {
                             $records = count($view);
                             foreach ($view as $row) {
+                                $preview = Property::img_preview($row['ID']);
+                                for ($k=0;$k<3;$k++){   
+                                    $img[$k] = "root/usr/img/sys/logo-lite.png"; $imgInfo[$k]['name'] = $imgInfo[$k]['desc'] = "";   }
+                                
+                                if(count($preview[0])>0){
+                                    for ($k = 0; $k < count($preview); $k++) {
+                                        $img[$k] = 'root/usr/img/property/' . Property::getAdmin($row['ID']) . "/" . $preview[$k]['PICTURE'];
+                                        $imgInfo[$k]['name'] = $preview[$k]['TITLE'];
+                                        $imgInfo[$k]['desc'] = $preview[$k]['DESCRIPTION'];
+                                    }
+                                }else{
+                                    if (is_array($preview)) {
+                    $img[0] = 'root/usr/img/property/' . Property::getAdmin($row['ID']) . "/" . $preview['PICTURE'];
+                    $imgInfo[0]['name'] = $preview['TITLE'];
+                    $imgInfo[0]['desc'] = $preview['DESCRIPTION'];
+                }
+            }
                                 ?>
                                 <tr>
-                                    <td><?= $row['ADDRESS LINE 1']; ?></td><td><?= $row['SUBURB']; ?></td><td><?= $row['TARGET']; ?></td><td><?= $row['LISTING']; ?></td>
+                                    <td><button class="submit" name="smbBtn" value="<?= $row['ID']; ?>"></button><?= $row['ADDRESS LINE 1']; ?><span class="hero"><?= $row['SUBURB']; ?></span></td>
+                    
+                                    <td><button title="HE-<?= $row['ID']."P"; ?>" class="submit" name="smbBtn" value="<?= $row['ID']; ?>"></button><span class="coward"><?= $row['SUBURB']; ?></span><span class="hero-lite"><?= $row['SETTING']; ?></span><span class="hero"><?= $row['TARGET']; ?></span></td>
+                    
+                                    <td class="big preview"><button class="submit" name="smbBtn" value="<?= $row['ID']; ?>"><span class="coward">F</span></button><span class="coward"><?= $row['PROPERTY TYPE']; ?></span><span class="property-img">
+                                            <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,0)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
+                                        </span></td>
+                    
+                                    <td class="big preview"><button class="submit" name="smbBtn" value="<?= $row['ID']; ?>"><span class="coward"><?= $row['ID']; ?></span></button><span class="coward"><?= $row['TARGET']; ?></span><span class="property-img">
+                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,1)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
+                                        </span></td>
+                    
+                                    <td style="width: 0" class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="property-img">
+                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,2)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
+                                        </span></td>
                                 </tr>
         <?php }
     } else {
-        $records = 1; ?>
+        $records = 1; 
+        $preview = Property::img_preview($view['ID']);
+        for ($k=0;$k<3;$k++){   $img[$k] = "root/usr/img/sys/logo-lite.png";  $imgInfo[$k]['name'] = $imgInfo[$k]['desc'] = "";  }
+        if(is_array($preview[0])){
+            for($k=0;$k<count($preview[0]);$k++){   
+                $img[$k] = 'root/usr/img/property/'.Property::getAdmin($view['ID'])."/".$preview[$k]['PICTURE'];
+                $imgInfo[$k]['name'] = $preview[$k]['TITLE'];
+                $imgInfo[$k]['desc'] = $preview[$k]['DESCRIPTION'];
+            }
+        }else{
+            if(is_array($preview)){
+                $img[0] = 'root/usr/img/property/'.Property::getAdmin($view['ID'])."/".$preview['PICTURE'];
+                $imgInfo[0]['name'] = $preview['TITLE'];
+                $imgInfo[0]['desc'] = $preview['DESCRIPTION'];
+            }
+        }
+        ?>
                             <tr>
-                                <td><?= $view['ADDRESS LINE 1']; ?></td><td><?= $view['SUBURB']; ?></td><td><?= $view['TARGET']; ?></td><td><?= $view['LISTING']; ?></td>
+                                <td><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><?= $view['ADDRESS LINE 1']; ?><span class="hero"><?= $view['SUBURB']; ?></span></td>
+                    
+                                <td><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="coward"><?= $view['SUBURB']; ?></span><span class="hero-lite"><?= $view['SETTING']; ?></span><span class="hero"><?= $view['TARGET']; ?></span></td>
+                    
+                                <td class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"><span class="coward"></span></button><span class="coward"><?= $view['PROPERTY TYPE']; ?></span><span class="property-img">
+                                        <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,0)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
+                                    </span></td>
+                    
+                                    <td class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"><span class="coward"><?= $view['ID']; ?></span></button><span class="coward"><?= $view['TARGET']; ?></span><span class="property-img">
+                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,1)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
+                                        </span></td>
+                    
+                                    <td style="width: 0" class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="property-img">
+                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,2)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
+                                        </span></td>
                             </tr>
     <?php }
 } ?>
                 </table>
             </form>
+            <?php if(empty($view)){ ?>
+        <span>No Results</span>
+        <?php } ?>
             <span class="HUD"><?= $rooms;?>&nbsp;&nbsp;::&nbsp;&nbsp;<?= $features;?>&nbsp;&nbsp;
                 <div class="pager">
                      <?php
@@ -122,8 +188,6 @@
                                 </div>
                             </li>
                         </ul>
-
-
                         <style>
                         <?php if($page <= 1){
                             echo '.fa-angle-left::before {content: "--";}';
@@ -140,6 +204,19 @@
                     </div>
                 </div>
                 &nbsp;&nbsp;::&nbsp;<?= $records; ?>&nbsp;&nbsp;</span>
+        <div id="property-preview-modal" class="modal" onclick="this.style.display='none'">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-img-title"></h2>
+                </div>
+                <div class="modal-body">
+                    <img id="modal-img-screen"/>
+                </div>
+                <div class="modal-footer clearfix">
+                    <h3 id="modal-img-desc"></h3>
+                </div>
+            </div>
+        </div>
         </div>
     </body>
 </html>

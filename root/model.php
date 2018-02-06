@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__,1).'/epiqworx/db/reuse.php';
-abstract class SearchDB{
+abstract class Engine{
     public static function getAccommodation(){
         return dbAccess::getEnumDropDown('property','TARGET');
     }
@@ -19,8 +19,7 @@ abstract class SearchDB{
     public static function getFeatures($feature) {
         return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM feature WHERE CATEGORY = :feat ORDER BY NAME', array(':feat'=>$feature));
     }
-
-    public static function Engine($n,$block,$del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp,$bedroom,$gend,$beds,$baths,$btypes) {
+    public static function Find($n,$block,$del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp,$bedroom,$gend,$beds,$baths,$btypes) {
         $params = array(':n'=>$n,':block'=>$block,':del'=>$del,':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList,':minp'=>$minp,
             ':maxp'=>$maxp,':bedroom'=>$bedroom,':gend'=>$gend,':beds'=>$beds,':baths'=>$baths,':btypes'=>$btypes);
         return dbHandler::DQL("call uspFind(:n,:block,:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp,:bedroom,:gend,:beds,:baths,:btypes)",$params);
@@ -87,5 +86,18 @@ abstract class Feature{
             if($value[1] === "S"){  $string .= "$value,";   }
         }
         return substr($string,0,strlen($string)-1);
+    }
+}
+abstract class Room{
+    public static function getName($id){
+        return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room WHERE ROOM_ID = :id', array(':id'=>$id));
+    }
+}
+abstract class Property{
+    public static function getAdmin($id){
+        return dbHandler::DQL('SELECT USERNAME FROM property p, user u WHERE u.USER_ID = p.USER_ID && PROPERTY_ID = :id', array(':id'=>$id))['USERNAME'];
+    }
+    public static function img_preview($id){
+        return dbHandler::DQL('SELECT * FROM property_img WHERE PROPERTY_ID = :id && PREVIEW IS NOT \N', array(':id'=>$id));
     }
 }

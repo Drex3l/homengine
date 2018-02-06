@@ -19,7 +19,11 @@
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
     <div id="searchengine" class="feature">
-        <div id="row-01" class="clearfix"><select name="suburb" id="cmbSuburb" title="Don't change for 'Any' Suburb">
+        <div id="row-01" class="clearfix">
+            <select name="city" id="cmbCity" title="More to be added in future">
+                <option>Port Elizabeth</option>
+            </select>
+            <select name="suburb" id="cmbSuburb" title="Don't change for 'Any' Suburb">
                 <?php foreach ($suburbs as $row) { ?>
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
                 <?php } ?>    
