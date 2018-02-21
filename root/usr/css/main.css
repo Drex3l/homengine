@@ -2,8 +2,7 @@
 html, body{height: 100%}
 body{background:#fff;color:#484329;font-family:Arial,'Alegreya','sans-serif';margin:0}
 /* Global*/
-.pull-right{float: right}
-.pull-left{float: left}
+
 .small,.no-display{display: none}
 .big{display:compact}
 section.page-wrap{border: 0 dotted #000;height: 100%;overflow-y: auto}
@@ -11,7 +10,11 @@ section.main img{max-width:100%;height:auto;width:auto}
 img.logo{opacity: 0.6;transition: 1s;}
 img.logo:hover{opacity:1.0}
 p.bounceUp, p.bounceUp svg{color: #484329}
-
+/*<editor-fold desc="Layout" defaultstate="collapsed">*/
+.row{margin-left: -15px;margin-right: -15px;}
+.col-xs-1, .col-xs-3, .col-xs-9, .col-xs-12 {position: relative;min-height: 1px;padding-left: 15px;padding-right: 15px;}
+.col-xs-12 {float: left;width: 100%;}
+/*</editor-fold>*/
 /* Header*/
 header{box-shadow: 0 10px 10px 5px #dedcce;background-color: #fff;border-bottom: 3px solid #cecece;transition: 1s}
 header:hover{border-bottom: 0 solid #5a523a}
@@ -27,32 +30,12 @@ nav{float:right;height: 100%}
 ul{list-style-type:none}
 nav ul li{display:inline-block;float:left}
 header nav ul li a,header nav a,header a.pull-left{color:#484329;text-decoration:none;font-size:16px;padding: 18px 16px}
-
-
 /*--- End Navigation --*/
 /*Banner*/
 .banner{width:100%}
 .banner-inner{max-width:768px;margin:0 auto}
 .banner-inner p{color: #484329;font-size: 12pt;padding: 5px;text-indent: 0}
 
-.one-fourth{width:25%;float:left;text-align:center}
-#html{background-color:#F1AA90}
-#css{background-color:#BEB9AD}
-#seo{background-color:#AADCD2}
-#social{background-color:#A2B2C1}
-.one-fourth i{color:#F0F0F0;font-size:500%;padding:13% 0 4% 0}
-.inner-wrapper,.inner-wrapper-2{float:left;width:100%;background-color:#C3D7DF}
-.inner-wrapper-3{float:left ;width:100%;background-color:#AADCD2}
-article,aside{float:left;margin:0 auto;width:50%;height:auto}
-#tablet{background-color:#C3D7DF}
-#tablet2{background-color:#A2B1C1}
-#mobile{background-color:#BEB9AD}
-#desktop{background-color:#F1AA90}
-.one-third{width:33.3333333%;float:left;text-align:center}
-#google{background-color:#A2B1C1}
-#marketing{background-color:#BEB9AD}
-#customers{background-color:#AADCD2}
-#smiley{background-color:#AADCD2;padding:0 0 1%;clear:both}
 /*account-pane*/
 #account-pane{background-color: #efeddf;}
 #results-pane{background-color: #dedcce;position: relative;overflow-x: hidden;display: none}

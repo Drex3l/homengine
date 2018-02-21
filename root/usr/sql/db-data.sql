@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
 -- Host: localhost    Database: HE
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.17.10.1
+-- Server version	5.7.21-0ubuntu0.17.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -91,7 +91,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `property` WRITE;
 /*!40000 ALTER TABLE `property` DISABLE KEYS */;
-INSERT INTO `property` VALUES (2,'43 Gomery Avenue',NULL,61,'U217T0002',1,NULL,'Student','2018-01-01 00:00:00','Bedroom',NULL),(3,'125 Willern Court','159 Victoria Embankment',43,'U217T0002',1,NULL,'Worker','2017-09-09 00:00:00','Building',NULL),(4,'52 Pink Flats','01 Blackthorn Avenue',69,'U217T0002',1,NULL,'Any','2017-09-07 20:12:57','Bedroom',NULL),(5,'26 Vicent Street',NULL,71,'U217T0001',1,NULL,'Student','2017-09-07 20:35:13','Bedroom',NULL),(6,'18 Vicent Street',NULL,71,'U217T0001',1,NULL,'Any','2017-07-18 00:00:00','Building',NULL),(7,'26 Jacobs PL',NULL,71,'U217T0001',1,NULL,'Student','2017-09-07 20:37:22','Bedroom',NULL),(9,'12 Pink Flats',NULL,3,'U217T0001',1,NULL,'Worker','2000-01-01 00:00:00','Building',NULL),(16,'14 Black Threads','55 Ngubane Drive',17,'U217T0001',1,NULL,'Any','2000-01-01 00:00:00','Bedroom',NULL),(96,'1 Blackthorne Avenue',NULL,228,'U217T0001',1,NULL,'Other','2000-01-01 00:00:00','Bedroom',NULL),(97,'45 Saire Home','89 Sig Street',26,'U217T0001',1,NULL,'Nursing','2017-10-12 10:00:18','Bedroom',NULL),(99,'192 Bigern Road',NULL,152,'U217T0002',1,NULL,'Worker','2017-04-04 00:00:00','Building',NULL),(100,'26 Justin Lane',NULL,4,'U217T0002',1,NULL,'Other','2017-10-12 12:22:42','Bedroom',NULL),(101,'35 Dinaly',NULL,109,'U217T0002',1,NULL,'Nursing','2017-10-12 12:26:36','Bedroom',NULL),(102,'36 Drekens Drive',NULL,112,'U217T0002',1,NULL,'Any','2017-10-12 12:36:02','Bedroom',NULL),(103,'69 Foundry Lane',NULL,5,'U217T0002',1,NULL,'Worker','2017-04-29 00:00:00','Building',NULL);
+INSERT INTO `property` VALUES (2,'43 Gomery Avenue',NULL,61,'U217T0002',1,24,'Student','2018-01-01 00:00:00','Bedroom',NULL),(3,'125 Willern Court','159 Victoria Embankment',43,'U217T0002',1,6,'Worker','2017-09-09 00:00:00','Building',NULL),(4,'52 Pink Flats','01 Blackthorn Avenue',69,'U217T0002',1,8,'Any','2017-09-07 20:12:57','Bedroom',NULL),(5,'26 Vicent Street',NULL,71,'U217T0001',1,14,'Student','2017-09-07 20:35:13','Bedroom',NULL),(6,'18 Vicent Street',NULL,71,'U217T0001',1,15,'Any','2017-07-18 00:00:00','Building',NULL),(7,'26 Jacobs PL',NULL,71,'U217T0001',1,16,'Student','2017-09-07 20:37:22','Bedroom',NULL),(9,'12 Pink Flats',NULL,3,'U217T0001',1,17,'Worker','2000-01-01 00:00:00','Building',NULL),(16,'14 Black Threads','55 Ngubane Drive',17,'U217T0001',1,18,'Any','2000-01-01 00:00:00','Bedroom',NULL),(96,'1 Blackthorne Avenue',NULL,228,'U217T0001',1,23,'Other','2000-01-01 00:00:00','Bedroom',NULL),(97,'45 Saire Home','89 Sig Street',26,'U217T0001',1,22,'Nursing','2017-10-12 10:00:18','Bedroom',NULL),(99,'192 Bigern Road',NULL,152,'U217T0002',1,9,'Worker','2017-04-04 00:00:00','Building',NULL),(100,'26 Justin Lane',NULL,4,'U217T0002',1,10,'Other','2017-10-12 12:22:42','Bedroom',NULL),(101,'35 Dinaly',NULL,109,'U217T0002',1,11,'Nursing','2017-10-12 12:26:36','Bedroom',NULL),(102,'36 Drekens Drive',NULL,112,'U217T0002',1,13,'Any','2017-10-12 12:36:02','Bedroom',NULL),(103,'69 Foundry Lane',NULL,5,'U217T0002',1,12,'Worker','2017-04-29 00:00:00','Building',NULL);
 /*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-06 19:33:26
+-- Dump completed on 2018-02-21  9:57:28

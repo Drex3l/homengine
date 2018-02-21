@@ -21,6 +21,10 @@ article,aside,.one-third {width: 100%}
 #results-pane div.side-lines, #tblSelection{display: none}
 
 span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
+/*<editor-fold desc="Acme" defaultstate="collapsed">*/
+div.container{width: 100%}
+article#main-col, aside#sidebar {float:none;text-align:center;width:100%}
+/*</editor-fold>*/
 }
 @media screen and (max-width: 880px) 
 {
@@ -39,6 +43,11 @@ span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
     div.sub-attribute{display: none}
     div.sexion{background-image: none}
     #row-01 select{width: 50%}
+}
+@media screen and (max-width: 360px) 
+{
+    #row-01 select{width: 100%}
+    #property-view div.view-head h1,#month_rental > div {font-size: 18px;}
 }
 /*HEIGHT*/
 @media screen and (max-height:680px){

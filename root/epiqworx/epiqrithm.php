@@ -59,6 +59,23 @@ abstract class Text {
         }
         return $text;
     }
+    
+    public static function currency($value,$symbol){
+        $value = explode('.',$value);
+        $string = "";
+        $count = 0;
+        for ($k=(strlen($value[0])-1);$k>=0;$k--){
+            if($count==3){
+                $count=0;
+                $string .= " ".$value[0][$k];
+            } else {
+                $count++;
+                $string .= $value[0][$k];
+            }
+        }
+        $string = strrev($string);
+        return "$symbol $string.".$value[1];
+    }
 
     public static function reversePhoneFormat($text) {
         $txt = antiWhiteSpace($text);
@@ -434,6 +451,7 @@ abstract class WebTools {
             // We have no matching number just continue
         }*/
 
+        if(!empty($matches)){
         // See how many we remove
         $i = count($matches['browser']);
 
@@ -448,7 +466,7 @@ abstract class WebTools {
         } else {
             $version = $matches['version'][0];
         }
-
+        }
         // Check if we have a number
         if ($version == null || $version == "") {
             $version = "?";

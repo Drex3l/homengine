@@ -72,3 +72,5 @@ div.bar {width: 70px;height: 10px;background-color: #484329;margin: 6px 0;transi
 /*</editor-fold>*/
 
 .clearfix:after{content: "";display: table; clear:both}
+.pull-right{float: right}
+.pull-left{float: left}

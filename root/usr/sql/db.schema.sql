@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
 -- Host: localhost    Database: HE
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.17.10.1
+-- Server version	5.7.21-0ubuntu0.17.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -348,7 +348,7 @@ CREATE TABLE `rental` (
   `LEASE` smallint(5) unsigned DEFAULT NULL COMMENT 'Lease length in units of one month',
   `PROPERTY_ID` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`RENTAL_ID`),
-  UNIQUE KEY `RENTAL_ID` (`RENTAL_ID`,`MONTHS`),
+  UNIQUE KEY `MONTHS` (`MONTHS`,`PROPERTY_ID`),
   KEY `PROPERTY_ID` (`PROPERTY_ID`),
   CONSTRAINT `rental_ibfk_1` FOREIGN KEY (`PROPERTY_ID`) REFERENCES `property` (`PROPERTY_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
@@ -580,6 +580,36 @@ BEGIN
 		SET count = count + 1;
 	END WHILE;
  	RETURN count;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `sF_assignImage` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`s215013395`@`localhost` FUNCTION `sF_assignImage`(IMG CHAR(17)) RETURNS bigint(20) unsigned
+BEGIN
+	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
+	DECLARE pty_id BIGINT UNSIGNED;
+	DECLARE img_id BIGINT UNSIGNED;
+
+	
+	SET IMG = REPLACE(IMG,' ','');
+	
+	SELECT p.PROPERTY_ID FROM property p, property_img i WHERE i.PROPERTY_ID = p.PROPERTY_ID && i.PICTURE = IMG INTO pty_id;
+	SELECT i.PICTURE_ID FROM property p, property_img i WHERE i.PROPERTY_ID = p.PROPERTY_ID && i.PICTURE = IMG INTO img_id;
+	UPDATE property SET IMG_ID = img_id WHERE PROPERTY_ID = pty_id;
+	
+ 	RETURN pty_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1210,4 +1240,4 @@ USE `HE`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-06 19:33:41
+-- Dump completed on 2018-02-21  9:57:11

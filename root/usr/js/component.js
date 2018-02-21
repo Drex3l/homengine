@@ -8,8 +8,8 @@ function load(){
     for(k=0;k<container.length;k++){
         container[k].style.display = "block";
     }
-    document.getElementById("results-pane").style.display = "none";//-----------No search results can be displayed when page loads
-    
+    var hidden = document.getElementsByClassName("js-no-display");//-----------No search results can be displayed when page loads
+    for(k=0;k<hidden.length;k++) hidden[k].style.display = "none";
 }
 function currentRes(){
     document.getElementById("debugTool").innerHTML = null;

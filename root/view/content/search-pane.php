@@ -62,8 +62,8 @@
             <span id="pricing" class="attribute">
                 <h3 onclick="toggleFeature(subPrice)">PRICE RANGE</h3>
                 <div class="sub-attribute" id="subPrice" ><hr/>
-                    <input type="number" name="maxP" min="100" placeholder="Maximum (Rands)" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
-                    <input type="number" name="minP" min="100" placeholder="Minimum (Rands)" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
+                    <input type="number" name="maxP" min="100" placeholder="Maximum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
+                    <input type="number" name="minP" min="100" placeholder="Minimum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
                     <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)" title="Set to 0 for Bachelors"/></div>
                     <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)"/></div>
                     <div class="subset" id="HUnit">

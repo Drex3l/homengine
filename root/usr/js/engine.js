@@ -84,3 +84,42 @@ function rmRoom(room,del,page,records){
     document.getElementById('rooms').value = newstring;
     search(del,page,records);
 }
+function returnResults(browser)
+{
+    if(browser!=="Mozilla Firefox") window.alert("The following page is intended to return search results.\nIf it doesn't, consider switching to Mozilla Firefox.");
+    history.back();
+}
+function previewImage(selection)
+{
+    var item = selection.id.substr(selection.id.length-1,1);    //--------------currently select item number
+    
+    document.getElementById("img_screen").src = selection.src;
+    document.getElementById("img_screen").alt = selection.alt;
+    document.getElementById("img_screen").title = selection.title;
+    document.getElementById("img_screen").textContent = item;   //--------------store value on markup
+    
+    var li = document.getElementsByClassName("jcarousel-item");
+    for(k=0;k<li.length;k++) li[k].classList = "jcarousel-item";
+    
+    document.getElementById("li-img"+item).classList.toggle('carouselMiniActive');
+}
+function previewImageNavigate(current,key,count){
+    if(current === "") previewImage(document.getElementById("prvimg1"));
+    else
+    {
+        current = parseInt(current);
+        
+        switch (key.id)
+        {
+            case 'img_nav_prev':
+                if(current === 1)   current = count;
+                else    current--;
+                break;
+            case 'img_nav_next':
+                if(current === count)   current = 1;
+                else    current++;
+                break;
+        }
+        previewImage(document.getElementById("prvimg"+current));
+    }
+}

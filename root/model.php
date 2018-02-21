@@ -88,16 +88,44 @@ abstract class Feature{
         return substr($string,0,strlen($string)-1);
     }
 }
-abstract class Room{
-    public static function getName($id){
-        return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room WHERE ROOM_ID = :id', array(':id'=>$id));
-    }
-}
+
 abstract class Property{
+    public static function getData($id,$list=null){
+        $params = array(':id'=>$id);
+        if(empty($list)){            return dbHandler::DQL('SELECT * FROM property WHERE PROPERTY_ID = :id',$params);}
+        return dbHandler::DQL('SELECT * FROM property_list WHERE ID = :id',$params);
+    }
+
     public static function getAdmin($id){
         return dbHandler::DQL('SELECT USERNAME FROM property p, user u WHERE u.USER_ID = p.USER_ID && PROPERTY_ID = :id', array(':id'=>$id))['USERNAME'];
     }
     public static function img_preview($id){
         return dbHandler::DQL('SELECT * FROM property_img WHERE PROPERTY_ID = :id && PREVIEW IS NOT \N', array(':id'=>$id));
+    }
+    public static function getImages($property){
+        return dbHandler::DQL('SELECT * FROM property_img WHERE PROPERTY_ID = :property', array(':property'=>$property));
+    }
+    public static function getImage($id){
+        return dbHandler::DQL('SELECT * FROM property_img WHERE PICTURE_ID = :id', array(':id'=>$id));
+    }
+    public static function getImageCount($id){
+        return dbHandler::DQL('SELECT COUNT(*) FIELD FROM property_img WHERE PROPERTY_ID = :id', array(':id'=>$id))['FIELD'];
+    }
+    public static function getImageFile($imgid){
+        return dbHandler::DQL('SELECT PICTURE FROM property_img WHERE PICTURE_ID = :id', array(':id'=>$imgid))['PICTURE'];
+    }
+}
+abstract class Rental{
+    public static function getRecords($property){
+        return dbHandler::DQL('SELECT * FROM rental WHERE PROPERTY_ID = :property', array(':property'=>$property));
+    }
+    public static function getMonths($property,$period){
+        return dbHandler::DQL('SELECT * FROM rental WHERE PROPERTY_ID = :property && MONTHS = :period', array(':property'=>$property,':period'=>$period));
+    }
+}
+
+abstract class Room{
+    public static function getName($id){
+        return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room WHERE ROOM_ID = :id', array(':id'=>$id));
     }
 }
