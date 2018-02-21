@@ -17,10 +17,12 @@ if ($action == NULL) {
 }
 switch ($action) {
     case 'home':
-        $title = "Welcome Home";
+        $title = "Welcome Home";    //------------------------------------------Page Title
+        //==============================*Page Anchors*==========================
         $find_home = "#search-pane";
         $HE_AC = "#account-pane";
-        $page_wrap = 'page-wrap';
+        //======================================================================
+        $page_wrap = 'page-wrap';   //------------------------------------------100% HEIGHT container
         $error_message = null;
         $records = 20;  //------------------------------------------------------Limit of records returned by search result list
         $page = intval(filter_input(INPUT_POST, 'page', FILTER_SANITIZE_STRING));//Current page number in result list
@@ -31,6 +33,7 @@ switch ($action) {
             }
         }
         $del = ','; //----------------------------------------------------------Selected Feature/Room delimiter
+        //===========================*Search Pane Fields*=======================
         $accom = Engine::getAccommodation();
         $rooms = Engine::getRoomTypes();
         $PropTypes = Engine::getPropertyTypes();
@@ -41,23 +44,35 @@ switch ($action) {
         $conveniences = Engine::getFeatures('CONVENIENCE');
         $sundry = Engine::getFeatures('SUNDRY');
         $suburbs = Suburb::getRecords();
+        //======================================================================
         require_once dirname(__FILE__, 1) . ('/root/view/welcome/home.php');
         break;
     case 'view':
-        $title = "Property Info";
+        $title = "Property Info";   //------------------------------------------Page Title
+        //==============================*Page Anchors*==========================
         $find_home = PATH."#search-pane";
         $HE_AC = PATH."#account-pane";
-        $property_id = $_POST['smbBtn'];
-        $admin = Property::getAdmin($property_id);
-        $property = Property::getData($property_id);
-        $property_list = Property::getData($property_id,'list');
-        $image = Property::getImages($property_id);
-        $image_count = Property::getImageCount($property_id);
-        $rental = Rental::getMonths($property_id,1);
+        //======================================================================
+        $property_id = $_POST['smbBtn'];    //----------------------------------ID of selected Property from result list
+        $admin = Property::getAdmin($property_id);  //--------------------------Admin managing property username
+        $property = Property::getData($property_id);    //----------------------property table record
+        $admin_data = User::getData($property['USER_ID'],'admin');  //----------property admin data
+        $admin_data_super = User::getData($property['USER_ID']);  //------------property admin data
+        $org = $admin_data['ORGANIZATION']; 
+        if(empty($org)){    $org = $admin;  }
+        
+        if(empty($admin_data_super['DISPLAY_IMG'])){$avatar = PATH.'/root/usr/img/sys/logo-lite.png';}
+        else {  $avatar = PATH.'/root/usr/img/avatar/'.$admin_data_super['DISPLAY_IMG'];    }
+        $property_list = Property::getData($property_id,'list');    //----------property View record
+        $image = Property::getImages($property_id); //--------------------------selected property images
+        $image_count = Property::getImageCount($property_id);   //--------------total number of all images of selected property
+        $rental = Rental::getMonths($property_id,1);    //----------------------one month rental details
         $months = 'months';
         if($rental['LEASE'] < 2){ $months = 'month';}
+        //======================*Property Main Display Image*===================
         $main_img = PATH."/root/usr/img/property/$admin/".Property::getImageFile($property['IMG_ID']);
         if(empty($property['IMG_ID'])){$main_img = PATH.'/root/usr/img/sys/logo-lite.png';}
+        //======================================================================
         require_once dirname(__FILE__, 1) . ('/root/view/content/property_view.php');
         break;
     case 'test':

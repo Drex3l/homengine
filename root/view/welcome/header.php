@@ -20,7 +20,7 @@ ini_set("display_errors", 1);
     <meta name="keywords" content="Homengine, Home, Property, Properties, Property Features"/>
     <meta name="author" conent="SWIFT"/>
 </head>
-<body onload="load()" onresize="currentRes()">
+<body onload="load('<?= $action;?>')" onresize="currentRes()">
     <section class="<?= $page_wrap;?> main flash">
         <header>
             <div id="header-inner">

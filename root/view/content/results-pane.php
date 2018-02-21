@@ -101,15 +101,15 @@
                                     <td><button title="HE-<?= $row['ID']."P"; ?>" class="submit" name="smbBtn" value="<?= $row['ID']; ?>"></button><span class="coward"><?= $row['SUBURB']; ?></span><span class="hero-lite"><?= $row['SETTING']; ?></span><span class="hero"><?= $row['TARGET']; ?></span></td>
                     
                                     <td class="big preview"><button class="submit" name="smbBtn" value="<?= $row['ID']; ?>"><span class="coward">F</span></button><span class="coward"><?= $row['PROPERTY TYPE']; ?></span><span class="property-img">
-                                            <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,0)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
+                                            <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
                                         </span></td>
                     
                                     <td class="big preview"><button class="submit" name="smbBtn" value="<?= $row['ID']; ?>"><span class="coward"><?= $row['ID']; ?></span></button><span class="coward"><?= $row['TARGET']; ?></span><span class="property-img">
-                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,1)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
+                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
                                         </span></td>
                     
                                     <td style="width: 0" class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="property-img">
-                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,2)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
+                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
                                         </span></td>
                                 </tr>
         <?php }
@@ -137,15 +137,15 @@
                                 <td><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="coward"><?= $view['SUBURB']; ?></span><span class="hero-lite"><?= $view['SETTING']; ?></span><span class="hero"><?= $view['TARGET']; ?></span></td>
                     
                                 <td class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"><span class="coward"></span></button><span class="coward"><?= $view['PROPERTY TYPE']; ?></span><span class="property-img">
-                                        <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,0)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
+                                        <img height="80" src="<?= $img[0];?>" alt="<?= $imgInfo[0]['desc'];?>" <?php if($img[0] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[0]['name'].'" style="cursor: pointer"';} ?> />
                                     </span></td>
                     
                                     <td class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"><span class="coward"><?= $view['ID']; ?></span></button><span class="coward"><?= $view['TARGET']; ?></span><span class="property-img">
-                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,1)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
+                                            <img height="80" src="<?= $img[1];?>" alt="<?= $imgInfo[1]['desc'];?>" <?php if($img[1] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[1]['name'].'" style="cursor: pointer"';} ?> />
                                         </span></td>
                     
                                     <td style="width: 0" class="big preview"><button class="submit" name="smbBtn" value="<?= $view['ID']; ?>"></button><span class="property-img">
-                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this,2)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
+                                            <img height="80" src="<?= $img[2];?>" alt="<?= $imgInfo[2]['desc'];?>" <?php if($img[2] !== "root/usr/img/sys/logo-lite.png"){ echo 'onclick="previewIMG(this)" title="'.$imgInfo[2]['name'].'" style="cursor: pointer"';} ?> />
                                         </span></td>
                             </tr>
     <?php }

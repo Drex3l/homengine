@@ -94,9 +94,9 @@ function previewImage(selection)
     var item = selection.id.substr(selection.id.length-1,1);    //--------------currently select item number
     
     document.getElementById("img_screen").src = selection.src;
-    document.getElementById("img_screen").alt = selection.alt;
+    document.getElementById("image_info").innerHTML = document.getElementById("img_screen").alt = selection.alt;
     document.getElementById("img_screen").title = selection.title;
-    document.getElementById("img_screen").textContent = item;   //--------------store value on markup
+    document.getElementById("imageCounter").innerHTML = document.getElementById("img_screen").textContent = item;   //--------------store value on markup
     
     var li = document.getElementsByClassName("jcarousel-item");
     for(k=0;k<li.length;k++) li[k].classList = "jcarousel-item";

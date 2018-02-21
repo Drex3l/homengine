@@ -129,3 +129,10 @@ abstract class Room{
         return dbHandler::DQL('SELECT ROOM_TYPE, ROOM_ID FROM room WHERE ROOM_ID = :id', array(':id'=>$id));
     }
 }
+abstract class User{
+    public static function getData($id,$type='user')
+    {
+        return dbHandler::DQL("SELECT * FROM $type WHERE USER_ID = :id", array(':id'=>$id));
+    }
+    
+}

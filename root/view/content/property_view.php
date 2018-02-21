@@ -1,6 +1,7 @@
 <?php require_once dirname(__FILE__, 3) . '/view/welcome/header.php'; ?>
 <section class="honeycomb" id="property-view">
-    <div class="container">
+    <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
+    <div class="container js">
         <div class="row view-head clearfix">
             <div class="col-xs-12">
                 <div class="pull-left pager" id="month_rental">
@@ -29,8 +30,11 @@
         <article id="main-col">
             <div class="col-xs-9">
                 <div id="MainGalleryTab">
+                    <input type="hidden" id="property-profile-image" value="<?=Property::getImageFile($property['IMG_ID']);?>"/>
                     <div id="MainGalleryImageList" class="image-wrapper">
-                        <a href="javascript:;"><img src="<?= $main_img; ?>" id="img_screen" /></a>
+                        <div class="HE_info"><span id="image_info"></span></div>
+                        <div class="HE_count"><span id="imageCounter"></span>/<span><?= $image_count;?></span></div>
+                        <img src="<?= $main_img; ?>" id="img_screen" <?php if(!empty($property['IMG_ID'])){ echo 'onclick="previewIMG(this)"';}?> />
                         <a href="javascript:previewImageNavigate(img_screen.textContent,img_nav_prev,<?= $image_count;?>)" id="img_nav_prev" class="img_nav_key img_prev"><i class="fa fa-4x fa-angle-left"></i></a>
                         <a href="javascript:previewImageNavigate(img_screen.textContent,img_nav_next,<?= $image_count;?>)" id="img_nav_next" class="img_nav_key img_next"><i class="fa fa-4x fa-angle-right"></i></a>
                     </div>
@@ -44,7 +48,7 @@
                                if(is_array($pic))  {   ?>
                             <li class="jcarousel-item" style="float: left;list-style: outside none none;" id="<?= "li-img$count";?>">
                                         <a href="javascript:previewImage(<?= "prvimg$count";?>)">
-                                            <img id="<?= "prvimg$count";?>" src="root/usr/img/property/<?= $admin; ?>/<?= $pic['PICTURE']; ?>" width="93" height="62" alt="<?= $pic['DESCRIPTION']; ?>" title="<?= $pic['TITLE'];?>"/>
+                                            <img id="<?= "prvimg$count";?>" src="root/usr/img/property/<?= $admin; ?>/<?= $pic['PICTURE']; ?>" width="93" height="62" alt="<?= $pic['DESCRIPTION']; ?>" title="<?= $pic['TITLE'];?>" class="select-img"/>
                                         </a>
                                     </li>
                             <?php 
@@ -52,7 +56,7 @@
                                }else{?>
                             <li class="jcarousel-item" style="float: left;list-style: outside none none;" id="<?= "li-img$count";?>">
                                         <a href="javascript:previewImage(<?= "prvimg$count";?>);">
-                                            <img id="<?= "prvimg$count";?>" src="root/usr/img/property/<?= $admin; ?>/<?= $image['PICTURE']; ?>" width="93" height="62" alt="<?= $image['DESCRIPTION']; ?>" title="<?= $image['TITLE']?>"/>
+                                            <img id="<?= "prvimg$count";?>" src="root/usr/img/property/<?= $admin; ?>/<?= $image['PICTURE']; ?>" width="93" height="62" alt="<?= $image['DESCRIPTION']; ?>" title="<?= $image['TITLE']?>" class="select-img"/>
                                         </a>
                                     </li>
                             <?php break;}}?>
@@ -71,6 +75,21 @@
                 </div>
             </div>
         </article>
+        
+        <div id="property-preview-modal" class="modal" onclick="this.style.display='none'">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-img-title"></h2>
+                </div>
+                <div class="modal-body">
+                    <img id="modal-img-screen"/>
+                </div>
+                <div class="modal-footer clearfix">
+                    <h3 id="modal-img-desc"></h3>
+                </div>
+            </div>
+        </div>
+        
         <aside id="sidebar">
             <div class="dark">
                 <h3>Contact Admin</h3>
@@ -82,8 +101,23 @@
                     <button class="submit" type="submit">Send Message</button>
                 </form>
             </div>
-            <div class="">
-                <div><?= $admin;?></div>
+            <div class="dark-less">
+                <a href="" title="view all properties managed by <?= $org;?>">
+                <img src="<?= $avatar;?>"  class="img-responsive" alt="Property by "/>
+                <div class="hyper-title"><?= $org;?></div>
+                </a>
+                <div class="">
+                    <h3>Head Office</h3>
+                    <p><?= $admin_data['ADDRESS_LINE1'];?></p>
+                    <p><?= $admin_data['ADDRESS_LINE2'];?></p>
+                    <p><?= Suburb::getName($admin_data['SUBURB_ID']);?></p>
+                </div>
+                <div class="">
+                    <h3>Contact Info</h3>
+                    <p><?php echo $admin_data_super['PHONE']; if(!empty($admin_data_super['PHONE'])){     echo ' (Phone)';}?></p>
+                    <p><?php echo $admin_data['FAX']; if(!empty($admin_data['FAX'])){     echo ' (Fax)';}?></p>
+                    <p><a href="http://<?= $admin_data['WEBSITE'];?>" target="_blank"><?= $admin_data['WEBSITE'];?></a></p>
+                </div>
             </div>
         </aside>
     </div>
@@ -100,9 +134,21 @@ aside#sidebar .feedback input::placeholder, aside#sidebar textarea::placeholder{
 aside#sidebar .feedback div{padding: .2em 0}
 aside#sidebar .dark h3{color: #f4f4f4}
 div.dark {padding: 15px;background: #484329;color: #fff;margin: 0 auto;}
+div.dark-less {padding: 15px;background: #686351;color: #fff;margin: 0 auto;}
+div.dark-less a{text-decoration: none;color: #fff}
+div.dark-less div{padding: 10px 0}
+div.dark-less a div{padding: .2em;background-color: #484329;color:  #c4bc96;font-size: 19px;font-weight: 700}
 button.submit {height: 38px;background-color: #686351;border: 0;padding: 0 10px;color: #fff;}
 button.submit:hover{background-color: #c4bc96;color:#484329 }
 /*</editor-fold>*/
+
+.HE_info,.HE_count{position: absolute;z-index: 1;padding: 2px 5px;color: #fff;background: rgba(0,0,0,.6);border-radius: 2px;}
+.HE_count {bottom: 15px;right: 15px;}
+.HE_info{top: 0;left: 0;width: 100%}
+.HE_count span {padding: 0 2px;color: #fff}
+
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {display: block;max-width: 100%;height: auto;}
+
 #property-view{padding: 1em 0}
 #property-view * {box-sizing: border-box;}
 #property-view .view-head  .fa {display: inline-block;font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;}
@@ -131,7 +177,7 @@ button.submit:hover{background-color: #c4bc96;color:#484329 }
                 text-overflow: ellipsis;white-space: nowrap;}
 #MainGalleryTab{position: relative;width: 676px;height: 507px;margin: /*15px*/ 0;}
 .carouselMini {position: relative;width: 676px;height: 75px;overflow: hidden;display: block;background-color: #dedcce;}
-#MainGalleryImageList{text-align: center}
+#MainGalleryImageList{text-align: center;position: relative}
 #property-view  #MainGalleryImageList img {max-width: 100%;max-height: 507px;}
 img {vertical-align: middle;}
 .img_nav_key {position: absolute;top: 50%;left: 0;z-index: 10;margin-top: -40px;padding: 10px 15px 10px 10px;display: inline-block;background: rgba(0,0,0,.4);border-radius: 0 2px 2px 0;}
@@ -165,7 +211,7 @@ article#main-col, aside#sidebar {float:none;text-align:center;width:100%}
     #property-view div.view-head h1,#month_rental > div {font-size: 16px;}
     #property-view div.pager a{font-size: 14px}
 }
+/*</editor-fold>*/
 </style>
 <?php require_once dirname(__FILE__, 3) . '/view/welcome/footer.php'; ?>
 
-/*</editor-fold>*/

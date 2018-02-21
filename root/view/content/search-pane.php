@@ -1,4 +1,4 @@
-<section id="search-pane" class="page-wrap flash js">
+<section id="search-pane" class="page-wrap flash">
     <p class="bounceUp">
         <a href="#header-inner" id="up1" title="Go Up">
             <svg class="gridicon gridicons-chevron-down" height="32" width="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M20 9l-8 8-8-8 1.414-1.414L12 14.172l6.586-6.586"></path></g></svg>
@@ -18,7 +18,8 @@
         <input type="hidden" id="roomgender" value="Any"/> //-------------------BEDROOM GENDER RISTRICTION radio button
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
-    <div id="searchengine" class="feature">
+    <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
+    <div id="searchengine" class="feature js">
         <div id="row-01" class="clearfix">
             <select name="city" id="cmbCity" title="More to be added in future">
                 <option>Port Elizabeth</option>
