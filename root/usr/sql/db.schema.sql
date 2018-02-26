@@ -1072,13 +1072,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_getRoomBuildings`(IN pType  TEXT,IN beds TINYINT(3),IN baths TINYINT(3),IN type VARCHAR(10))
+CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_getRoomBuildings`(IN pType  TEXT,IN beds TINYINT(3),IN baths TINYINT(3),IN kitch TINYINT(3),IN type VARCHAR(10))
 BEGIN
 
 	IF pType = 'building' THEN
 
-		IF beds >= 0 THEN
-			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND BEDROOMS = beds;							
+		IF beds = 0 THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND (SELECT COUNT(PROPERTY_ID) FROM building_room WHERE PROPERTY_ID = pl.ID && ROOM_ID = 'R01') = beds;							
+			
+			DROP TABLE IF EXISTS `shortlist`;
+			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+			DROP TABLE IF EXISTS `templist`;
+		ELSEIF beds >= 1 THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND (SELECT COUNT(PROPERTY_ID) FROM building_room WHERE PROPERTY_ID = pl.ID && ROOM_ID = 'R01') >= beds;							
 			
 			DROP TABLE IF EXISTS `shortlist`;
 			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
@@ -1087,7 +1093,16 @@ BEGIN
 		
 
 		IF baths > 0 THEN
-			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND BATHROOMS = baths;						
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND (SELECT COUNT(PROPERTY_ID) FROM building_room WHERE PROPERTY_ID = pl.ID && ROOM_ID = 'R02') >= baths;						
+			
+			DROP TABLE IF EXISTS `shortlist`;
+			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
+			DROP TABLE IF EXISTS `templist`;
+		END IF;
+
+
+		IF kitch > 0 THEN
+			CREATE TEMPORARY TABLE IF NOT EXISTS `templist` SELECT pl.* from `shortlist` pl, building WHERE PROPERTY_ID = ID && `PROPERTY TYPE` = 'building' AND (SELECT COUNT(PROPERTY_ID) FROM building_room WHERE PROPERTY_ID = pl.ID && ROOM_ID = 'R03') >= kitch;						
 			
 			DROP TABLE IF EXISTS `shortlist`;
 			CREATE TEMPORARY TABLE IF NOT EXISTS `shortlist` SELECT * FROM `templist`;	
@@ -1308,6 +1323,7 @@ IN bedType TEXT,
 IN gender VARCHAR(1),
 IN beds TINYINT(3),
 IN baths TINYINT(3),
+IN kitch TINYINT(3),
 IN buildType VARCHAR(10)
 )
 BEGIN
@@ -1331,7 +1347,7 @@ BEGIN
 	CALL getPriceProperties(minp,maxp);					
 	CALL sp_getRoomTypeList(TRIM(propertyType),TRIM(bedType));		
 	CALL getRoomGendList(TRIM(propertyType),TRIM(gender));			
-	CALL sp_getRoomBuildings(TRIM(propertyType),beds,baths,TRIM(buildType));
+	CALL sp_getRoomBuildings(TRIM(propertyType),beds,baths,kitch,TRIM(buildType));
 	
 	IF SUBURBAN = 0 THEN
 		CREATE TABLE RECORDS SELECT * FROM shortlist  WHERE `TARGET`   LIKE 	CONCAT('%',accomType,'%') AND  `PROPERTY TYPE`  LIKE 	CONCAT('%',propertyType,'%');
@@ -1381,4 +1397,4 @@ USE `HE`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-26 20:21:44
+-- Dump completed on 2018-02-27  0:48:05

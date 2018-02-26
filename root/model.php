@@ -19,10 +19,10 @@ abstract class Engine{
     public static function getFeatures($feature) {
         return dbHandler::DQL('SELECT NAME, ITEM_CODE FROM feature WHERE CATEGORY = :feat ORDER BY NAME', array(':feat'=>$feature));
     }
-    public static function Find($n,$block,$del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp,$bedroom,$gend,$beds,$baths,$btypes) {
+    public static function Find($n,$block,$del,$accom, $type, $suburb,$rooms,$featureList,$minp,$maxp,$bedroom,$gend,$beds,$baths,$kitch,$btypes) {
         $params = array(':n'=>$n,':block'=>$block,':del'=>$del,':accom'=>$accom,':type'=>$type,':suburb'=>$suburb,':rooms'=>$rooms,':items'=>$featureList,':minp'=>$minp,
-            ':maxp'=>$maxp,':bedroom'=>$bedroom,':gend'=>$gend,':beds'=>$beds,':baths'=>$baths,':btypes'=>$btypes);
-        return dbHandler::DQL("call uspFind(:n,:block,:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp,:bedroom,:gend,:beds,:baths,:btypes)",$params);
+            ':maxp'=>$maxp,':bedroom'=>$bedroom,':gend'=>$gend,':beds'=>$beds,':baths'=>$baths,':kitch'=>$kitch,':btypes'=>$btypes);
+        return dbHandler::DQL("call uspFind(:n,:block,:del,:accom,:type,:suburb,:rooms,:items,:minp,:maxp,:bedroom,:gend,:beds,:baths,:kitch,:btypes)",$params);
     }
     public static function page_count($block){
         $pages = dbHandler::DQL("SELECT sf_engine_page_count(:block) PAGES", array(':block'=>$block));

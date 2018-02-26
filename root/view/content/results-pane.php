@@ -17,6 +17,7 @@
         $minprice = floatval($_GET['minp']);
         $beds = intval($_GET['beds']);
         $baths = intval($_GET['baths']);
+        $kitch = intval($_GET['kitch']);
         $btype = $_GET['btype'];
         $bedroom = $_GET['bedroom'];
         $gender = $_GET['roomgender'];
@@ -30,6 +31,7 @@
         //----------------------------------------------------Housing Unit Rooms
         if(($bedcount = "$beds") === "-1"){ $bedcount = "--";}
         if(($bathcount = "$baths") === "-1"){ $bathcount = "--";}
+        if(($kitchcount = "$kitch") === "-1"){ $kitchcount = "--";}
         if(($building = "$btype") === ""){ $building = "--";}
 
         switch ($ptype) {
@@ -47,8 +49,8 @@
                         break;
                 }
 
-        echo "<table id='tblSelection' cellspacing='0'><tr><th class='killborder-L'>SUBURB</th><th>MARKET</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th $HU>BEDS</th><th $HU>BATHS</th><th $BU>GENDER</th><th $BU>BEDROOM</th><th class='killborder-R'>BUILDING</th></tr>";
-        echo "<tr><td class='killborder-L'>".$suburb_name."</td><td>$accom</td><td>$ptype</td><td>$maxp</td><td>$mip</td><td $HU>$bedcount</td><td $HU>$bathcount</td><td $BU>$gender</td><td $BU>$bedroom</td><td class='killborder-R'>$building</td></tr>";
+        echo "<table id='tblSelection' cellspacing='0'><tr><th class='killborder-L'>SUBURB</th><th>MARKET</th><th>PROPERTY</th><th>MAX PRICE</th><th>MIN PRICE</th><th $HU>BEDS</th><th $HU>BATHS</th><th $HU>KITCHENS</th><th $BU>GENDER</th><th $BU>BEDROOM</th><th class='killborder-R'>BUILDING</th></tr>";
+        echo "<tr><td class='killborder-L'>".$suburb_name."</td><td>$accom</td><td>$ptype</td><td>$maxp</td><td>$mip</td><td $HU>$bedcount</td><td $HU>$bathcount</td><td $HU>$kitchcount</td><td $BU>$gender</td><td $BU>$bedroom</td><td class='killborder-R'>$building</td></tr>";
         echo '</table>';
         
         if ($accom === 'Any') {
@@ -67,7 +69,7 @@
         $records = 0;
         $imgInfo[2] = $img[2] = array();
         
-        $view = Engine::Find(($page-1),$block,',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$btype);
+        $view = Engine::Find(($page-1),$block,',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$kitch,$btype);
         $pages = Engine::page_count($block);
         ?>
             <form action="." method="POST">

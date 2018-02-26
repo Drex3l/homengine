@@ -18,7 +18,7 @@ function search(del,page,records) {
         }
     };
     var queryString = "suburb="+obj.suburb+"&accom="+obj.accom+"&rooms="+obj.rooms+"&ptype="+obj.ptype+"&maxp="+obj.maxp+"&minp="+obj.minp+"&beds="+obj.bed+"&baths="+obj.bath;
-    queryString += "&btype="+obj.btype+"&bedroom="+obj.bedroom+"&roomgender="+obj.roomgender+"&feat="+obj.feat+"&page="+page+"&records="+records+"&del="+del;
+    queryString += "&kitch="+obj.kitch+"&btype="+obj.btype+"&bedroom="+obj.bedroom+"&roomgender="+obj.roomgender+"&feat="+obj.feat+"&page="+page+"&records="+records+"&del="+del;
     xmlhttp.open("GET", "root/view/content/results-pane.php?" + queryString, true);
     xmlhttp.send();
     

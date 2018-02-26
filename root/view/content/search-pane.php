@@ -12,8 +12,9 @@
         <input type="hidden" id="ptype" value="Any"/>   //----------------------PROPERTY TYPE radio button
         <input type="hidden" id="minP"/>    //----------------------------------MINIMUM PRICE RANGE text box
         <input type="hidden" id="maxP"/>    //----------------------------------MAXIMUM PRICE RANGE text box
-        <input type="hidden" id="bed" value=-1 />   //--------------------------BED ROOMS quantity text box
-        <input type="hidden" id="bath" value=-1/>   //--------------------------BATH ROOMS quantity text box
+        <input type="hidden" id="bed" value=-1 />   //--------------------------BED ROOMS quantity combobox
+        <input type="hidden" id="bath" value=-1/>   //--------------------------BATH ROOMS quantity combobox
+        <input type="hidden" id="kitch" value=-1/>  //--------------------------KITCHENS quantity combobox
         <input type="hidden" id="bedroom" value="Any"/>   //--------------------BEDROOM type radio button
         <input type="hidden" id="roomgender" value="Any"/> //-------------------BEDROOM GENDER RISTRICTION radio button
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
@@ -65,27 +66,42 @@
                 <div class="sub-attribute" id="subPrice" ><hr/>
                     <input type="number" name="maxP" min="100" placeholder="Maximum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
                     <input type="number" name="minP" min="100" placeholder="Minimum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
-                    <div class="subset bedroom-spec" id="beds">
-                        <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)" title="Set to 0 for Bachelors"/>
-                    </div>
-                    <div class="subset bedroom-spec" id="baths">
-                        <h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)"/>
-                    </div>
-                    <div class="subset bedroom-spec" id="div-kitch">
-                        <select name="kitchQ" id="kitchens" title="Don't change for 'Any' number">
-                            <option value=''selected >-- Kitchens --</option>
+                    <div id="housing-unit-div">
+                        <h3>UNIT FEATURES</h3><Br/>
+                    <div class="subset" id="div-beds">
+                         <select name="bed" title="Don't change for 'Any' number" id="Beds" onchange="minZero(this)">
+                            <option value=''selected >Bedrooms :</option>
+                            <option value=0>Bachelor</option>
+                        <?php for ($K=1;$K<=4;$K++) {?>
+                        <option value=<?= $K; ?>><?= "$K+ Beds"; ?></option>
+                    <?php }?>
+                    </select>
+                    </div> 
+                    <div class="subset" id="div-baths">
+                        <select name="bath"  title="Don't change for 'Any' number" id="Baths"  onchange="minZero(this)">
+                            <option value=''selected >Bathrooms :</option>
                         <?php for ($K=1;$K<=5;$K++) {?>
-                        <option value=<?= $K; ?>><?= "$K+"; ?></option>
+                        <option value=<?= $K; ?>><?= "$K+ Baths"; ?></option>
                     <?php }?>
                     </select>
                     </div>
-                    <div class="subset bedroom-spec" id="HUnit">
+                    
+                    <div class="subset" id="div-kitch">
+                        <select name="kitch" title="Don't change for 'Any' number" onchange="minZero(this)">
+                            <option value=''selected >Kitchens :</option>
+                        <?php for ($K=1;$K<=5;$K++) {?>
+                        <option value=<?= $K; ?>><?= "$K+ Kitchens"; ?></option>
+                    <?php }?>
+                    </select>
+                    </div>
+                    <div class="subset" id="HUnit">
                         <select name="HUnit" title="Don't change for 'Any' type" id="btype">
                             <option value=''selected >-- Type --</option>
                         <?php foreach ($BuildTypes as $value) {?>
                         <option value=<?= $value['BUILDING_TYPE']; ?>><?= $value['BUILDING_TYPE']; ?></option>
                     <?php }?>
                     </select>
+                    </div>
                     </div>
                     <div class="subset bedroom-spec" id="room-setting">
                         <h3>TYPE</h3>

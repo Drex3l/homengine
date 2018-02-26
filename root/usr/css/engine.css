@@ -17,9 +17,12 @@ input.chk, input.rbn {color: #484329;}
 span.attribute .spacer{padding: 2px}
 input.txt{border: none;background-color: transparent;width: 100%;color: #484329;border-bottom: 1px solid #888;transition: 1s;-webkit-transition: border-color .5s ease, box-show .5s ease; -moz-transition: border-color .5s ease, box-show .5s ease;}
 input.txt:focus{border-bottom-color: #008c8c;outline: 0 }
-div.subset{display: none}
-.bedroom-spec{width: 48%}
+
+div.subset{width: 48%;display: inline-block}
+div.subset select{width: 100%;}
+div.bedroom-spec{display: none}
 #HUnit select{width: 100%;margin-top: 5px}
+#housing-unit-div{padding-top: .3em;display: none}
 /*<editor-fold desc="Engine Results" defaultstate="collapsed" >*/
 #search-results{line-height: 22px;}
 #search-results table {width: 100%;color: #484329;}

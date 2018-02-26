@@ -5,8 +5,9 @@ function property(type){
      * If user selects just only a Room, controls to specify room type (single/sharing) become avaible
      * All these controls are given class name "subset"
      */
-    var item = document.getElementsByClassName("subset");
+    var item = document.getElementsByClassName("bedroom-spec");
     for(k=0;k<item.length;k++) item[k].style.display = "none";
+    document.getElementById('housing-unit-div').style.display = "none";
     /**
      * The above hid everything
      * The follwing displays only the relevant controls
@@ -14,10 +15,7 @@ function property(type){
     switch(type.value)
     {
         case 'Building':
-            document.getElementById('beds').style.display = "inline-block";
-            document.getElementById('baths').style.display = "inline-block";
-            document.getElementById('div-kitch').style.display = "inline-block";
-            document.getElementById('HUnit').style.display = "inline-block";
+            document.getElementById('housing-unit-div').style.display = "block";
             break;
         case 'Bedroom':
             document.getElementById('room-setting').style.display = "inline-block";
@@ -50,6 +48,7 @@ function prepareStrings(del){
 function minZero(item) {
     document.getElementById(item.name).value = -1;
     if (item.value.length > 0) getValue(item);
+//    document.getElementById(item.id).innerHTML =document.getElementById(item.id).value +"+"+item.id;
 }
 function consolidate() {
     var suburb = document.getElementById('cmbSuburb').value;
@@ -60,12 +59,13 @@ function consolidate() {
     var maxp = document.getElementById('maxP').value;
     var bed = document.getElementById('bed').value;
     var bath = document.getElementById('bath').value;
+    var kitch = document.getElementById('kitch').value;
     var btype = document.getElementById('btype').value;
     var bedroom = document.getElementById('bedroom').value;
     var roomgender = document.getElementById('roomgender').value;
     var feat = document.getElementById('feat').value;
     
-    var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"ptype":ptype,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"btype":btype,"bedroom":bedroom,"roomgender":roomgender,"feat":feat};
+    var obj = {"suburb":suburb,"accom":accom,"rooms":rooms,"ptype":ptype,"minp":minp,"maxp":maxp,"bed":bed,"bath":bath,"kitch":kitch,"btype":btype,"bedroom":bedroom,"roomgender":roomgender,"feat":feat};
     var json = JSON.stringify(obj);
     document.getElementById('search_values').value = json;
     return json;
