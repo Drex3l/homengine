@@ -66,6 +66,7 @@
 
         $records = 0;
         $imgInfo[2] = $img[2] = array();
+        
         $view = Engine::Find(($page-1),$block,',',$accom, $ptype, $suburb,$rooms, $features,$minprice,$maxprice,$bedroom,$gender,$beds,$baths,$btype);
         $pages = Engine::page_count($block);
         ?>

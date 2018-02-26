@@ -51,8 +51,18 @@ UNLOCK TABLES;
 
 LOCK TABLES `building` WRITE;
 /*!40000 ALTER TABLE `building` DISABLE KEYS */;
-INSERT INTO `building` VALUES (3,1,'Apartment','Building',1,1),(6,1,'Apartment','Building',0,1),(9,1,'Apartment','Building',1,1),(99,1,'House','Building',5,2),(103,2,'House','Building',6,3);
+INSERT INTO `building` VALUES (3,1,'Apartment','Building'),(6,1,'Apartment','Building'),(9,1,'Apartment','Building'),(99,1,'House','Building'),(103,2,'House','Building');
 /*!40000 ALTER TABLE `building` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `building_room`
+--
+
+LOCK TABLES `building_room` WRITE;
+/*!40000 ALTER TABLE `building_room` DISABLE KEYS */;
+INSERT INTO `building_room` VALUES (3,'R01',1,1),(3,'R02',1,2),(3,'R03',1,3),(6,'R02',1,5),(9,'R01',1,6),(9,'R02',1,7),(9,'R03',1,8),(99,'R01',1,9),(99,'R01',2,12),(99,'R01',3,15),(99,'R01',4,16),(99,'R01',5,17),(99,'R02',1,10),(99,'R02',2,13),(99,'R03',1,11),(99,'R03',2,14),(103,'R01',1,18),(103,'R01',2,19),(103,'R01',3,22),(103,'R01',4,25),(103,'R01',5,28),(103,'R01',6,29),(103,'R02',1,20),(103,'R02',2,23),(103,'R02',3,26),(103,'R03',1,21),(103,'R03',2,24),(103,'R03',3,31);
+/*!40000 ALTER TABLE `building_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -76,6 +86,16 @@ INSERT INTO `client` VALUES ('U217T0001','M',NULL),('U217T0002','M','STUDYING');
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `facility`
+--
+
+LOCK TABLES `facility` WRITE;
+/*!40000 ALTER TABLE `facility` DISABLE KEYS */;
+INSERT INTO `facility` VALUES ('I02','Balcony'),('I06','Bathtub'),('I03','Built-in Cupboards'),('I05','Shower'),('I01','Tiled Floors'),('I04','Toilet and Basin');
+/*!40000 ALTER TABLE `facility` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `feature`
 --
 
@@ -86,12 +106,31 @@ INSERT INTO `feature` VALUES ('IA00','Washing Machine',NULL,'ACCESSORY'),('IA01'
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `kamer`
+--
+
+LOCK TABLES `kamer` WRITE;
+/*!40000 ALTER TABLE `kamer` DISABLE KEYS */;
+INSERT INTO `kamer` VALUES ('R02','Bathroom'),('R01','Bedroom'),('R03','Kitchen');
+/*!40000 ALTER TABLE `kamer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `kamer_facility`
+--
+
+LOCK TABLES `kamer_facility` WRITE;
+/*!40000 ALTER TABLE `kamer_facility` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kamer_facility` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `property`
 --
 
 LOCK TABLES `property` WRITE;
 /*!40000 ALTER TABLE `property` DISABLE KEYS */;
-INSERT INTO `property` VALUES (2,'43 Gomery Avenue',NULL,61,'U217T0002',1,24,'Student','2018-01-01 00:00:00','Bedroom',NULL),(3,'125 Willern Court','159 Victoria Embankment',43,'U217T0002',1,6,'Worker','2017-09-09 00:00:00','Building',NULL),(4,'52 Pink Flats','01 Blackthorn Avenue',69,'U217T0002',1,8,'Any','2017-09-07 20:12:57','Bedroom',NULL),(5,'26 Vicent Street',NULL,71,'U217T0001',1,14,'Student','2017-09-07 20:35:13','Bedroom',NULL),(6,'18 Vicent Street',NULL,71,'U217T0001',1,15,'Any','2017-07-18 00:00:00','Building',NULL),(7,'26 Jacobs PL',NULL,71,'U217T0001',1,16,'Student','2017-09-07 20:37:22','Bedroom',NULL),(9,'12 Pink Flats',NULL,3,'U217T0001',1,17,'Worker','2000-01-01 00:00:00','Building',NULL),(16,'14 Black Threads','55 Ngubane Drive',17,'U217T0001',1,18,'Any','2000-01-01 00:00:00','Bedroom',NULL),(96,'1 Blackthorne Avenue',NULL,228,'U217T0001',1,23,'Other','2000-01-01 00:00:00','Bedroom',NULL),(97,'45 Saire Home','89 Sig Street',26,'U217T0001',1,22,'Nursing','2017-10-12 10:00:18','Bedroom',NULL),(99,'192 Bigern Road',NULL,152,'U217T0002',1,9,'Worker','2017-04-04 00:00:00','Building',NULL),(100,'26 Justin Lane',NULL,4,'U217T0002',1,10,'Other','2017-10-12 12:22:42','Bedroom',NULL),(101,'35 Dinaly',NULL,109,'U217T0002',1,11,'Nursing','2017-10-12 12:26:36','Bedroom',NULL),(102,'36 Drekens Drive',NULL,112,'U217T0002',1,13,'Any','2017-10-12 12:36:02','Bedroom',NULL),(103,'69 Foundry Lane',NULL,5,'U217T0002',1,12,'Worker','2017-04-29 00:00:00','Building',NULL);
+INSERT INTO `property` VALUES (2,'43 Gomery Avenue',NULL,61,'U217T0002',1,24,'Student','2018-01-01 00:00:00','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(3,'125 Willern Court','159 Victoria Embankment',43,'U217T0002',1,6,'Worker','2017-09-09 00:00:00','Building','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(4,'52 Pink Flats','01 Blackthorn Avenue',69,'U217T0002',1,8,'Any','2017-09-07 20:12:57','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(5,'26 Vicent Street',NULL,71,'U217T0001',1,14,'Student','2017-09-07 20:35:13','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(6,'18 Vicent Street',NULL,71,'U217T0001',1,15,'Any','2017-07-18 00:00:00','Building','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(7,'26 Jacobs PL',NULL,71,'U217T0001',1,16,'Student','2017-09-07 20:37:22','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(9,'12 Pink Flats',NULL,3,'U217T0001',1,17,'Worker','2000-01-01 00:00:00','Building','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(16,'14 Black Threads','55 Ngubane Drive',17,'U217T0001',1,18,'Any','2000-01-01 00:00:00','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(96,'1 Blackthorne Avenue',NULL,228,'U217T0001',1,23,'Other','2000-01-01 00:00:00','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(97,'45 Saire Home','89 Sig Street',26,'U217T0001',1,22,'Nursing','2017-10-12 10:00:18','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(99,'192 Bigern Road',NULL,152,'U217T0002',1,9,'Worker','2017-04-04 00:00:00','Building','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(100,'26 Justin Lane',NULL,4,'U217T0002',1,10,'Other','2017-10-12 12:22:42','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(101,'35 Dinaly',NULL,109,'U217T0002',1,11,'Nursing','2017-10-12 12:26:36','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(102,'36 Drekens Drive',NULL,112,'U217T0002',1,13,'Any','2017-10-12 12:36:02','Bedroom','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL),(103,'69 Foundry Lane',NULL,5,'U217T0002',1,12,'Worker','2017-04-29 00:00:00','Building','This flat offer 2 bedroom with build in cupboards , Neat Kitchen , living room , bathroom and a enclosed balcony.\\xd\\xaThe block of flats has just been painted. Secure parking.\\xd\\xa\\xd\\xaIdeal for investment. Rental income of R4000 a month.\\xd\\xaClose to the airport, Boardwalk and Beach. ',NULL);
 /*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +160,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_room` WRITE;
 /*!40000 ALTER TABLE `property_room` DISABLE KEYS */;
-INSERT INTO `property_room` VALUES (2,'R05',1),(2,'R06',1),(3,'R05',1),(3,'R06',1),(4,'R05',1),(4,'R06',1),(5,'R06',1),(5,'R08',1),(6,'R05',1),(6,'R07',1),(7,'R05',1),(7,'R06',1),(16,'R07',1),(16,'R08',1),(96,'R05',1),(96,'R06',1),(97,'R05',1),(97,'R08',1),(99,'R05',1),(99,'R06',1),(100,'R07',1),(100,'R09',1),(103,'R05',1),(103,'R06',1);
+INSERT INTO `property_room` VALUES (2,'R06',1),(3,'R06',1),(4,'R06',1),(5,'R06',1),(5,'R08',1),(6,'R07',1),(7,'R06',1),(16,'R07',1),(16,'R08',1),(96,'R06',1),(97,'R08',1),(99,'R06',1),(100,'R07',1),(100,'R09',1),(103,'R06',1);
 /*!40000 ALTER TABLE `property_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +199,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `room` WRITE;
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
-INSERT INTO `room` VALUES ('R05','Kitchen',''),('R06','Lounge',''),('R07','Storage',''),('R08','Libary',''),('R09','Bar','');
+INSERT INTO `room` VALUES ('R06','Lounge',''),('R07','Storage',''),('R08','Library',''),('R09','Bar','');
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-21  9:57:28
+-- Dump completed on 2018-02-26 20:21:36

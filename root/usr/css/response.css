@@ -23,7 +23,7 @@ article,aside,.one-third {width: 100%}
 span.error-msg-inline{display: inline-block;color: #a00;width: 79%}
 /*<editor-fold desc="Acme" defaultstate="collapsed">*/
 div.container{width: 100%}
-article#main-col, aside#sidebar {float:none;text-align:center;width:100%}
+article#main-col, aside#sidebar {float:none;width:100%}
 /*</editor-fold>*/
 }
 @media screen and (max-width: 880px) 

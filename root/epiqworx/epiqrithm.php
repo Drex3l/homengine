@@ -158,10 +158,22 @@ abstract class Text {
 abstract class Filter {
 
     // replace any non-ascii character with its hex code.
-    public static function escape($value) {
+    public static function escape($string) {
         $return = '';
-        for ($i = 0; $i < strlen($value); ++$i) {
-            $char = $value[$i];
+        for ($i = 0; $i < strlen($string); ++$i) {
+            $char = $string[$i];
+            $ord = ord($char);
+            if ($char !== "'" && $char !== "\"" && $char !== '\\' && $ord >= 32 && $ord <= 126)
+            {$return .= $char;}
+            else
+            {$return .= '\\x' . dechex($ord);}
+        }
+        return $return;
+    }
+    public static function  reverse_escape($string){
+        $return = '';
+        for ($i = 0; $i < strlen($string); ++$i) {
+            $char = $string[$i];
             $ord = ord($char);
             if ($char !== "'" && $char !== "\"" && $char !== '\\' && $ord >= 32 && $ord <= 126)
             {$return .= $char;}

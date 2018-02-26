@@ -58,6 +58,8 @@ switch ($action) {
         $property = Property::getData($property_id);    //----------------------property table record
         $admin_data = User::getData($property['USER_ID'],'admin');  //----------property admin data
         $admin_data_super = User::getData($property['USER_ID']);  //------------property admin data
+        $date_occupy = $property['DATE_OCCUPY'];
+        if(empty($date_occupy)){$date_occupy = "01 ".date('M Y',strtotime('+1 month'));}
         $org = $admin_data['ORGANIZATION']; 
         if(empty($org)){    $org = $admin;  }
         
@@ -74,6 +76,17 @@ switch ($action) {
         if(empty($property['IMG_ID'])){$main_img = PATH.'/root/usr/img/sys/logo-lite.png';}
         //======================================================================
         require_once dirname(__FILE__, 1) . ('/root/view/content/property_view.php');
+        break;
+    case 'contact-admin':
+        $title = "Contact Admin";   //------------------------------------------Page Title
+        $property_id = intval($_POST['id']);    //------------------------------ID of selected Property from result list
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+        $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+        $message = Filter::escape(filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING));
+        Property::update($message,$property_id);
+//        echo $message;
+        echo $property_id;
         break;
     case 'test':
         echo WebTools::getBrowser()['name'];

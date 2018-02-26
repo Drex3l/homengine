@@ -130,8 +130,6 @@ CREATE TABLE `building` (
   `STORIES` smallint(5) unsigned DEFAULT NULL,
   `BUILDING_TYPE` varchar(10) NOT NULL,
   `PROP_TYPE_ID` varchar(8) NOT NULL DEFAULT 'Building',
-  `BEDROOMS` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `BATHROOMS` tinyint(3) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`PROPERTY_ID`),
   UNIQUE KEY `PROPERTY_ID` (`PROPERTY_ID`,`PROP_TYPE_ID`),
   KEY `BUILDING_TYPE` (`BUILDING_TYPE`),
@@ -139,6 +137,52 @@ CREATE TABLE `building` (
   CONSTRAINT `building_ibfk_2` FOREIGN KEY (`BUILDING_TYPE`) REFERENCES `building_type` (`BUILDING_TYPE`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `building_room`
+--
+
+DROP TABLE IF EXISTS `building_room`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `building_room` (
+  `PROPERTY_ID` bigint(20) unsigned NOT NULL,
+  `ROOM_ID` char(3) CHARACTER SET utf8 NOT NULL,
+  `COUNT` tinyint(3) unsigned NOT NULL DEFAULT '1',
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `PROPERTY_ID` (`PROPERTY_ID`,`ROOM_ID`,`COUNT`),
+  KEY `ROOM_ID` (`ROOM_ID`),
+  CONSTRAINT `building_room_ibfk_1` FOREIGN KEY (`PROPERTY_ID`) REFERENCES `building` (`PROPERTY_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `building_room_ibfk_2` FOREIGN KEY (`ROOM_ID`) REFERENCES `kamer` (`ROOM_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`s215013395`@`localhost`*/ /*!50003 TRIGGER `HE`.`before_bRoom_insert`
+BEFORE INSERT ON `HE`.`building_room`
+FOR EACH ROW
+BEGIN
+  DECLARE FOUND BOOLEAN DEFAULT TRUE;
+  DECLARE INCR SMALLINT UNSIGNED DEFAULT 1;
+  WHILE FOUND DO
+     SET NEW.COUNT = (((SELECT COUNT(*) FROM building_room WHERE PROPERTY_ID = NEW.PROPERTY_ID && ROOM_ID = NEW.ROOM_ID) + INCR));
+     SET FOUND = ((SELECT COUNT(*) FROM building_room WHERE COUNT = NEW.COUNT &&  PROPERTY_ID = NEW.PROPERTY_ID && ROOM_ID = NEW.ROOM_ID) > 0);
+     SET INCR = INCR + 1;
+  END WHILE;
+ END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `building_type`
@@ -168,6 +212,47 @@ CREATE TABLE `client` (
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `User` (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `facility`
+--
+
+DROP TABLE IF EXISTS `facility`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `facility` (
+  `ITEM_CODE` char(3) CHARACTER SET utf8 NOT NULL,
+  `DESCRIPTION` varchar(35) NOT NULL,
+  PRIMARY KEY (`ITEM_CODE`),
+  UNIQUE KEY `DESCRIPTION` (`DESCRIPTION`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`s215013395`@`localhost`*/ /*!50003 TRIGGER `before_facility_insert`
+BEFORE INSERT ON `facility`
+FOR EACH ROW
+BEGIN
+  DECLARE FOUND BOOLEAN DEFAULT TRUE;
+  DECLARE INCR SMALLINT UNSIGNED DEFAULT 1;
+  WHILE FOUND DO
+     SET NEW.ITEM_CODE = CONCAT('I',(LPAD((INCR),2,'0')));
+     SET FOUND = ((SELECT COUNT(ITEM_CODE) FROM facility WHERE ITEM_CODE = NEW.ITEM_CODE) > 0);
+     SET INCR = INCR + 1;
+  END WHILE;
+ END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `feature`
@@ -213,6 +298,64 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `kamer`
+--
+
+DROP TABLE IF EXISTS `kamer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kamer` (
+  `ROOM_ID` char(3) CHARACTER SET utf8 NOT NULL,
+  `ROOM_TYPE` varchar(20) NOT NULL,
+  PRIMARY KEY (`ROOM_ID`),
+  UNIQUE KEY `ROOM_TYPE` (`ROOM_TYPE`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`s215013395`@`localhost`*/ /*!50003 TRIGGER `HE`.`before_kamer_insert`
+BEFORE INSERT ON `HE`.`kamer`
+FOR EACH ROW
+BEGIN
+  DECLARE FOUND BOOLEAN DEFAULT TRUE;
+  DECLARE INCR SMALLINT UNSIGNED DEFAULT 1;
+  WHILE FOUND DO
+     SET NEW.ROOM_ID = CONCAT('R',(LPAD(((SELECT COUNT(*) FROM kamer) + INCR),2,'0')));
+     SET FOUND = ((SELECT COUNT(ROOM_ID) FROM kamer WHERE ROOM_ID = NEW.ROOM_ID) > 0);
+     SET INCR = INCR + 1;
+  END WHILE;
+ END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `kamer_facility`
+--
+
+DROP TABLE IF EXISTS `kamer_facility`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `kamer_facility` (
+  `ID` bigint(20) unsigned NOT NULL,
+  `ITEM_CODE` char(3) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`ID`,`ITEM_CODE`),
+  KEY `ITEM_CODE` (`ITEM_CODE`),
+  CONSTRAINT `kamer_facility_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `building_room` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `kamer_facility_ibfk_2` FOREIGN KEY (`ITEM_CODE`) REFERENCES `facility` (`ITEM_CODE`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `property`
 --
 
@@ -231,6 +374,7 @@ CREATE TABLE `property` (
   `LISTING` datetime DEFAULT CURRENT_TIMESTAMP,
   `PROP_TYPE_ID` varchar(8) NOT NULL,
   `DESCRIPTION` text,
+  `DATE_OCCUPY` date DEFAULT NULL,
   PRIMARY KEY (`PROPERTY_ID`),
   UNIQUE KEY `PROPERTY_ID` (`PROPERTY_ID`,`PROP_TYPE_ID`),
   KEY `PROP_TYPE_ID` (`PROP_TYPE_ID`),
@@ -441,7 +585,8 @@ CREATE TABLE `room` (
   `ROOM_ID` char(3) NOT NULL,
   `ROOM_TYPE` varchar(20) NOT NULL,
   `DESCRIPTION` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`ROOM_ID`)
+  PRIMARY KEY (`ROOM_ID`),
+  UNIQUE KEY `ROOM_TYPE` (`ROOM_TYPE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -626,7 +771,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`s215013395`@`localhost` FUNCTION `sf_banner`(prop_id BIGINT UNSIGNED) RETURNS varchar(35) CHARSET utf8
+CREATE DEFINER=`s215013395`@`localhost` FUNCTION `SF_BANNER`(prop_id BIGINT UNSIGNED) RETURNS varchar(35) CHARSET utf8
 BEGIN
 	DECLARE type VARCHAR(8);
 	SELECT PROP_TYPE_ID FROM property WHERE PROPERTY_ID = prop_id INTO type;
@@ -637,9 +782,9 @@ BEGIN
 		END;
 		WHEN 'Building' THEN
 		BEGIN
-			SELECT BEDROOMS FROM building WHERE PROPERTY_ID = prop_id INTO @rooms;
+			SELECT COUNT(PROPERTY_ID) FROM building_room WHERE PROPERTY_ID = prop_id && ROOM_ID = 'R01' INTO @rooms;
 			IF @rooms = 0 THEN RETURN (select concat('Bachelor ',`BUILDING_TYPE`) from `building` WHERE PROPERTY_ID = prop_id); END IF;
-			RETURN (select concat(`BEDROOMS`,' Bedroom ',`BUILDING_TYPE`) from `building` WHERE PROPERTY_ID = prop_id);
+			RETURN (select concat(@rooms,' Bedroom ',`BUILDING_TYPE`) from `building` WHERE PROPERTY_ID = prop_id);
 		END;
 		WHEN 'Yard' THEN
 		BEGIN
@@ -1118,13 +1263,8 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`s215013395`@`localhost` PROCEDURE `sp_updateProperty`(
-	IN addr1 VARCHAR(45), 
-	IN addr2 VARCHAR(45), 
-	IN suburban BIGINT UNSIGNED,
-	IN accom enum('Student','Worker','Nursing','Other','Any'),
-	IN img BIGINT(20) UNSIGNED,
-	IN propertyDesc TEXT,
-	IN id BIGINT(20) UNSIGNED
+	IN info TEXT,
+	IN id BIGINT UNSIGNED
 )
 BEGIN
 	DECLARE CHECKPOINT  TINYINT UNSIGNED DEFAULT 0;
@@ -1135,8 +1275,9 @@ BEGIN
         	SELECT CONCAT('C',LPAD(CHECKPOINT,2,'0'))  AS 'POINT',@p1 AS CODE, @p2 AS DESCRIPTION;
 	END;
 	START TRANSACTION;
+	
 
-	UPDATE property SET ADDRESS_LINE1 = trim(addr1), ADDRESS_LINE2 = trim(addr2), SUBURB_ID = suburban, IMG_ID = img, TARGET = accom, DESCRIPTION = trim(propertyDesc) WHERE  PROPERTY_ID = id;
+	UPDATE property SET DESCRIPTION = info;	
  	COMMIT;
 END ;;
 DELIMITER ;
@@ -1226,7 +1367,7 @@ USE `HE`;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`s215013395`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `property_list` AS select `P`.`PROPERTY_ID` AS `ID`,`sf_banner`(`P`.`PROPERTY_ID`) AS `SETTING`,`P`.`TARGET` AS `TARGET`,`P`.`PROP_TYPE_ID` AS `PROPERTY TYPE`,`P`.`ADDRESS_LINE1` AS `ADDRESS LINE 1`,(select `suburb`.`SUBURB_NAME` from `suburb` where (`suburb`.`SUBURB_ID` = `P`.`SUBURB_ID`)) AS `SUBURB`,`P`.`LISTING` AS `LISTING` from `property` `P` */;
+/*!50001 VIEW `property_list` AS select `P`.`PROPERTY_ID` AS `ID`,`SF_BANNER`(`P`.`PROPERTY_ID`) AS `SETTING`,`P`.`TARGET` AS `TARGET`,`P`.`PROP_TYPE_ID` AS `PROPERTY TYPE`,`P`.`ADDRESS_LINE1` AS `ADDRESS LINE 1`,(select `suburb`.`SUBURB_NAME` from `suburb` where (`suburb`.`SUBURB_ID` = `P`.`SUBURB_ID`)) AS `SUBURB`,`P`.`LISTING` AS `LISTING` from `property` `P` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1240,4 +1381,4 @@ USE `HE`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-21  9:57:11
+-- Dump completed on 2018-02-26 20:21:44

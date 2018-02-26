@@ -14,9 +14,10 @@ function property(type){
     switch(type.value)
     {
         case 'Building':
-            document.getElementById('beds').style.display = "block";
-            document.getElementById('baths').style.display = "block";
-            document.getElementById('HUnit').style.display = "block";
+            document.getElementById('beds').style.display = "inline-block";
+            document.getElementById('baths').style.display = "inline-block";
+            document.getElementById('div-kitch').style.display = "inline-block";
+            document.getElementById('HUnit').style.display = "inline-block";
             break;
         case 'Bedroom':
             document.getElementById('room-setting').style.display = "inline-block";

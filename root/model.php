@@ -114,6 +114,14 @@ abstract class Property{
     public static function getImageFile($imgid){
         return dbHandler::DQL('SELECT PICTURE FROM property_img WHERE PICTURE_ID = :id', array(':id'=>$imgid))['PICTURE'];
     }
+    public static function getType($type_id) {
+        return dbHandler::DQL('SELECT DESCRIPTION FROM property_type WHERE PROP_TYPE_ID = :id', array(':id'=>$type_id))['DESCRIPTION'];
+    }
+    public static function update($desc,$id)
+    {
+        $params = array(':desc'=>$desc,':id'=>$id);
+        return dbHandler::Execute('call sp_updateProperty(:desc,:id)',$params);
+    }
 }
 abstract class Rental{
     public static function getRecords($property){

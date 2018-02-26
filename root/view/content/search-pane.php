@@ -21,9 +21,9 @@
     <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
     <div id="searchengine" class="feature js">
         <div id="row-01" class="clearfix">
-            <select name="city" id="cmbCity" title="More to be added in future">
+<!--            <select name="city" id="cmbCity" title="More to be added in future">
                 <option>Port Elizabeth</option>
-            </select>
+            </select>-->
             <select name="suburb" id="cmbSuburb" title="Don't change for 'Any' Suburb">
                 <?php foreach ($suburbs as $row) { ?>
                     <option value=<?= $row['SUBURB_ID']; ?>><?= $row['SUBURB_NAME']; ?></option>
@@ -65,11 +65,23 @@
                 <div class="sub-attribute" id="subPrice" ><hr/>
                     <input type="number" name="maxP" min="100" placeholder="Maximum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)" title="one month rental"/>
                     <input type="number" name="minP" min="100" placeholder="Minimum ( <?= $currency;?> )" class="txt" step="100" onchange="getValue(this)"  title="one month rental"/>
-                    <div class="subset" id="beds"> <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)" title="Set to 0 for Bachelors"/></div>
-                    <div class="subset" id="baths"><h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)"/></div>
-                    <div class="subset" id="HUnit">
+                    <div class="subset bedroom-spec" id="beds">
+                        <h3>BED ROOMS</h3><input type="number" name="bed" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)" title="Set to 0 for Bachelors"/>
+                    </div>
+                    <div class="subset bedroom-spec" id="baths">
+                        <h3>BATH ROOMS</h3><input type="number" name="bath" min="0" max="5" placeholder="quantity" class="txt" onchange="minZero(this)"/>
+                    </div>
+                    <div class="subset bedroom-spec" id="div-kitch">
+                        <select name="kitchQ" id="kitchens" title="Don't change for 'Any' number">
+                            <option value=''selected >-- Kitchens --</option>
+                        <?php for ($K=1;$K<=5;$K++) {?>
+                        <option value=<?= $K; ?>><?= "$K+"; ?></option>
+                    <?php }?>
+                    </select>
+                    </div>
+                    <div class="subset bedroom-spec" id="HUnit">
                         <select name="HUnit" title="Don't change for 'Any' type" id="btype">
-                            <option value=''selected >-- Building Type --</option>
+                            <option value=''selected >-- Type --</option>
                         <?php foreach ($BuildTypes as $value) {?>
                         <option value=<?= $value['BUILDING_TYPE']; ?>><?= $value['BUILDING_TYPE']; ?></option>
                     <?php }?>
