@@ -122,6 +122,21 @@ abstract class Property{
         $params = array(':desc'=>$desc,':id'=>$id);
         return dbHandler::Execute('call sp_updateProperty(:desc,:id)',$params);
     }
+    public static function  getBUnitData($id)
+    {
+        return dbHandler::DQL('SELECT * FROM bedroom WHERE PROPERTY_ID = :id', array(':id'=>$id));
+    }
+    public static function  getHUnitData($id)
+    {
+        $building = dbHandler::DQL('SELECT * FROM building WHERE PROPERTY_ID = :id', array(':id'=>$id));
+        $bedrooms = dbHandler::DQL("SELECT COUNT(PROPERTY_ID) q FROM building_room WHERE PROPERTY_ID = :id && ROOM_ID = 'R01'", array(':id'=>$id))['q'];
+        $bathrooms = dbHandler::DQL("SELECT COUNT(PROPERTY_ID) q FROM building_room WHERE PROPERTY_ID = :id && ROOM_ID = 'R02'", array(':id'=>$id))['q'];
+        $kitchens = dbHandler::DQL("SELECT COUNT(PROPERTY_ID) q FROM building_room WHERE PROPERTY_ID = :id && ROOM_ID = 'R03'", array(':id'=>$id))['q'];
+        $building['BEDROOMS'] = $bedrooms;
+        $building['BATHROOMS'] = $bathrooms;
+        $building['KITCHENS'] = $kitchens;
+        return $building;
+    }
 }
 abstract class Rental{
     public static function getRecords($property){

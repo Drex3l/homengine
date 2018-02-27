@@ -29,9 +29,9 @@
         if(($maxp = "R$maxprice") === "R0"){ $maxp = "--";}
         if(($mip = "R$minprice") === "R0"){ $mip = "--";}
         //----------------------------------------------------Housing Unit Rooms
-        if(($bedcount = "$beds") === "-1"){ $bedcount = "--";}
-        if(($bathcount = "$baths") === "-1"){ $bathcount = "--";}
-        if(($kitchcount = "$kitch") === "-1"){ $kitchcount = "--";}
+        if(($bedcount = "$beds+") === "-1+"){ $bedcount = "--";}
+        if(($bathcount = "$baths+") === "-1+"){ $bathcount = "--";}
+        if(($kitchcount = "$kitch+") === "-1+"){ $kitchcount = "--";}
         if(($building = "$btype") === ""){ $building = "--";}
 
         switch ($ptype) {

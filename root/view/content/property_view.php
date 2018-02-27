@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <article id="main-col" class="clearfix">
+        <article class="main-col clearfix">
             <div class="col-xs-9">
                 <div id="MainGalleryTab">
                     <input type="hidden" id="property-profile-image" value="<?=Property::getImageFile($property['IMG_ID']);?>"/>
@@ -70,12 +70,12 @@
                     </div>
                     <div class="jcarousel-horizontal" style="display:block;left: 0">
                         <a href="javascript:;">
-                            <i class="fa fa-arrow-left" style="right:30%"></i>
+                            <!--<i class="fa fa-arrow-left" style="right:30%"></i>-->
                         </a>
                     </div>
                     <div class="jcarousel-horizontal" style="display:block;right: 0;">
                         <a href="javascript:;">
-                            <i class="fa fa-arrow-right" style="left:30%"></i>
+                            <!--<i class="fa fa-arrow-right" style="left:30%"></i>-->
                         </a>
                     </div>
                 </div>
@@ -87,13 +87,47 @@
                         </div>
                     </div>
                     <div class="row"><div class="col-xs-12"><hr/></div></div>
-                    <div class="row"><div class="col-xs-12"><h5>Property Details</h5></div></div>
-                    <div class="HE_features boundary360">
-                        <div class="row clearfix"><div class="col-xs-4 field">Property Type</div><div class="col-xs-8 value"><div><?= htmlspecialchars( Property::getType($property['PROP_TYPE_ID']));?></div></div></div>
-                        <div class="row clearfix"><div class="col-xs-4 field">Market</div><div class="col-xs-8 value"><?= htmlspecialchars($property['TARGET']);?><div></div></div></div>
-                        <div class="row clearfix"><div class="col-xs-4 field">Listing Date</div><div class="col-xs-8 value"><?= htmlspecialchars(substr($property['LISTING'],0,10));?><div></div></div></div>
-                    </div>
+                    <span class="sub-info">
+                    <div class="row"><div class="col-xs-12"><h5>Details</h5></div></div>
                     
+                    <div class="HE_features boundary360">
+                        <div class="row clearfix"><div class="col-xs-4 field">Type</div><div class="col-xs-8 value"><div>: <?= htmlspecialchars( Property::getType($property['PROP_TYPE_ID']));?></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Market</div><div class="col-xs-8 value">: <?= htmlspecialchars($property['TARGET']);?><div></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Listing Date</div><div class="col-xs-8 value">: <?= htmlspecialchars(substr($property['LISTING'],0,10));?><div></div></div></div>
+                    </div>
+                    </span>
+                    <?php switch ($property_list['PROPERTY TYPE']){
+                        case 'Bedroom':$bedroomdata = Property::getBUnitData($property_id);
+                            $gend_req = $bedroomdata['GENDER_REQ'];
+                            if(empty($gend_req)){$gend_req='Any';}
+                            else if($gend_req === 'M'){$gend_req='Males';}
+                            else if($gend_req === 'F'){$gend_req='Females';}
+                            ?>
+                    <span class="sub-info" style="border-left:1px solid #c4bc96;padding-left: 1em">
+                    <div class="row"><div class="col-xs-12"><h5>Bedroom</h5></div></div>
+                    <div class="HE_features boundary360">
+                        <div class="row clearfix"><div class="col-xs-4 field">Setting</div><div class="col-xs-8 value"><div>: <?= htmlspecialchars( $bedroomdata['BEDROOM_TYPE']);?></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Gender</div><div class="col-xs-8 value">: <?= htmlspecialchars($gend_req);?><div></div></div></div>
+                    </div>
+                    </span>
+                         <?php   break;
+                        case 'Building':$buildingdata = Property::getHUnitData($property_id);
+                            $BEDS = intval($buildingdata['BEDROOMS']);
+                            $KITCH = intval($buildingdata['KITCHENS']);
+                            if($BEDS < 1){ $BEDS = $KITCH = "Bachelor Flat"; }
+                            
+                            ?>
+                    <span class="sub-info" style="border-left:1px solid #c4bc96;padding-left: 1em">
+                    <div class="row"><div class="col-xs-12"><h5>Rooms</h5></div></div>
+                    <div class="HE_features boundary360">
+                        <div class="row clearfix"><div class="col-xs-4 field">Bedrooms</div><div class="col-xs-8 value"><div>: <?= htmlspecialchars( $BEDS);?></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Bathrooms</div><div class="col-xs-8 value">: <?= htmlspecialchars($buildingdata['BATHROOMS']);?><div></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Kitchens</div><div class="col-xs-8 value">: <?= htmlspecialchars($KITCH);?><div></div></div></div>
+                    </div>
+                    </span>
+                        <?php    break;
+                    }
+                    ?>
                 </div>
             </div>
         </article>
@@ -112,7 +146,7 @@
             </div>
         </div>
         
-        <aside id="sidebar">
+        <aside class="sidebar">
             <div class="dark">
                 <div class="boundary360">
                     <h3>Contact Admin</h3>
@@ -152,23 +186,45 @@
             </div>
         </aside>
     </div>
+    <div class="container HE_content js">
+        <article class="main-col clearfix">
+            <div class="col-xs-12">
+                 <div class="HE_details clearfix">
+                    <div class="row"><div class="col-xs-12"><h5>Property Details</h5></div></div>
+                    <div class="HE_features boundary360">
+                        <div class="row clearfix"><div class="col-xs-4 field">Property Type</div><div class="col-xs-8 value"><div><?= htmlspecialchars( Property::getType($property['PROP_TYPE_ID']));?></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Market</div><div class="col-xs-8 value"><?= htmlspecialchars($property['TARGET']);?><div></div></div></div>
+                        <div class="row clearfix"><div class="col-xs-4 field">Listing Date</div><div class="col-xs-8 value"><?= htmlspecialchars(substr($property['LISTING'],0,10));?><div></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside class="sidebar">
+            <div class="dark">
+                <div class="boundary360">
+                    
+                </div>
+            </div>
+        </aside>
+    </div>
 </section>
 </section>
 <style>
  /*<editor-fold desc="Property View" defaultstate="collapsed">*/
 /*<editor-fold desc="Acme" defaultstate="collapsed">*/
 
+span.sub-info{width: 49%;float: left}
 h5 {font-size: 17px;line-height: 22px;}
 hr {margin-top: 330px;margin-bottom: 330px;border: 0;border-top: 1px solid #c4bc96;}
 hr {box-sizing: content-box;height: 0;}
-div.container {width: 80%;margin: auto;overflow: hidden;border: 2px solid #484329;background-color:#f4f4f4}
-article#main-col {float: left;width: 65%;}
-aside#sidebar {float: right;width: 30% }
+div.container {width: 80%;margin: 1em auto;overflow: hidden;border: 2px solid #484329;background-color:#f4f4f4}
+article.main-col {float: left;width: 65%;}
+aside.sidebar {float: right;width: 30% }
  div.boundary360{max-width: 360px}
-aside#sidebar .feedback input, aside#sidebar textarea{width:100%;padding:5px;background-color:#f4f4f4}
-aside#sidebar .feedback input::placeholder, aside#sidebar textarea::placeholder{color: #484329}
-aside#sidebar .feedback div{padding: .2em 0}
-aside#sidebar .dark h3{color: #f4f4f4}
+aside.sidebar .feedback input, aside.sidebar textarea{width:100%;padding:5px;background-color:#f4f4f4}
+aside.sidebar .feedback input::placeholder, aside.sidebar textarea::placeholder{color: #484329}
+aside.sidebar .feedback div{padding: .2em 0}
+aside.sidebar .dark h3{color: #f4f4f4}
 div.dark {padding: 15px;background: #484329;color: #fff;margin: 0 auto;}
 div.dark-less {padding: 15px;background: #686351;color: #fff;margin: 0 auto;}
 div.dark-less a{text-decoration: none;color: #fff}
@@ -178,6 +234,7 @@ button.submit {height: 38px;background-color: #686351;border: 0;padding: 0 10px;
 button.submit:hover{background-color: #c4bc96;color:#484329 }
 /*</editor-fold>*/
 
+ .field{font-style: italic;opacity: .6}
 .HE_info,.HE_count{position: absolute;z-index: 1;padding: 2px 5px;color: #fff;background: rgba(0,0,0,.6);border-radius: 2px;}
 .HE_count {bottom: 15px;right: 15px;}
 .HE_info{top: 0;left: 0;width: 100%}
@@ -213,7 +270,7 @@ button.submit:hover{background-color: #c4bc96;color:#484329 }
 #property-view div.pager a {background-color: transparent;color: #686351;text-decoration: none;}
 #property-view div.pager .pager-menu{max-height: 330px;margin: 1px 0 0 0;padding: 0;overflow-y: auto;background: #fff;border: 1px solid #d8dce3;
 -webkit-box-shadow: 0 2px 3px 0 #a2acbc;box-shadow: 0 2px 3px 0 #a2acbc;border-radius: 0 2px 2px 0;}
-#property-view div.pager .pager-menu{position: absolute;display: none;left: 10px;z-index: 1000;font-size: 15px;text-align: left;min-width: 185px;padding: .1em}
+#property-view div.pager .pager-menu{position: absolute;display: none;left: 10px;z-index: 10;font-size: 15px;text-align: left;min-width: 185px;padding: .1em}
 #property-view div.view-head{padding: .4em 0}
 #property-view div.view-head .pull-left{padding: 0 .4em}
 #property-view div.view-head h1 {font-size: 22px;font-weight: 700;line-height: 24px;color: #515b6d;overflow: hidden;
@@ -235,7 +292,7 @@ a.img_nav_key:hover{background-color: rgba(0,0,0,.6)}
 .carouselMini .jcarousel-item {padding: 2px;border: 2px solid transparent;width: 101px;}
 li.jcarousel-item img { width: 100%;height: 62px}
 li.jcarousel-item.carouselMiniActive {border: 2px solid #ae9e1d;}
-.jcarousel-horizontal {position: absolute;top: 0;width: 30px;height: 70px;background: #5a523a;border: 2px solid #fff;}
+.jcarousel-horizontal {position: absolute;top: 0;width: 30px;height: 70px;background: #c4bc96;border: 2px solid #fff;}
 .jcarousel-horizontal i{font-size: 1.3em;position: absolute;top: 50%;margin: -8px 0 0 -5px;color: #fff;}
 /*</editor-fold>*/
 @media screen and (min-width: 1366px){
@@ -250,7 +307,7 @@ li.jcarousel-item.carouselMiniActive {border: 2px solid #ae9e1d;}
 @media screen and (max-width: 768px){
     /*<editor-fold desc="Acme" defaultstate="collapsed">*/
 div.container,#MainGalleryTab,.carouselMini{width: 100%}
-article#main-col, aside#sidebar {float:none;width:100%}
+article.main-col, aside.sidebar {float:none;width:100%}
  button, .feedback button{display:block;width:100%}
  form input[type="email"],form input[type="text"],form input[type="number"], .feedback textarea{width:100%;margin-bottom:20px}
  .row{padding-bottom: 15px}
