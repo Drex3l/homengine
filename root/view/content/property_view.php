@@ -1,4 +1,24 @@
 <?php require_once dirname(__FILE__, 3) . '/view/welcome/header.php'; ?>
+<header id="property-view-head" class="fixed">
+    <div class="header-inner">
+    <a href="<?= PATH; ?>" class="home-key" title="Home Page"><img alt="Logo" class="logo" src="<?= PATH; ?>/root/usr/img/sys/logo-lite.gif" /></a>
+    <a id="navbar-main-menu" href="#main-header" class="pull-left big back-head bounceUp" title="Back to Top"><i class="fa fa-arrow-down fa-2x"></i></a>
+    <nav>
+                    <div id="mkey2" class="menu-key">
+                        <div class="bar1 bar"></div>
+                        <div class="bar2 bar"></div>
+                        <div class="bar3 bar"></div>
+                    </div>
+                    <ul class="no-display">
+                        <li><a id="2navbar-Find-link-1" href="#main-header" class="back-head">Move Up</a></li>
+                        <li><a id="2navbar-Account-link-0" href="<?= $HE_AC; ?>">Sign In/Up</a></li>
+                    </ul>
+                    <span class="big">
+                        <a id="2navbar-Account-link-1" href="<?= $HE_AC; ?>" class="pull-right"  title="HomeEngine Account">Sign Up/In</a>
+                    </span>
+                </nav>
+    </div>
+</header>
 <section class="honeycomb" id="property-view">
     <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
     <div class="container HE_content js">
@@ -212,7 +232,8 @@
 <style>
  /*<editor-fold desc="Property View" defaultstate="collapsed">*/
 /*<editor-fold desc="Acme" defaultstate="collapsed">*/
-
+#navbar-main-menu{padding: 10px 16px;color: #686351}
+div.header-inner:hover #navbar-main-menu{color: #c4bc96}
 span.sub-info{width: 49%;float: left}
 h5 {font-size: 17px;line-height: 22px;}
 hr {margin-top: 330px;margin-bottom: 330px;border: 0;border-top: 1px solid #c4bc96;}
@@ -280,7 +301,7 @@ button.submit:hover{background-color: #c4bc96;color:#484329 }
 #MainGalleryImageList{text-align: center;position: relative}
 #property-view  #MainGalleryImageList img {max-width: 100%;max-height: 507px;}
 img {vertical-align: middle;}
-.img_nav_key {position: absolute;top: 50%;left: 0;z-index: 10;margin-top: -40px;padding: 10px 15px 10px 10px;display: inline-block;background: rgba(0,0,0,.4);border-radius: 0 2px 2px 0;}
+.img_nav_key {position: absolute;top: 50%;left: 0;z-index: 9;margin-top: -40px;padding: 10px 15px 10px 10px;display: inline-block;background: rgba(0,0,0,.4);border-radius: 0 2px 2px 0;}
 a.img_next {left: auto;right: 0;padding: 10px 10px 10px 15px;border-radius: 2px 0 0 2px;}
 a.img_nav_key .fa {color: #d9d9d9;}
 

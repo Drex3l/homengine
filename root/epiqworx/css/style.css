@@ -1,6 +1,6 @@
 /*<editor-fold desc="Bounce Back" defaultstate="collapsed">*/
 .bounceUp{text-align: center;margin: 0;padding: 0}
-.bounceUp svg{transform: rotate(180deg);animation: bounce 1s ease infinite;position: relative}
+.bounceUp svg,.bounceUp i{transform: rotate(180deg);animation: bounce 1s ease infinite;position: relative}
 @keyframes bounce{ from {bottom:-5px} 50% {bottom:5px} to {bottom:-5px}}
 /*</editor-fold>*/
 /*<editor-fold desc="Special Effects" defaultstate="collapsed">*/

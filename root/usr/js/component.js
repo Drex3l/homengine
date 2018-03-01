@@ -25,6 +25,28 @@ function load(webpage){
             break;
     }
 }
+function scroll(webpage)
+{
+    //-----------------------------------------------Page Specific Configuration
+    switch(webpage)
+    {
+        case 'view':
+            var head = document.getElementById("property-view-head");
+            var p = document.documentElement.scrollTop;
+            if(p>147) {
+                head.style.transition = ".6s";
+                head.style.top = "0";
+            }
+            if(p<32) {
+                head.style.transition = "none";
+                window.setTimeout(function () { head.style.top = "-58px"; }, 100);
+                
+            }
+            break;
+    }
+//    document.getElementById("debugTool").innerHTML = null;
+//    debugResult(document.documentElement.scrollTop.toString());
+}
 function currentRes(){
     document.getElementById("debugTool").innerHTML = null;
     debugResult(window.innerWidth + " x " + window.innerHeight);

@@ -6,11 +6,11 @@ h2{font-size:150%}
 h3{font-size:125%}
 p{font-size:120%}
 /* Header*/
-#mkey1{display:inline-block}
-#header-inner:hover a{color: #484329}
+#mkey1,#mkey2{display:inline-block}
+div.header-inner:hover a{color: #484329}
 nav ul, nav:active ul{display:none;z-index:1000;position:absolute;background:#c4bc96;right:20px;top:40px;border:1px solid #FFF;width:50%}
 nav:hover ul{display:block}
-#header-inner:hover nav ul li a:hover, .current{color:#fff;background-color: transparent}
+div.header-inner:hover nav ul li a:hover, .current{color:#fff;background-color: transparent}
 nav li{width:100%;padding:10px 0}
 
 .one-fourth{float:left;width:100%}

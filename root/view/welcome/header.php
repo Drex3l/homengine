@@ -20,12 +20,12 @@ ini_set("display_errors", 1);
     <meta name="keywords" content="Homengine, Home, Property, Properties, Property Features"/>
     <meta name="author" conent="SWIFT"/>
 </head>
-<body onload="load('<?= $action;?>')" onresize="currentRes()">
+<body onload="load('<?= $action;?>')" onresize="currentRes()"  onscroll="scroll('<?= $action;?>')">
     <section class="<?= $page_wrap;?> main flash">
-        <header>
-            <div id="header-inner">
-                <a href="<?= PATH; ?>" id="home-key" title="Home Page"><img alt="Logo" class="logo" src="<?= PATH; ?>/root/usr/img/sys/logo-lite.gif" /></a>
-                <a id="navbar-Find-link-0" href="<?= $find_home; ?>" class="pull-left big" title="Property Search Engine">Find Home</a>
+        <header  id="main-header">
+            <div class="header-inner">
+                <a href="<?= PATH; ?>" class="home-key" title="Home Page"><img alt="Logo" class="logo" src="<?= PATH; ?>/root/usr/img/sys/logo-lite.gif" /></a>
+                <a id="1navbar-Find-link-0" href="<?= $find_home; ?>" class="pull-left big find-home" title="Property Search Engine">Find Home</a>
                 <nav>
                     <div id="mkey1" class="menu-key">
                         <div class="bar1 bar"></div>
@@ -33,12 +33,12 @@ ini_set("display_errors", 1);
                         <div class="bar3 bar"></div>
                     </div>
                     <ul class="no-display">
-                        <li><a id="navbar-Find-link-1" href="<?= $find_home; ?>">Find Home</a></li>
+                        <li><a id="1navbar-Find-link-1" href="<?= $find_home; ?>" class="find-home">Find Home</a></li>
                         <li><a href="#">List Home</a></li>
-                        <li><a id="navbar-Market-link-0" href="<?= $HE_AC; ?>">Sign In/Up</a></li>
+                        <li><a id="1navbar-Account-link-0" href="<?= $HE_AC; ?>" class="account-section">Sign In/Up</a></li>
                     </ul>
                     <span class="big">
-                        <a id="navbar-Market-link-1" href="<?= $HE_AC; ?>" class="pull-right"  title="HomeEngine Account">Sign Up/In</a>
+                        <a id="1navbar-Account-link-1" href="<?= $HE_AC; ?>" class="pull-right account-section"  title="HomeEngine Account">Sign Up/In</a>
                         <a href="#" class="pull-right" title="Lease Out Yiur Own">List Home</a>
 
                     </span>

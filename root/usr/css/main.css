@@ -20,15 +20,16 @@ p.bounceUp, p.bounceUp svg{color: #484329}
 /* Header*/
 header{box-shadow: 0 10px 10px 5px #dedcce;background-color: #fff;border-bottom: 3px solid #cecece;transition: 1s}
 header:hover{border-bottom: 0 solid #5a523a}
-#home-key{float:left;width:55px;height:55px;}
-#header-inner{height: 55px;transition: 1s}
-#header-inner:hover{background-color: #484329}
-#header-inner:hover a{color: #c4bc96}
-#header-inner:hover a:hover{background-color: #5a523a}
-#header-inner:hover div.bar{background-color: #c4bc96}
+header.fixed{position: fixed;top: -58px;z-index: 1000;transition: .6s;width: 100%;box-shadow:none;background-color: rgba(255,255,255,.6);border: none}
+a.home-key{float:left;width:55px;height:55px;}
+div.header-inner{height: 55px;transition: 1s}
+div.header-inner:hover{background-color: #484329}
+div.header-inner:hover a{color: #c4bc96}
+div.header-inner:hover a:hover{background-color: #5a523a}
+div.header-inner:hover div.bar{background-color: #c4bc96}
 /*--- Start Navigation --*/
 nav{float:right;height: 100%}
-#mkey1{display:none;}
+#mkey1,#mkey2{display:none;}
 ul{list-style-type:none}
 nav ul li{display:inline-block;float:left}
 header nav ul li a,header nav a,header a.pull-left{color:#484329;text-decoration:none;font-size:16px;padding: 18px 16px}
