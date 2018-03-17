@@ -220,6 +220,7 @@ UNLOCK TABLES;
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES ('U217L0001','likhaka','$2a$10$E2qYqps0i6gGO4tFoDDjPOy6QBNjQ6iPrCTXZ.wePiFheUySEmFBa','s215116747@nmmu.ac.za',NULL,NULL,-1,NULL,NULL),('U217N0001','ngematbb','$2a$10$wS2ubGAvtmLXqh04.jGJAuPpEsfmx8dx7/uMBA2HhDiTfP4b5nzue','ngematbb@gmail.com',NULL,NULL,-1,NULL,NULL),('U217S0001','sameones','$2a$10$S3aFLulTpyJ/qFrpFN/n6uraJdp.O5ebT5z6bZ5/ex7aS2FNOVpp.','s215013395@nmmu.ac.za','U217S0001.jpg',NULL,1,NULL,NULL),('U217T0001','teamhome','$2a$10$WjrKCs75u4uB7S4cTQqzAejn..XqpSi0OgQLMkNAafEhuh7UWtpZm','super@themail.co.za','U217T0001.jpg','0760326578',1,'Vito','Corleon'),('U217T0002','theguys','$2a$10$q2uNgGm1.mWwo4G8/n5rouoNEn/I7.dWXe.4HU9FTC55.k5py1DgS','peculiar@exclusivemail.co.za','U217T0002.svg','0737083731',1,'Jin',NULL),('U217T0003','theseones','$2a$10$FZotYl./eALc7smgmnmISOuEXWMhcz9jYmhq0Lcb0a9qjvQ5Hy6kq','business52@live.com','U217T0003.png',NULL,1,'Wezndla','Zwane'),('U217T0004','theseguys','$2a$10$SHZm9gMPL75eEfmtLyJ/auP7HFZFBul4wIpFDlLf4xOSuMT8q53na','s215177770@nmmu.ac.za',NULL,NULL,-1,NULL,NULL);
+UPDATE user SET USER_ID = CONCAT(SUBSTRING(USER_ID,1,1),'217',SUBSTRING(USER_ID,5,5));
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
