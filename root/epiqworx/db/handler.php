@@ -1,32 +1,16 @@
 <?php
 require_once dirname(__FILE__,2).'/Log.php';
-
 // Class providing generic data access functionality for PDO methods
 abstract class dbHandler {
 
     // hold an instance of the PDO class
     private static $conn;
     private static $cs_file = "connection.ini";
-
+    private static $cs_path = "root/config/";
     private static function GetConnection() {
-        // retrieve connection string information
-        $cs_file = dirname(__FILE__, 4) . "/".self::$cs_file;
-        if (!file_exists($cs_file)) {
-        $fh = fopen($cs_file, 'a+');fclose($fh);
 
-        if (!file_exists($cs_file)) {
-        $path = explode("/",$cs_file);
-        $err = "FILE <b>'".$path[count($path)-1]. "'</b> doesn't exists";
-
-        self::db_error(str_pad($err,23+strlen($err),' ', STR_PAD_LEFT),'connect','DB connection');
-        }else{
-        $cs_string = "[SQL]\r\nhost = \r\nuser = \r\npassword = \r\ndbname = ";
-        file_put_contents($cs_file,$cs_string);
-        header('location: .');
-        }
-        }
-
-        $conexion = parse_ini_file($cs_file);
+        $conexion = parse_ini_file(self::connection_str()); //------------------retrieve connection string from INI file
+        
         if ($_SERVER['HTTP_HOST'] == 'sict-iis.nmmu.ac.za') {
             $DB_HOST = 'sict-mysql';
         } else {
@@ -103,6 +87,8 @@ abstract class dbHandler {
         ob_clean();
         $error_message = $msg;
         $error = Debug::ExceptionLog($msg);
+	$action = "error";
+	$page_wrap = 'page-wrap'; 
         if(is_array($error)){
         require_once dirname(__FILE__, 3) . '/view/error/generic.php';
         }else{
@@ -111,6 +97,35 @@ abstract class dbHandler {
 
         echo "<script> document.title = '$title'; </script>";
         exit();
+    }
+    
+    /* This function creates connection string file, if it doesn't exist
+     * The file is in .ini format
+     * Newly created file will have empty fields
+     */
+    private static function connection_str()
+    {
+        $cs_path = dirname(__FILE__, 4). '/'.self::$cs_path;
+        $cs_file = $cs_path.self::$cs_file;
+        $cs_string = "[SQL]\r\nhost = \r\nuser = swift \r\npassword = base2\r\ndbname = homengine";
+        
+        if (is_dir($cs_path)) {
+            if (!file_exists($cs_file)) {
+                file_put_contents($cs_file, $cs_string);
+            }
+            if (!file_exists($cs_file)) {
+                $err = "FILE <b>connection string</b> file not found on the <em>'".self::$cs_path."'</em> directory";
+                self::db_error(str_pad($err, 23 + strlen($err), ' ', STR_PAD_LEFT), 'connect', 'DB connection');
+            }
+        } else {
+                if (mkdir($cs_path, 0777) === true) {
+                    file_put_contents($cs_file, $cs_string);
+                } else {
+                    $err = "couldn't create configuration directory, after failing to find connection string file.";
+                    self::db_error(str_pad($err, 23 + strlen($err), ' ', STR_PAD_LEFT), 'connect', 'DB connection');
+                }
+            }
+            return $cs_file;
     }
 
 }

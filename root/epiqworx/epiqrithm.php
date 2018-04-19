@@ -1,10 +1,10 @@
 <?php
 //---------------------------------------------------DEFINE GLOBAL PATH CONSTANT
-$phpSelf = explode(DIRECTORY_SEPARATOR, filter_input(INPUT_SERVER, 'PHP_SELF'));
+$phpSelf = explode('/', filter_input(INPUT_SERVER, 'PHP_SELF'));
 if (empty($level)){$level=1;}   //----------------------------------------------website hierachy
 $temp = "";
 for($k=1;$k<count($phpSelf)-$level;$k++){
-    $temp .= DIRECTORY_SEPARATOR.$phpSelf[$k];
+    $temp .= '/'.$phpSelf[$k];
 }
 define('ROOT', $temp);
 define('PATH', "http://" . filter_input(INPUT_SERVER, 'HTTP_HOST') . ROOT);

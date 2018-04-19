@@ -1,11 +1,5 @@
 <?php
 
-/**
- * EpiqWorx by EpiQuadruple 
- * Licensed under the Epiquadruple General And Distribution License
- * Which You Can Find On https://epiquadruple.org
- */
-
 namespace epiqworx;
 
 /**
@@ -19,7 +13,7 @@ class Log {
      * NB: Make Sure That Write Permissions are on. 
      * @var string
      */
-    private $path = '/log/';
+    private $path = '/epiqworx/log/';
 
     /**
      * Sets Time Zone on Instantiation 

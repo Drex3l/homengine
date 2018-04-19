@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
--- Host: localhost    Database: HE
+-- Host: localhost    Database: homengine
 -- ------------------------------------------------------
 -- Server version	5.7.21-0ubuntu0.17.10.1
 
@@ -16,14 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `HE`
+-- Current Database: `homengine`
 --
 
-/*!40000 DROP DATABASE IF EXISTS `HE`*/;
+/*!40000 DROP DATABASE IF EXISTS `homengine`*/;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `HE` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `homengine` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `HE`;
+USE `homengine`;
 
 --
 -- Table structure for table `admin`
@@ -58,8 +58,8 @@ CREATE TABLE `admin` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_admin_update`
-BEFORE UPDATE ON `HE`.`admin`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_admin_update`
+BEFORE UPDATE ON `homengine`.`admin`
 FOR EACH ROW
 BEGIN
  DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -166,8 +166,8 @@ CREATE TABLE `building_room` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_bRoom_insert`
-BEFORE INSERT ON `HE`.`building_room`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_bRoom_insert`
+BEFORE INSERT ON `homengine`.`building_room`
 FOR EACH ROW
 BEGIN
   DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -279,8 +279,8 @@ CREATE TABLE `feature` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_feature_insert`
-BEFORE INSERT ON `HE`.`feature`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_feature_insert`
+BEFORE INSERT ON `homengine`.`feature`
 FOR EACH ROW
 BEGIN
   DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -320,8 +320,8 @@ CREATE TABLE `kamer` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_kamer_insert`
-BEFORE INSERT ON `HE`.`kamer`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_kamer_insert`
+BEFORE INSERT ON `homengine`.`kamer`
 FOR EACH ROW
 BEGIN
   DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -506,8 +506,8 @@ CREATE TABLE `rental` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_rental_insert`
-BEFORE INSERT ON `HE`.`rental`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_rental_insert`
+BEFORE INSERT ON `homengine`.`rental`
 FOR EACH ROW
 BEGIN
 
@@ -555,7 +555,7 @@ CREATE TABLE `review` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_review_insert`BEFORE INSERT ON `HE`.`review`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_review_insert`BEFORE INSERT ON `homengine`.`review`
 FOR EACH ROW
 BEGIN
  
@@ -598,8 +598,8 @@ CREATE TABLE `room` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_room_insert`
-BEFORE INSERT ON `HE`.`room`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_room_insert`
+BEFORE INSERT ON `homengine`.`room`
 FOR EACH ROW
 BEGIN
   DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -663,8 +663,8 @@ CREATE TABLE `user` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `HE`.`before_user_insert`
-BEFORE INSERT ON `HE`.`user`
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER `homengine`.`before_user_insert`
+BEFORE INSERT ON `homengine`.`user`
 FOR EACH ROW
 BEGIN
  DECLARE FOUND BOOLEAN DEFAULT TRUE;
@@ -702,7 +702,7 @@ CREATE TABLE `yard` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'HE'
+-- Dumping routines for database 'homengine'
 --
 /*!50003 DROP FUNCTION IF EXISTS `sf_arrayLength` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1365,10 +1365,10 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Current Database: `HE`
+-- Current Database: `homengine`
 --
 
-USE `HE`;
+USE `homengine`;
 
 --
 -- Final view structure for view `property_list`
