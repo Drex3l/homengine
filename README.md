@@ -8,6 +8,8 @@ property listing search engine
 The **homengine** is a web service for listing properties and finding properties. 
 This project is opensource, powered by the **LAMP** statck, and versioned by **Git**.
 
+Project core implements the **MVC** design pattern.
+
 ## Installation
 Clone this repository to your document root, and with web services running on your localhost, try accessing website from your web browser with the loopback address.
 ```

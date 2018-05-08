@@ -1,4 +1,4 @@
-<div id="assistpane"><div style="display: block;text-align: center"><span id="assistant"></span></div><label id="debugTool"></label></div>
+<?php require_once dirname(__FILE__,3).'/epiqworx/gui/assistantpane.html';?>
 <footer class="flash">
     <ul class="social">
         <li><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a></li>

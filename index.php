@@ -53,6 +53,7 @@ switch ($action) {
         $find_home = PATH."#search-pane";
         $HE_AC = PATH."#account-pane";
         //======================================================================
+	$page_wrap = null;   //------------------------------------------100% HEIGHT container
         $property_id = $_POST['smbBtn'];    //----------------------------------ID of selected Property from result list
         $admin = Property::getAdmin($property_id);  //--------------------------Admin managing property username
         $property = Property::getData($property_id);    //----------------------property table record

@@ -19,7 +19,7 @@
         <input type="hidden" id="roomgender" value="Any"/> //-------------------BEDROOM GENDER RISTRICTION radio button
         <input type="hidden" id="feat"/>   //-----------------------------------Selected Features string
     </span>
-    <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
+    <?php require_once dirname(__FILE__,3).'/epiqworx/gui/noscript.html';?>
     <div id="searchengine" class="feature js">
         <div id="row-01" class="clearfix">
 <!--            <select name="city" id="cmbCity" title="More to be added in future">

@@ -13,6 +13,9 @@ function load(webpage){
     //-----------------------------------------------Page Specific Configuration
     switch(webpage)
     {
+	case 'home':
+		
+	break;
         case 'view':
             //=========================*Load Property Main*=====================
             var dp = document.getElementById("property-profile-image");
@@ -21,9 +24,11 @@ function load(webpage){
                 var sIMG = document.getElementsByClassName('select-img');
                 for( k=0; k < sIMG.length; k++) if(dp.value === sIMG[k].src.split('/')[sIMG[k].src.split('/').length-1])    previewImage(document.getElementById("prvimg"+(k+1)));
             }
+	    document.getElementById('pageWrap').classList.toggle('page-wrap');
             //==================================================================
             break;
     }
+    currentRes();
 }
 function scroll(webpage)
 {
@@ -46,22 +51,6 @@ function scroll(webpage)
     }
 //    document.getElementById("debugTool").innerHTML = null;
 //    debugResult(document.documentElement.scrollTop.toString());
-}
-function currentRes(){
-    document.getElementById("debugTool").innerHTML = null;
-    debugResult(window.innerWidth + " x " + window.innerHeight);
-}
-function debugResult(text) {
-    var tool = document.getElementById("debugTool");
-
-    if (tool.innerHTML.length < 1) {
-        tool.innerHTML = text;
-        tool.style.padding = "0 1em";
-        window.setTimeout(function () {
-            tool.innerHTML = null;
-            tool.style.padding = "0";
-        }, 3000);
-    }
 }
 function toggleFeature(x)
 {

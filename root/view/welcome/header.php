@@ -21,7 +21,7 @@ ini_set("display_errors", 1);
     <meta name="author" conent="SWIFT"/>
 </head>
 <body onload="load('<?= $action;?>')" onresize="currentRes()"  onscroll="scroll('<?= $action;?>')">
-    <section class="<?= $page_wrap;?> main flash">
+    <section id="pageWrap" class="page-wrap main flash">
         <header  id="main-header">
             <div class="header-inner">
                 <a href="<?= PATH; ?>" class="home-key" title="Home Page"><img alt="Logo" class="logo" src="<?= PATH; ?>/root/usr/img/sys/logo-lite.gif" /></a>

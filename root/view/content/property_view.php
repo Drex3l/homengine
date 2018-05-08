@@ -20,7 +20,7 @@
     </div>
 </header>
 <section class="honeycomb" id="property-view">
-    <?php require_once dirname(__FILE__,3).'/view/welcome/noscript.php';?>
+    <?php require_once dirname(__FILE__,3).'/epiqworx/gui/noscript.html';?>
     <div class="container HE_content js">
         <div class="row view-head clearfix">
             <div class="col-xs-12">
@@ -227,6 +227,7 @@
             </div>
         </aside>
     </div>
+    <div style="height: 10px;margin-top: 2em;box-shadow: 0 -10px 10px 5px #dedcce;background-color: #fff" class="flash"></div>
 </section>
 </section>
 <style>
@@ -270,7 +271,7 @@ button.submit:hover{background-color: #c4bc96;color:#484329 }
 
 .HE_content .HE_details .p24_poi .row, .HE_content .HE_details .HE_features .row, .HE_content .HE_details .p24_recentSales .row {margin-bottom: 5px;}
 
-#property-view{padding: 1em 0}
+#property-view{padding: 1em 0 0 0}
 #property-view * {box-sizing: border-box;}
 #property-view .view-head  .fa {display: inline-block;font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;}
 #property-view .view-head  .fa-lg {font-size: 1.33333333em;line-height: .75em; vertical-align: -15%;}
